@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 
 var colors = {
   skin: {
@@ -2914,5 +2914,526 @@ var Avatar = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
   }, rest)));
 });
 
-export { Avatar, Avatar as BeanHead, Noop, ThemeContext, accessoryMap, bodyMap, clothingMap, eyebrowsMap, eyesMap, facialHairMap, graphicsMap, hairMap, hatMap, mouthsMap, theme };
+// Full-body canvas (400 x 690). The Avatar (head) is rendered small via `headSvg`
+// and clipped to head-only; our own body parts occupy the space below so head +
+// body read as one figure. STROKE matches the library's 12px outline at this scale.
+var HEAD_GEOMETRY = {
+  viewBox: {
+    w: 400,
+    h: 690
+  },
+  headSvg: {
+    x: -2,
+    y: -42,
+    w: 405,
+    h: 400
+  },
+  NECK_Y: 280,
+  HIP_Y: 432,
+  ANKLE_Y: 572,
+  CENTER_X: 200,
+  STROKE: 5
+};
+
+var _excluded$2 = ["showCircle"];
+// Unique clip-path id per instance, without useId (keeps React >=16 support).
+var clipCounter = 0;
+function useClipId() {
+  var _useState = useState(function () {
+      return "bh-fullclip-" + (clipCounter += 1);
+    }),
+    id = _useState[0];
+  return id;
+}
+// Renders the library's Avatar scaled + positioned, then CLIPS it to the head
+// region so the Avatar's own torso/arms never render (otherwise they peek out
+// behind our Body/Arms as a duplicate body). `showCircle` toggles the background
+// circle (mask) for debug.
+function AvatarHead(_ref) {
+  var _ref$showCircle = _ref.showCircle,
+    showCircle = _ref$showCircle === void 0 ? false : _ref$showCircle,
+    props = _objectWithoutPropertiesLoose(_ref, _excluded$2);
+  var headSvg = HEAD_GEOMETRY.headSvg;
+  var clipId = useClipId();
+  return React.createElement(React.Fragment, null, React.createElement("clipPath", {
+    id: clipId
+  }, React.createElement("rect", {
+    x: -60,
+    y: -90,
+    width: 520,
+    height: 352
+  })), React.createElement("g", {
+    clipPath: "url(#" + clipId + ")"
+  }, React.createElement("svg", {
+    x: headSvg.x,
+    y: headSvg.y,
+    width: headSvg.w,
+    height: headSvg.h,
+    overflow: "visible"
+  }, React.createElement(Avatar, Object.assign({}, props, {
+    mask: showCircle
+  })))));
+}
+
+function GroundShadow() {
+  return React.createElement("ellipse", {
+    cx: 200,
+    cy: 638,
+    rx: 104,
+    ry: 14,
+    fill: "#000000",
+    opacity: 0.12
+  });
+}
+
+// Full-body parts reuse the library's own palette so the hand-authored body shares
+// the head's exact outline, skin and clothing colors (one merged figure).
+var OUTLINE = colors.outline;
+function skin(tone) {
+  var _colors$skin$tone;
+  return (_colors$skin$tone = colors.skin[tone]) !== null && _colors$skin$tone !== void 0 ? _colors$skin$tone : colors.skin.light;
+}
+function clothing(color) {
+  var _colors$clothing$colo;
+  return (_colors$clothing$colo = colors.clothing[color]) !== null && _colors$clothing$colo !== void 0 ? _colors$clothing$colo : colors.clothing.white;
+}
+
+var SW = HEAD_GEOMETRY.STROKE;
+// Short neck, drawn BEFORE the head so the jaw hides its top edge and the shirt
+// collar hides its bottom — only a short clean neck segment shows.
+function Neck(_ref) {
+  var skinTone = _ref.skinTone;
+  var sk = skin(skinTone);
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M181 250 L184 286 H216 L219 250 Z",
+    fill: sk.base
+  }), React.createElement("path", {
+    d: "M184 286 L181 250 H196 L194 286 Z",
+    fill: sk.shadow,
+    stroke: "none"
+  }));
+}
+
+var SW$1 = HEAD_GEOMETRY.STROKE;
+// Torso with wide rounded shoulders + a relaxed hem. The neckline trim changes
+// with the clothing type: crew (shirt), V-neck, or scoop (tank top). Sleeves live
+// in Arms so each arm emerges cleanly from under its sleeve.
+function Body(_ref) {
+  var clothing$1 = _ref.clothing,
+    clothingColor = _ref.clothingColor;
+  var cl = clothing(clothingColor);
+  var collar = clothing$1 === 'vneck' ? React.createElement("path", {
+    d: "M183 289 L200 316 L217 289 L209 289 L200 305 L191 289 Z",
+    fill: cl.shadow
+  }) : clothing$1 === 'tankTop' ? React.createElement("path", {
+    d: "M174 289 Q200 309 226 289 Q226 299 200 301 Q174 299 174 289 Z",
+    fill: cl.shadow
+  }) : React.createElement("path", {
+    d: "M178 290 Q200 301 222 290 Q220 306 200 308 Q180 306 178 290 Z",
+    fill: cl.shadow
+  });
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$1,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M152 298 Q176 284 200 292 Q224 284 248 298 Q264 302 266 322 L260 430 Q261 446 242 446 L158 446 Q139 446 140 430 L134 322 Q136 302 152 298 Z",
+    fill: cl.base
+  }), collar);
+}
+
+var SW$2 = HEAD_GEOMETRY.STROKE;
+// Both arms + hands as ONE component. Each arm is its own inner <g> with a shoulder
+// pivot (rotated by leftArmDeg/rightArmDeg for animation frames): a short sleeve cap
+// flares at the shoulder, and a long skin arm hangs to a fist beside the thigh.
+// Tank top swaps the cap for a thin strap.
+function Arms(_ref) {
+  var skinTone = _ref.skinTone,
+    clothing$1 = _ref.clothing,
+    clothingColor = _ref.clothingColor,
+    _ref$leftArmDeg = _ref.leftArmDeg,
+    leftArmDeg = _ref$leftArmDeg === void 0 ? 0 : _ref$leftArmDeg,
+    _ref$rightArmDeg = _ref.rightArmDeg,
+    rightArmDeg = _ref$rightArmDeg === void 0 ? 0 : _ref$rightArmDeg;
+  var sk = skin(skinTone);
+  var cl = clothing(clothingColor);
+  var tank = clothing$1 === 'tankTop';
+  var leftCover = tank ? React.createElement("path", {
+    d: "M152 298 Q138 302 136 324 Q138 338 150 340 L164 334 Q169 308 160 300 Z",
+    fill: cl.shadow
+  }) : React.createElement("path", {
+    d: "M151 297 Q128 301 126 324 Q127 338 143 339 L166 333 Q171 307 160 298 Z",
+    fill: cl.shadow
+  });
+  var rightCover = tank ? React.createElement("path", {
+    d: "M248 298 Q262 302 264 324 Q262 338 250 340 L236 334 Q231 308 240 300 Z",
+    fill: cl.shadow
+  }) : React.createElement("path", {
+    d: "M249 297 Q272 301 274 324 Q273 338 257 339 L234 333 Q229 307 240 298 Z",
+    fill: cl.shadow
+  });
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$2,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("g", {
+    style: {
+      transformOrigin: '140px 305px',
+      transform: "rotate(" + leftArmDeg + "deg)"
+    }
+  }, React.createElement("path", {
+    d: "M131 332 Q123 340 124 364 L127 454 Q123 462 125 474 Q129 486 143 486 Q159 486 161 472 Q162 462 159 454 L161 364 Q160 340 152 334 Z",
+    fill: sk.base
+  }), leftCover), React.createElement("g", {
+    style: {
+      transformOrigin: '260px 305px',
+      transform: "rotate(" + rightArmDeg + "deg)"
+    }
+  }, React.createElement("path", {
+    d: "M269 332 Q277 340 276 364 L273 454 Q277 462 275 474 Q271 486 257 486 Q241 486 239 472 Q238 462 241 454 L239 364 Q240 340 248 334 Z",
+    fill: sk.base
+  }), rightCover));
+}
+
+var BOTTOMS = {
+  denim: {
+    base: '#3E5063',
+    shade: '#9DB0BE'
+  },
+  black: {
+    base: '#2E3138',
+    shade: '#6E727A'
+  },
+  khaki: {
+    base: '#C2A878',
+    shade: '#E2D4B6'
+  },
+  red: {
+    base: '#C0473E',
+    shade: '#E08C84'
+  }
+};
+var SHOES = {
+  white: {
+    base: '#EFEFEF',
+    shade: '#CFCFCF'
+  },
+  black: {
+    base: '#34373E',
+    shade: '#22242A'
+  },
+  red: {
+    base: '#C0473E',
+    shade: '#9E392F'
+  },
+  purple: {
+    base: '#5E3A9E',
+    shade: '#47297A'
+  }
+};
+function bottomsHex(key) {
+  var _BOTTOMS$key;
+  return (_BOTTOMS$key = BOTTOMS[key]) !== null && _BOTTOMS$key !== void 0 ? _BOTTOMS$key : BOTTOMS.denim;
+}
+function shoeHex(key) {
+  var _SHOES$key;
+  return (_SHOES$key = SHOES[key]) !== null && _SHOES$key !== void 0 ? _SHOES$key : SHOES.white;
+}
+
+var SW$3 = HEAD_GEOMETRY.STROKE;
+var STITCH = '#8A8F96';
+// One leg = skin limb + its own relaxed pant/short leg + its own Converse-style
+// sneaker, as a SINGLE component with a hip pivot. Authored for the LEFT side; the
+// right side renders the same paths mirrored about the centerline (x=200).
+//
+// Structure: OUTER <g> does the mirror (origin 0,0 — must NOT carry a CSS
+// transform-origin or the browser applies the mirror around it). The INNER
+// `.leg-pivot` <g> carries the hip pivot + rotation.
+function Leg(_ref) {
+  var side = _ref.side,
+    skinTone = _ref.skinTone,
+    bottoms = _ref.bottoms,
+    bottomsColor = _ref.bottomsColor,
+    shoeColor = _ref.shoeColor,
+    _ref$deg = _ref.deg,
+    deg = _ref$deg === void 0 ? 0 : _ref$deg;
+  var sk = skin(skinTone);
+  var bc = bottomsHex(bottomsColor);
+  var shoe = shoeHex(shoeColor);
+  var mirror = side === 'right' ? 'translate(400 0) scale(-1 1)' : undefined;
+  return React.createElement("g", {
+    transform: mirror
+  }, React.createElement("g", {
+    className: "leg-pivot",
+    style: {
+      transformOrigin: '166px 432px',
+      transform: "rotate(" + deg + "deg)"
+    }
+  }, React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$3,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M144 432 H188 V572 Q188 584 174 584 L160 584 Q144 584 144 572 Z",
+    fill: sk.base
+  }), React.createElement("path", {
+    d: "M110 610 Q106 624 122 626 L186 626 Q194 626 194 616 V610 Q150 620 118 606 Q110 606 110 610 Z",
+    fill: "#FFFFFF"
+  }), React.createElement("path", {
+    d: "M120 606 Q120 584 144 581 L180 581 Q190 582 190 596 L190 608 Q150 618 120 606 Z",
+    fill: shoe.base
+  }), React.createElement("path", {
+    d: "M110 608 Q107 591 124 586 Q139 582 146 596 Q150 608 138 612 Q122 615 113 612 Q110 610 110 608 Z",
+    fill: "#FFFFFF"
+  }), React.createElement("path", {
+    d: "M122 604 Q150 613 188 603",
+    fill: "none",
+    stroke: shoe.shade,
+    strokeWidth: 2.5
+  }), React.createElement("path", {
+    d: "M151 587 L168 592 M151 593 L168 588 M152 598 L167 601 M152 601 L167 598",
+    fill: "none",
+    stroke: "#FFFFFF",
+    strokeWidth: 2.4,
+    strokeLinecap: "round"
+  }), React.createElement("circle", {
+    cx: 150,
+    cy: 589,
+    r: 1.6,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React.createElement("circle", {
+    cx: 150,
+    cy: 596,
+    r: 1.6,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React.createElement("circle", {
+    cx: 169,
+    cy: 589,
+    r: 1.6,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React.createElement("circle", {
+    cx: 169,
+    cy: 596,
+    r: 1.6,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), bottoms === 'shorts' ? React.createElement(React.Fragment, null, React.createElement("path", {
+    d: "M140 430 L144 505 Q145 515 159 516 L177 516 Q191 515 192 505 L194 430 Z",
+    fill: bc.base
+  }), React.createElement("path", {
+    d: "M145 511 H191",
+    fill: "none",
+    stroke: STITCH,
+    strokeWidth: 2
+  })) : React.createElement(React.Fragment, null, React.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: bc.base
+  }), React.createElement("path", {
+    d: "M144 444 L149 550",
+    fill: "none",
+    stroke: STITCH,
+    strokeWidth: 1.8
+  }), React.createElement("path", {
+    d: "M150 450 Q156 466 172 470",
+    fill: "none",
+    stroke: STITCH,
+    strokeWidth: 2
+  }), React.createElement("path", {
+    d: "M142 552 Q142 548 147 548 H189 Q194 548 194 552 V576 Q194 584 186 584 H150 Q142 584 142 576 Z",
+    fill: bc.shade
+  }), React.createElement("path", {
+    d: "M146 555 H190",
+    fill: "none",
+    stroke: STITCH,
+    strokeWidth: 2
+  })))));
+}
+
+var _excluded$3 = ["bottoms", "bottomsColor", "shoeColor", "showCircle", "pose"];
+// A full-body BeanHead: the library's <Avatar> head (clipped to head-only,
+// background circle removed) merged with hand-authored, individually-animatable
+// body parts (neck, torso, arms+hands, two legs with jeans/shorts + sneakers).
+// Renders a self-contained 400x690 SVG; head + body share the library palette.
+function FullBeanHead(_ref) {
+  var _head$skinTone, _head$clothing, _head$clothingColor, _pose$bob;
+  var _ref$bottoms = _ref.bottoms,
+    bottoms = _ref$bottoms === void 0 ? 'jeans' : _ref$bottoms,
+    _ref$bottomsColor = _ref.bottomsColor,
+    bottomsColor = _ref$bottomsColor === void 0 ? 'denim' : _ref$bottomsColor,
+    _ref$shoeColor = _ref.shoeColor,
+    shoeColor = _ref$shoeColor === void 0 ? 'purple' : _ref$shoeColor,
+    _ref$showCircle = _ref.showCircle,
+    showCircle = _ref$showCircle === void 0 ? false : _ref$showCircle,
+    pose = _ref.pose,
+    head = _objectWithoutPropertiesLoose(_ref, _excluded$3);
+  var viewBox = HEAD_GEOMETRY.viewBox;
+  var skinTone = (_head$skinTone = head.skinTone) !== null && _head$skinTone !== void 0 ? _head$skinTone : 'light';
+  var clothing = (_head$clothing = head.clothing) !== null && _head$clothing !== void 0 ? _head$clothing : 'shirt';
+  var clothingColor = (_head$clothingColor = head.clothingColor) !== null && _head$clothingColor !== void 0 ? _head$clothingColor : 'white';
+  var bob = (_pose$bob = pose === null || pose === void 0 ? void 0 : pose.bob) !== null && _pose$bob !== void 0 ? _pose$bob : 0;
+  return React.createElement("svg", {
+    viewBox: "0 0 " + viewBox.w + " " + viewBox.h,
+    width: "100%",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, React.createElement(GroundShadow, null), React.createElement(Leg, {
+    side: "left",
+    skinTone: skinTone,
+    bottoms: bottoms,
+    bottomsColor: bottomsColor,
+    shoeColor: shoeColor,
+    deg: pose === null || pose === void 0 ? void 0 : pose.leftLegDeg
+  }), React.createElement(Leg, {
+    side: "right",
+    skinTone: skinTone,
+    bottoms: bottoms,
+    bottomsColor: bottomsColor,
+    shoeColor: shoeColor,
+    deg: pose === null || pose === void 0 ? void 0 : pose.rightLegDeg
+  }), React.createElement("g", {
+    transform: "translate(0 " + bob + ")"
+  }, React.createElement(Neck, {
+    skinTone: skinTone
+  }), React.createElement(AvatarHead, Object.assign({}, head, {
+    showCircle: showCircle
+  })), React.createElement(Body, {
+    clothing: clothing,
+    clothingColor: clothingColor
+  }), React.createElement(Arms, {
+    skinTone: skinTone,
+    clothing: clothing,
+    clothingColor: clothingColor,
+    leftArmDeg: pose === null || pose === void 0 ? void 0 : pose.leftArmDeg,
+    rightArmDeg: pose === null || pose === void 0 ? void 0 : pose.rightArmDeg
+  })));
+}
+
+// Each animation is a list of frames; each frame is a Pose state (rendered as the
+// avatar SVG). Edit/extend these arrays to add or tweak frames, or add new named
+// animations — that is the whole authoring surface.
+var ANIMATIONS = {
+  idle: [{
+    bob: 0,
+    leftArmDeg: 0,
+    rightArmDeg: 0
+  }, {
+    bob: -2,
+    leftArmDeg: 2,
+    rightArmDeg: -2
+  }, {
+    bob: -3,
+    leftArmDeg: 3,
+    rightArmDeg: -3
+  }, {
+    bob: -2,
+    leftArmDeg: 2,
+    rightArmDeg: -2
+  }, {
+    bob: 0,
+    leftArmDeg: 0,
+    rightArmDeg: 0
+  }],
+  wave: [{
+    rightArmDeg: -132
+  }, {
+    rightArmDeg: -150
+  }, {
+    rightArmDeg: -136
+  }, {
+    rightArmDeg: -152
+  }, {
+    rightArmDeg: -140
+  }],
+  walk: [{
+    leftLegDeg: 18,
+    rightLegDeg: -18,
+    leftArmDeg: -16,
+    rightArmDeg: 16,
+    bob: -2
+  }, {
+    leftLegDeg: 9,
+    rightLegDeg: -9,
+    leftArmDeg: -8,
+    rightArmDeg: 8,
+    bob: 0
+  }, {
+    leftLegDeg: 0,
+    rightLegDeg: 0,
+    leftArmDeg: 0,
+    rightArmDeg: 0,
+    bob: -3
+  }, {
+    leftLegDeg: -9,
+    rightLegDeg: 9,
+    leftArmDeg: 8,
+    rightArmDeg: -8,
+    bob: 0
+  }, {
+    leftLegDeg: -18,
+    rightLegDeg: 18,
+    leftArmDeg: 16,
+    rightArmDeg: -16,
+    bob: -2
+  }]
+};
+var ANIMATION_NAMES = /*#__PURE__*/Object.keys(ANIMATIONS);
+
+// Advances a frame index 0..frameCount-1 at `fps`, looping, while `playing`.
+// Frame-based (no tweening): each tick switches to the next stored frame.
+function useFrameAnimation(frameCount, fps, playing) {
+  var _useState = useState(0),
+    index = _useState[0],
+    setIndex = _useState[1];
+  var last = useRef(0);
+  useEffect(function () {
+    if (!playing || frameCount <= 0) return;
+    var interval = 1000 / fps;
+    var raf = 0;
+    var _tick = function tick(t) {
+      if (last.current === 0) last.current = t;
+      if (t - last.current >= interval) {
+        last.current = t;
+        setIndex(function (i) {
+          return (i + 1) % frameCount;
+        });
+      }
+      raf = requestAnimationFrame(_tick);
+    };
+    raf = requestAnimationFrame(_tick);
+    return function () {
+      cancelAnimationFrame(raf);
+      last.current = 0;
+    };
+  }, [frameCount, fps, playing]);
+  return playing ? index : 0;
+}
+
+var _excluded$4 = ["frames", "fps", "playing"];
+// Plays a frame animation: cycles the frame index and renders FullBeanHead in the
+// current frame's Pose. Each frame IS the avatar SVG in that state (no tweening).
+function FrameAnimator(_ref) {
+  var _frames$index;
+  var frames = _ref.frames,
+    _ref$fps = _ref.fps,
+    fps = _ref$fps === void 0 ? 6 : _ref$fps,
+    _ref$playing = _ref.playing,
+    playing = _ref$playing === void 0 ? true : _ref$playing,
+    props = _objectWithoutPropertiesLoose(_ref, _excluded$4);
+  var index = useFrameAnimation(frames.length, fps, playing);
+  return React.createElement(FullBeanHead, Object.assign({}, props, {
+    pose: (_frames$index = frames[index]) !== null && _frames$index !== void 0 ? _frames$index : {}
+  }));
+}
+
+export { ANIMATIONS, ANIMATION_NAMES, Avatar, Avatar as BeanHead, FrameAnimator, FullBeanHead, Noop, ThemeContext, accessoryMap, bodyMap, clothingMap, eyebrowsMap, eyesMap, facialHairMap, graphicsMap, hairMap, hatMap, mouthsMap, theme, useFrameAnimation };
 //# sourceMappingURL=beanheads.esm.js.map
