@@ -51,6 +51,14 @@ export const ANIMATIONS: Record<string, Pose[]> = {
     { headDeg: 0, bob: 0, mouth: 'openSmile' },
     { headDeg: -8, leftArmDeg: 40, rightArmDeg: 40, leftLegDeg: 6, rightLegDeg: -2, bob: -2, mouth: 'openSmile' },
   ],
+  // small alternating tremor across head/arms/legs + a held concerned face
+  shiver: [
+    { bob: -1, headDeg: -3, leftArmDeg: -6, rightArmDeg: 6, leftLegDeg: -2, rightLegDeg: 2, eyebrows: 'concerned', mouth: 'sad' },
+    { bob: 0, headDeg: 3, leftArmDeg: 6, rightArmDeg: -6, leftLegDeg: 2, rightLegDeg: -2, eyebrows: 'concerned', mouth: 'sad' },
+    { bob: -1, headDeg: -4, leftArmDeg: -7, rightArmDeg: 7, leftLegDeg: -2, rightLegDeg: 2, eyebrows: 'concerned', mouth: 'sad' },
+    { bob: 0, headDeg: 4, leftArmDeg: 7, rightArmDeg: -7, leftLegDeg: 2, rightLegDeg: -2, eyebrows: 'concerned', mouth: 'sad' },
+    { bob: -1, headDeg: -3, leftArmDeg: -6, rightArmDeg: 6, leftLegDeg: -2, rightLegDeg: 2, eyebrows: 'concerned', mouth: 'sad' },
+  ],
 }
 
 export type AnimationName = keyof typeof ANIMATIONS

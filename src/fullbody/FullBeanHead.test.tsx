@@ -66,7 +66,18 @@ describe('FullBeanHead', () => {
 
   it('ships the face/tilt animations', () => {
     expect(Object.keys(ANIMATIONS)).toEqual(
-      expect.arrayContaining(['idle', 'wave', 'walk', 'blink', 'talk', 'celebrate', 'dance'])
+      expect.arrayContaining(['idle', 'wave', 'walk', 'blink', 'talk', 'celebrate', 'dance', 'shiver'])
     )
+  })
+
+  it('renders registry shoe variants distinctly (boots)', () => {
+    const sneakers = renderToStaticMarkup(<FullBeanHead skinTone="brown" shoes="sneakers" />)
+    const boots = renderToStaticMarkup(<FullBeanHead skinTone="brown" shoes="boots" />)
+    expect(boots).not.toEqual(sneakers)
+  })
+
+  it('shiver holds a concerned face across all 5 frames', () => {
+    expect(ANIMATIONS.shiver).toHaveLength(5)
+    expect(ANIMATIONS.shiver.every((f) => f.eyebrows === 'concerned' && f.mouth === 'sad')).toBe(true)
   })
 })

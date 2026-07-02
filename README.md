@@ -65,7 +65,7 @@ Accepts **all `<BeanHead>` / `AvatarProps`** (`skinTone`, `eyes`, `eyebrows`,
 | -------------- | ---------------------- | ---------- | ------------------------------------------------ |
 | `bottoms`      | `'jeans' \| 'shorts'`  | `'jeans'`  | trouser style                                    |
 | `bottomsColor` | `string`               | `'denim'`  | `denim` · `black` · `khaki` · `red`              |
-| `shoes`        | `string`               | `'sneakers'` | shoe variant — key into `shoeMap` (registered keys included) |
+| `shoes`        | `string`               | `'sneakers'` | shoe variant — key into `shoeMap` (`sneakers` · `boots` + registered keys) |
 | `shoeColor`    | `string`               | `'purple'` | `purple` · `white` · `black` · `red`             |
 | `showCircle`   | `boolean`              | `false`    | debug: render the head background circle (A/B)   |
 | `pose`         | `Pose`                 | —          | current animation-frame pose (see below)         |
@@ -85,7 +85,7 @@ the player simply switches to the next stored frame.
 import { FrameAnimator, ANIMATIONS } from 'beanheads'
 
 <FrameAnimator
-  frames={ANIMATIONS.wave}   // idle | wave | walk | blink | talk | celebrate | dance (ANIMATION_NAMES)
+  frames={ANIMATIONS.wave}   // idle | wave | walk | blink | talk | celebrate | dance | shiver (ANIMATION_NAMES)
   fps={6}
   playing
   skinTone="dark"
@@ -93,7 +93,7 @@ import { FrameAnimator, ANIMATIONS } from 'beanheads'
 />
 ```
 
-- Built-in animations: **`idle`**, **`wave`**, **`walk`**, **`blink`**, **`talk`**, **`celebrate`**, **`dance`** (`ANIMATION_NAMES`).
+- Built-in animations: **`idle`**, **`wave`**, **`walk`**, **`blink`**, **`talk`**, **`celebrate`**, **`dance`**, **`shiver`** (`ANIMATION_NAMES`).
 - **Author your own**: extend the `Pose[]` arrays — each limb is its own `<g>` with a
   pivot (arms at the shoulder, legs at the hip), so a pose is just a set of angles.
 - `useFrameAnimation(frameCount, fps, playing)` — the cycling hook, if you want to
@@ -160,7 +160,7 @@ model:
 | ------- | ------------ | ------------------------------------------ | ------------------- |
 | top     | `topMap`     | `shirt` · `vneck` · `tankTop` · `jacket`   | `registerTop(key, { Torso, Sleeve })` |
 | bottoms | `bottomsMap` | `jeans` · `shorts`                         | `registerBottoms(key, { Leg })` |
-| shoes   | `shoeMap`    | `sneakers`                                 | `registerShoe(key, { Shoe })` |
+| shoes   | `shoeMap`    | `sneakers` · `boots`                       | `registerShoe(key, { Shoe })` |
 
 Adding a variant = **one file + one map line** (see `src/fullbody/tops/Jacket.tsx`
 — the whole "jacket" variant). Shipping 20–50 seasonal jackets is 20–50 small

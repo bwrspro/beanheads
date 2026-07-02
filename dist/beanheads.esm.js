@@ -3376,9 +3376,44 @@ var Sneakers = {
   Shoe: Shoe
 };
 
+var SW$9 = HEAD_GEOMETRY.STROKE;
+// Mid-calf boot (left-authored): tall shaft, folded top cuff, heel block +
+// white-free sole (unlike sneakers). Jeans cuffs paint over the shaft top.
+function Shoe$1(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$9,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M142 546 H192 L190 596 Q190 604 182 604 L150 604 Q142 604 142 596 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M140 546 Q140 540 146 540 H188 Q194 540 194 546 V556 Q194 562 188 562 H146 Q140 562 140 556 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M142 596 Q142 614 126 618 Q114 621 116 630 Q118 638 132 638 L186 638 Q194 638 194 628 V596 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M114 632 Q112 644 128 645 L188 645 Q194 645 194 637 V630 Q150 640 118 626 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M170 638 H194 V645 H172 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M186 540 Q191 532 194 540 L193 548 L187 548 Z",
+    fill: color.shade
+  }));
+}
+var Boots = {
+  Shoe: Shoe$1
+};
+
 // Registry of shoe variants — same drop-in model as topMap / the face maps.
 var shoeMap = {
-  sneakers: Sneakers
+  sneakers: Sneakers,
+  boots: Boots
 };
 function registerShoe(key, set) {
   shoeMap[key] = set;
@@ -3701,6 +3736,53 @@ var ANIMATIONS = {
     rightLegDeg: -2,
     bob: -2,
     mouth: 'openSmile'
+  }],
+  // small alternating tremor across head/arms/legs + a held concerned face
+  shiver: [{
+    bob: -1,
+    headDeg: -3,
+    leftArmDeg: -6,
+    rightArmDeg: 6,
+    leftLegDeg: -2,
+    rightLegDeg: 2,
+    eyebrows: 'concerned',
+    mouth: 'sad'
+  }, {
+    bob: 0,
+    headDeg: 3,
+    leftArmDeg: 6,
+    rightArmDeg: -6,
+    leftLegDeg: 2,
+    rightLegDeg: -2,
+    eyebrows: 'concerned',
+    mouth: 'sad'
+  }, {
+    bob: -1,
+    headDeg: -4,
+    leftArmDeg: -7,
+    rightArmDeg: 7,
+    leftLegDeg: -2,
+    rightLegDeg: 2,
+    eyebrows: 'concerned',
+    mouth: 'sad'
+  }, {
+    bob: 0,
+    headDeg: 4,
+    leftArmDeg: 7,
+    rightArmDeg: -7,
+    leftLegDeg: 2,
+    rightLegDeg: -2,
+    eyebrows: 'concerned',
+    mouth: 'sad'
+  }, {
+    bob: -1,
+    headDeg: -3,
+    leftArmDeg: -6,
+    rightArmDeg: 6,
+    leftLegDeg: -2,
+    rightLegDeg: 2,
+    eyebrows: 'concerned',
+    mouth: 'sad'
   }]
 };
 var ANIMATION_NAMES = /*#__PURE__*/Object.keys(ANIMATIONS);
