@@ -52,4 +52,21 @@ describe('FullBeanHead', () => {
     )
     expect(html).toContain('<svg')
   })
+
+  it('applies per-frame face-swap pose fields (blink)', () => {
+    const open = renderToStaticMarkup(<FullBeanHead skinTone="brown" eyes="normal" />)
+    const closed = renderToStaticMarkup(<FullBeanHead skinTone="brown" eyes="normal" pose={{ eyes: 'content' }} />)
+    expect(closed).not.toEqual(open)
+  })
+
+  it('applies headDeg tilt around the neck pivot', () => {
+    const html = renderToStaticMarkup(<FullBeanHead skinTone="brown" pose={{ headDeg: 8 }} />)
+    expect(html).toContain('rotate(8deg)')
+  })
+
+  it('ships the face/tilt animations', () => {
+    expect(Object.keys(ANIMATIONS)).toEqual(
+      expect.arrayContaining(['idle', 'wave', 'walk', 'blink', 'talk', 'celebrate', 'dance'])
+    )
+  })
 })

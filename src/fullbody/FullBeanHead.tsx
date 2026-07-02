@@ -64,8 +64,15 @@ export function FullBeanHead({
 
   // The head's own torso/clothing is clipped away by AvatarHead; force a known
   // clothing key so the inner Avatar never looks up a registered-only key
-  // (clothingMap[unknown] would crash).
-  const headProps = { ...head, clothing: 'shirt' } as AvatarProps
+  // (clothingMap[unknown] would crash). Face-swap pose fields override the
+  // static face props for this frame (blink / talk / expressions).
+  const headProps = {
+    ...head,
+    clothing: 'shirt',
+    ...(pose?.eyes ? { eyes: pose.eyes } : null),
+    ...(pose?.eyebrows ? { eyebrows: pose.eyebrows } : null),
+    ...(pose?.mouth ? { mouth: pose.mouth } : null),
+  } as AvatarProps
 
   const legChildren = (
     <>
@@ -99,7 +106,10 @@ export function FullBeanHead({
       {/* upper body (neck + head + torso + arms) bobs together; legs stay planted */}
       <g transform={`translate(0 ${bob})`}>
         <Neck skin={sk} />
-        <AvatarHead {...headProps} showCircle={showCircle} />
+        {/* head tilt — pivot at the neck join; jaw stays over the neck at small angles */}
+        <g className="head-pivot" style={{ transformOrigin: '200px 268px', transform: `rotate(${pose?.headDeg ?? 0}deg)` }}>
+          <AvatarHead {...headProps} showCircle={showCircle} />
+        </g>
         <Top.Torso color={cl} />
         {/* left arm */}
         <g className="arm-pivot" style={{ transformOrigin: '140px 305px', transform: `rotate(${pose?.leftArmDeg ?? 0}deg)` }}>

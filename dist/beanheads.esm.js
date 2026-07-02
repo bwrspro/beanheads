@@ -3453,7 +3453,7 @@ var MIRROR = 'translate(400 0) scale(-1 1)';
 // (Never put a CSS transform-origin on the same <g> as the SVG mirror transform
 // attribute — the browser would apply the mirror around that origin.)
 function FullBeanHead(_ref) {
-  var _head$skinTone, _head$clothingColor, _topMap$clothing, _bottomsMap$bottoms, _shoeMap$shoes, _pose$bob, _pose$leftLegDeg, _pose$rightLegDeg, _pose$leftArmDeg, _pose$rightArmDeg;
+  var _head$skinTone, _head$clothingColor, _topMap$clothing, _bottomsMap$bottoms, _shoeMap$shoes, _pose$bob, _pose$leftLegDeg, _pose$rightLegDeg, _pose$headDeg, _pose$leftArmDeg, _pose$rightArmDeg;
   var _ref$clothing = _ref.clothing,
     clothing = _ref$clothing === void 0 ? 'shirt' : _ref$clothing,
     _ref$bottoms = _ref.bottoms,
@@ -3479,10 +3479,17 @@ function FullBeanHead(_ref) {
   var bob = (_pose$bob = pose === null || pose === void 0 ? void 0 : pose.bob) !== null && _pose$bob !== void 0 ? _pose$bob : 0;
   // The head's own torso/clothing is clipped away by AvatarHead; force a known
   // clothing key so the inner Avatar never looks up a registered-only key
-  // (clothingMap[unknown] would crash).
+  // (clothingMap[unknown] would crash). Face-swap pose fields override the
+  // static face props for this frame (blink / talk / expressions).
   var headProps = _extends({}, head, {
     clothing: 'shirt'
-  });
+  }, pose !== null && pose !== void 0 && pose.eyes ? {
+    eyes: pose.eyes
+  } : null, pose !== null && pose !== void 0 && pose.eyebrows ? {
+    eyebrows: pose.eyebrows
+  } : null, pose !== null && pose !== void 0 && pose.mouth ? {
+    mouth: pose.mouth
+  } : null);
   var legChildren = React.createElement(React.Fragment, null, React.createElement(SkinLeg, {
     skin: sk
   }), React.createElement(Shoe.Shoe, {
@@ -3517,9 +3524,15 @@ function FullBeanHead(_ref) {
     transform: "translate(0 " + bob + ")"
   }, React.createElement(Neck, {
     skin: sk
-  }), React.createElement(AvatarHead, Object.assign({}, headProps, {
+  }), React.createElement("g", {
+    className: "head-pivot",
+    style: {
+      transformOrigin: '200px 268px',
+      transform: "rotate(" + ((_pose$headDeg = pose === null || pose === void 0 ? void 0 : pose.headDeg) !== null && _pose$headDeg !== void 0 ? _pose$headDeg : 0) + "deg)"
+    }
+  }, React.createElement(AvatarHead, Object.assign({}, headProps, {
     showCircle: showCircle
-  })), React.createElement(Top.Torso, {
+  }))), React.createElement(Top.Torso, {
     color: cl
   }), React.createElement("g", {
     className: "arm-pivot",
@@ -3604,6 +3617,90 @@ var ANIMATIONS = {
     leftArmDeg: 16,
     rightArmDeg: -16,
     bob: -2
+  }],
+  // eyes close briefly (content = closed lids), then reopen
+  blink: [{}, {}, {
+    eyes: 'content'
+  }, {
+    eyes: 'content'
+  }, {}],
+  // mouth cycles open/closed shapes — pair with any outfit/pose
+  talk: [{
+    mouth: 'open'
+  }, {
+    mouth: 'grin'
+  }, {
+    mouth: 'open'
+  }, {
+    mouth: 'lips'
+  }, {
+    mouth: 'grin'
+  }],
+  // both arms up + bounce + happy face (arms: left positive / right negative = raised outward)
+  celebrate: [{
+    leftArmDeg: 130,
+    rightArmDeg: -130,
+    bob: -2,
+    eyes: 'happy',
+    mouth: 'open'
+  }, {
+    leftArmDeg: 145,
+    rightArmDeg: -145,
+    bob: -6,
+    eyes: 'happy',
+    mouth: 'open'
+  }, {
+    leftArmDeg: 138,
+    rightArmDeg: -138,
+    bob: 0,
+    eyes: 'happy',
+    mouth: 'openSmile'
+  }, {
+    leftArmDeg: 150,
+    rightArmDeg: -150,
+    bob: -6,
+    eyes: 'heart',
+    mouth: 'open'
+  }, {
+    leftArmDeg: 140,
+    rightArmDeg: -140,
+    bob: -3,
+    eyes: 'happy',
+    mouth: 'open'
+  }],
+  // head-tilt groove: lean + arm sway + small leg shift
+  dance: [{
+    headDeg: -8,
+    leftArmDeg: 40,
+    rightArmDeg: 40,
+    leftLegDeg: 6,
+    rightLegDeg: -2,
+    bob: -2,
+    mouth: 'openSmile'
+  }, {
+    headDeg: 0,
+    bob: 0,
+    mouth: 'openSmile'
+  }, {
+    headDeg: 8,
+    leftArmDeg: -40,
+    rightArmDeg: -40,
+    leftLegDeg: -2,
+    rightLegDeg: 6,
+    bob: -2,
+    mouth: 'openSmile'
+  }, {
+    headDeg: 0,
+    bob: 0,
+    mouth: 'openSmile'
+  }, {
+    headDeg: -8,
+    leftArmDeg: 40,
+    rightArmDeg: 40,
+    leftLegDeg: 6,
+    rightLegDeg: -2,
+    bob: -2,
+    mouth: 'openSmile'
   }]
 };
 var ANIMATION_NAMES = /*#__PURE__*/Object.keys(ANIMATIONS);

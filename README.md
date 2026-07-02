@@ -85,7 +85,7 @@ the player simply switches to the next stored frame.
 import { FrameAnimator, ANIMATIONS } from 'beanheads'
 
 <FrameAnimator
-  frames={ANIMATIONS.wave}   // idle | wave | walk (see ANIMATION_NAMES)
+  frames={ANIMATIONS.wave}   // idle | wave | walk | blink | talk | celebrate | dance (ANIMATION_NAMES)
   fps={6}
   playing
   skinTone="dark"
@@ -93,7 +93,7 @@ import { FrameAnimator, ANIMATIONS } from 'beanheads'
 />
 ```
 
-- Built-in animations: **`idle`**, **`wave`**, **`walk`** (`ANIMATION_NAMES`).
+- Built-in animations: **`idle`**, **`wave`**, **`walk`**, **`blink`**, **`talk`**, **`celebrate`**, **`dance`** (`ANIMATION_NAMES`).
 - **Author your own**: extend the `Pose[]` arrays — each limb is its own `<g>` with a
   pivot (arms at the shoulder, legs at the hip), so a pose is just a set of angles.
 - `useFrameAnimation(frameCount, fps, playing)` — the cycling hook, if you want to
@@ -104,12 +104,26 @@ import { FrameAnimator, ANIMATIONS } from 'beanheads'
 ```ts
 interface Pose {
   bob?: number         // upper-body vertical offset (px), e.g. breathing
+  headDeg?: number     // head tilt (deg) around the neck
   leftArmDeg?: number  // rotation (deg) around the left shoulder pivot
   rightArmDeg?: number
   leftLegDeg?: number  // rotation (deg) around the left hip pivot
   rightLegDeg?: number
+  eyes?: string        // per-frame face variant keys — blink/talk/expressions
+  eyebrows?: string
+  mouth?: string
 }
 ```
+
+### Face-swap frames
+
+Face animation is the same stored-state model as the body: a frame swaps the
+**registry variant key** for that frame — `{ eyes: 'content' }` closes the lids
+(a blink), `{ mouth: 'open' }` opens the mouth (talking). Any key in
+`eyesMap`/`eyebrowsMap`/`mouthsMap` works, including variants you register at
+runtime. No face rig is involved — the frame simply renders a different variant
+component. Smooth eye *movement* (pupils tracking, gradual lid close) would
+need in-head pivots, which don't exist yet (future).
 
 ---
 
