@@ -15,3 +15,17 @@ export type { Pose } from './fullbody/anim/pose'
 export { ANIMATIONS, ANIMATION_NAMES } from './fullbody/anim/animations'
 export { FrameAnimator } from './fullbody/anim/FrameAnimator'
 export { useFrameAnimation } from './fullbody/anim/useFrameAnimation'
+// registries + runtime registration (database-driven extension points)
+export { topMap, registerTop } from './fullbody/tops'
+export { bottomsMap, registerBottoms } from './fullbody/bottoms'
+export { shoeMap, registerShoe } from './fullbody/shoes'
+export {
+  BOTTOMS_COLORS,
+  SHOE_COLORS,
+  registerBottomsColor,
+  registerShoeColor,
+  bottomsHex,
+  shoeHex,
+} from './fullbody/palette'
+export { registerClothingColor, registerSkinTone, skinPair, clothingPair } from './fullbody/theme'
+export type { ColorPair, PieceProps, LimbProps, TopSet, BottomsSet, ShoeSet } from './fullbody/types'
