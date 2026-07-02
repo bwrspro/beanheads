@@ -1,8 +1,6 @@
+import { ColorPair } from './types';
 export declare const OUTLINE: string;
-declare type Pair = {
-    base: string;
-    shadow: string;
-};
-export declare function skin(tone: string): Pair;
-export declare function clothing(color: string): Pair;
-export {};
+export declare function skinPair(tone: string): ColorPair;
+export declare function clothingPair(color: string): ColorPair;
+export declare function registerSkinTone(key: string, pair: ColorPair): void;
+export declare function registerClothingColor(key: string, pair: ColorPair): void;

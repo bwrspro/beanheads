@@ -114,6 +114,15 @@ var theme = {
   colors: colors
 };
 
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
 function _objectWithoutPropertiesLoose(r, e) {
   if (null == r) return {};
   var t = {};
@@ -2986,24 +2995,48 @@ function GroundShadow() {
   });
 }
 
-// Full-body parts reuse the library's own palette so the hand-authored body shares
-// the head's exact outline, skin and clothing colors (one merged figure).
+// Full-body parts reuse the library's own palette so the hand-authored body
+// shares the head's exact outline, skin and clothing colors (one merged figure).
 var OUTLINE = colors.outline;
-function skin(tone) {
-  var _colors$skin$tone;
-  return (_colors$skin$tone = colors.skin[tone]) !== null && _colors$skin$tone !== void 0 ? _colors$skin$tone : colors.skin.light;
+var toPair = function toPair(p) {
+  return {
+    base: p.base,
+    shade: p.shadow
+  };
+};
+function skinPair(tone) {
+  var _rec$tone;
+  var rec = colors.skin;
+  return toPair((_rec$tone = rec[tone]) !== null && _rec$tone !== void 0 ? _rec$tone : colors.skin.light);
 }
-function clothing(color) {
-  var _colors$clothing$colo;
-  return (_colors$clothing$colo = colors.clothing[color]) !== null && _colors$clothing$colo !== void 0 ? _colors$clothing$colo : colors.clothing.white;
+function clothingPair(color) {
+  var _rec$color;
+  var rec = colors.clothing;
+  return toPair((_rec$color = rec[color]) !== null && _rec$color !== void 0 ? _rec$color : colors.clothing.white);
+}
+// Runtime registration — lets the consuming app load colors from its database at
+// boot and register them. Mutates the shared library palette, so the HEAD picks
+// up the same registered colors (one consistent palette).
+function registerSkinTone(key, pair) {
+  var rec = colors.skin;
+  rec[key] = {
+    base: pair.base,
+    shadow: pair.shade
+  };
+}
+function registerClothingColor(key, pair) {
+  var rec = colors.clothing;
+  rec[key] = {
+    base: pair.base,
+    shadow: pair.shade
+  };
 }
 
 var SW = HEAD_GEOMETRY.STROKE;
-// Short neck, drawn BEFORE the head so the jaw hides its top edge and the shirt
-// collar hides its bottom — only a short clean neck segment shows.
+// Short neck (skeleton default), drawn BEFORE the head so the jaw hides its top
+// edge and the shirt collar hides its bottom.
 function Neck(_ref) {
-  var skinTone = _ref.skinTone;
-  var sk = skin(skinTone);
+  var skin = _ref.skin;
   return React.createElement("g", {
     stroke: OUTLINE,
     strokeWidth: SW,
@@ -3011,192 +3044,301 @@ function Neck(_ref) {
     strokeLinecap: "round"
   }, React.createElement("path", {
     d: "M181 250 L184 286 H216 L219 250 Z",
-    fill: sk.base
+    fill: skin.base
   }), React.createElement("path", {
     d: "M184 286 L181 250 H196 L194 286 Z",
-    fill: sk.shadow,
+    fill: skin.shade,
     stroke: "none"
   }));
 }
 
 var SW$1 = HEAD_GEOMETRY.STROKE;
-// Torso with wide rounded shoulders + a relaxed hem. The neckline trim changes
-// with the clothing type: crew (shirt), V-neck, or scoop (tank top). Sleeves live
-// in Arms so each arm emerges cleanly from under its sleeve.
-function Body(_ref) {
-  var clothing$1 = _ref.clothing,
-    clothingColor = _ref.clothingColor;
-  var cl = clothing(clothingColor);
-  var collar = clothing$1 === 'vneck' ? React.createElement("path", {
-    d: "M183 289 L200 316 L217 289 L209 289 L200 305 L191 289 Z",
-    fill: cl.shadow
-  }) : clothing$1 === 'tankTop' ? React.createElement("path", {
-    d: "M174 289 Q200 309 226 289 Q226 299 200 301 Q174 299 174 289 Z",
-    fill: cl.shadow
-  }) : React.createElement("path", {
-    d: "M178 290 Q200 301 222 290 Q220 306 200 308 Q180 306 178 290 Z",
-    fill: cl.shadow
-  });
+// Bare skeleton limbs (the hardcoded default body). Authored for the LEFT side —
+// the skeleton mirrors the whole pivot group for the right. Garments from the
+// registries draw ON TOP of these inside the same pivot, so they inherit every
+// rotation automatically.
+function SkinArm(_ref) {
+  var skin = _ref.skin;
   return React.createElement("g", {
     stroke: OUTLINE,
     strokeWidth: SW$1,
     strokeLinejoin: "round",
     strokeLinecap: "round"
   }, React.createElement("path", {
-    d: "M152 298 Q176 284 200 292 Q224 284 248 298 Q264 302 266 322 L260 430 Q261 446 242 446 L158 446 Q139 446 140 430 L134 322 Q136 302 152 298 Z",
-    fill: cl.base
-  }), collar);
+    d: "M131 332 Q123 340 124 364 L127 454 Q123 462 125 474 Q129 486 143 486 Q159 486 161 472 Q162 462 159 454 L161 364 Q160 340 152 334 Z",
+    fill: skin.base
+  }));
+}
+function SkinLeg(_ref2) {
+  var skin = _ref2.skin;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$1,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M144 432 H188 V572 Q188 584 174 584 L160 584 Q144 584 144 572 Z",
+    fill: skin.base
+  }));
 }
 
+// Shared torso silhouette: wide rounded shoulders, relaxed hem reaching y446 to
+// cover the hip/crotch. Individual tops draw their neckline / detailing over it.
+var TORSO_D = 'M152 298 Q176 284 200 292 Q224 284 248 298 Q264 302 266 322 L260 430 Q261 446 242 446 L158 446 Q139 446 140 430 L134 322 Q136 302 152 298 Z';
+
 var SW$2 = HEAD_GEOMETRY.STROKE;
-// Both arms + hands as ONE component. Each arm is its own inner <g> with a shoulder
-// pivot (rotated by leftArmDeg/rightArmDeg for animation frames): a short sleeve cap
-// flares at the shoulder, and a long skin arm hangs to a fist beside the thigh.
-// Tank top swaps the cap for a thin strap.
-function Arms(_ref) {
-  var skinTone = _ref.skinTone,
-    clothing$1 = _ref.clothing,
-    clothingColor = _ref.clothingColor,
-    _ref$leftArmDeg = _ref.leftArmDeg,
-    leftArmDeg = _ref$leftArmDeg === void 0 ? 0 : _ref$leftArmDeg,
-    _ref$rightArmDeg = _ref.rightArmDeg,
-    rightArmDeg = _ref$rightArmDeg === void 0 ? 0 : _ref$rightArmDeg;
-  var sk = skin(skinTone);
-  var cl = clothing(clothingColor);
-  var tank = clothing$1 === 'tankTop';
-  var leftCover = tank ? React.createElement("path", {
-    d: "M152 298 Q138 302 136 324 Q138 338 150 340 L164 334 Q169 308 160 300 Z",
-    fill: cl.shadow
-  }) : React.createElement("path", {
-    d: "M151 297 Q128 301 126 324 Q127 338 143 339 L166 333 Q171 307 160 298 Z",
-    fill: cl.shadow
-  });
-  var rightCover = tank ? React.createElement("path", {
-    d: "M248 298 Q262 302 264 324 Q262 338 250 340 L236 334 Q231 308 240 300 Z",
-    fill: cl.shadow
-  }) : React.createElement("path", {
-    d: "M249 297 Q272 301 274 324 Q273 338 257 339 L234 333 Q229 307 240 298 Z",
-    fill: cl.shadow
-  });
+function Torso(_ref) {
+  var color = _ref.color;
   return React.createElement("g", {
     stroke: OUTLINE,
     strokeWidth: SW$2,
     strokeLinejoin: "round",
     strokeLinecap: "round"
-  }, React.createElement("g", {
-    style: {
-      transformOrigin: '140px 305px',
-      transform: "rotate(" + leftArmDeg + "deg)"
-    }
   }, React.createElement("path", {
-    d: "M131 332 Q123 340 124 364 L127 454 Q123 462 125 474 Q129 486 143 486 Q159 486 161 472 Q162 462 159 454 L161 364 Q160 340 152 334 Z",
-    fill: sk.base
-  }), leftCover), React.createElement("g", {
-    style: {
-      transformOrigin: '260px 305px',
-      transform: "rotate(" + rightArmDeg + "deg)"
-    }
+    d: TORSO_D,
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M178 290 Q200 301 222 290 Q220 306 200 308 Q180 306 178 290 Z",
+    fill: color.shade
+  }));
+}
+function Sleeve(_ref2) {
+  var color = _ref2.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$2,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
   }, React.createElement("path", {
-    d: "M269 332 Q277 340 276 364 L273 454 Q277 462 275 474 Q271 486 257 486 Q241 486 239 472 Q238 462 241 454 L239 364 Q240 340 248 334 Z",
-    fill: sk.base
-  }), rightCover));
+    d: "M151 297 Q128 301 126 324 Q127 338 143 339 L166 333 Q171 307 160 298 Z",
+    fill: color.shade
+  }));
 }
-
-var BOTTOMS = {
-  denim: {
-    base: '#3E5063',
-    shade: '#9DB0BE'
-  },
-  black: {
-    base: '#2E3138',
-    shade: '#6E727A'
-  },
-  khaki: {
-    base: '#C2A878',
-    shade: '#E2D4B6'
-  },
-  red: {
-    base: '#C0473E',
-    shade: '#E08C84'
-  }
+var Crew = {
+  Torso: Torso,
+  Sleeve: Sleeve
 };
-var SHOES = {
-  white: {
-    base: '#EFEFEF',
-    shade: '#CFCFCF'
-  },
-  black: {
-    base: '#34373E',
-    shade: '#22242A'
-  },
-  red: {
-    base: '#C0473E',
-    shade: '#9E392F'
-  },
-  purple: {
-    base: '#5E3A9E',
-    shade: '#47297A'
-  }
-};
-function bottomsHex(key) {
-  var _BOTTOMS$key;
-  return (_BOTTOMS$key = BOTTOMS[key]) !== null && _BOTTOMS$key !== void 0 ? _BOTTOMS$key : BOTTOMS.denim;
-}
-function shoeHex(key) {
-  var _SHOES$key;
-  return (_SHOES$key = SHOES[key]) !== null && _SHOES$key !== void 0 ? _SHOES$key : SHOES.white;
-}
 
 var SW$3 = HEAD_GEOMETRY.STROKE;
-var STITCH = '#8A8F96';
-// One leg = skin limb + its own relaxed pant/short leg + its own Converse-style
-// sneaker, as a SINGLE component with a hip pivot. Authored for the LEFT side; the
-// right side renders the same paths mirrored about the centerline (x=200).
-//
-// Structure: OUTER <g> does the mirror (origin 0,0 — must NOT carry a CSS
-// transform-origin or the browser applies the mirror around it). The INNER
-// `.leg-pivot` <g> carries the hip pivot + rotation.
-function Leg(_ref) {
-  var side = _ref.side,
-    skinTone = _ref.skinTone,
-    bottoms = _ref.bottoms,
-    bottomsColor = _ref.bottomsColor,
-    shoeColor = _ref.shoeColor,
-    _ref$deg = _ref.deg,
-    deg = _ref$deg === void 0 ? 0 : _ref$deg;
-  var sk = skin(skinTone);
-  var bc = bottomsHex(bottomsColor);
-  var shoe = shoeHex(shoeColor);
-  var mirror = side === 'right' ? 'translate(400 0) scale(-1 1)' : undefined;
+function Torso$1(_ref) {
+  var color = _ref.color;
   return React.createElement("g", {
-    transform: mirror
-  }, React.createElement("g", {
-    className: "leg-pivot",
-    style: {
-      transformOrigin: '166px 432px',
-      transform: "rotate(" + deg + "deg)"
-    }
-  }, React.createElement("g", {
     stroke: OUTLINE,
     strokeWidth: SW$3,
     strokeLinejoin: "round",
     strokeLinecap: "round"
   }, React.createElement("path", {
-    d: "M144 432 H188 V572 Q188 584 174 584 L160 584 Q144 584 144 572 Z",
-    fill: sk.base
+    d: TORSO_D,
+    fill: color.base
   }), React.createElement("path", {
+    d: "M183 289 L200 316 L217 289 L209 289 L200 305 L191 289 Z",
+    fill: color.shade
+  }));
+}
+function Sleeve$1(_ref2) {
+  var color = _ref2.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$3,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M151 297 Q128 301 126 324 Q127 338 143 339 L166 333 Q171 307 160 298 Z",
+    fill: color.shade
+  }));
+}
+var VNeck$1 = {
+  Torso: Torso$1,
+  Sleeve: Sleeve$1
+};
+
+var SW$4 = HEAD_GEOMETRY.STROKE;
+function Torso$2(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$4,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M174 289 Q200 309 226 289 Q226 299 200 301 Q174 299 174 289 Z",
+    fill: color.shade
+  }));
+}
+// Thin strap instead of a sleeve — bare shoulders.
+function Sleeve$2(_ref2) {
+  var color = _ref2.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$4,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M152 298 Q138 302 136 324 Q138 338 150 340 L164 334 Q169 308 160 300 Z",
+    fill: color.shade
+  }));
+}
+var TankTop$1 = {
+  Torso: Torso$2,
+  Sleeve: Sleeve$2
+};
+
+var SW$5 = HEAD_GEOMETRY.STROKE;
+// Demo of the registry model: a brand-new top variant is ONE file + ONE map line
+// (tops/index.ts). Long sleeves prove the skeleton point — they cover the arm and
+// still move with it, because they render inside the arm pivot.
+function Torso$3(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$5,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M200 300 V446",
+    fill: "none"
+  }), React.createElement("path", {
+    d: "M200 300 L186 296 L196 316 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M200 300 L214 296 L204 316 Z",
+    fill: color.shade
+  }));
+}
+function Sleeve$3(_ref2) {
+  var color = _ref2.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$5,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 452 Q124 466 142 466 Q158 466 157 452 L155 364 Q154 338 146 332 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M126 452 Q126 448 131 448 H152 Q157 448 157 452 V462 Q157 468 151 468 H132 Q126 468 126 462 Z",
+    fill: color.shade
+  }));
+}
+var Jacket = {
+  Torso: Torso$3,
+  Sleeve: Sleeve$3
+};
+
+// Registry of top variants — the same model as the library's face maps
+// (eyesMap, hairMap, …): each variant is a drop-in component set keyed by
+// string. The record is intentionally mutable: apps can register more variants
+// at boot (including ones built from database rows) via registerTop.
+var topMap = {
+  shirt: Crew,
+  vneck: VNeck$1,
+  tankTop: TankTop$1,
+  jacket: Jacket
+};
+function registerTop(key, set) {
+  topMap[key] = set;
+}
+
+var SW$6 = HEAD_GEOMETRY.STROKE;
+var STITCH = '#8A8F96';
+// Relaxed jeans leg (left-authored): tapered leg + side seam + front-pocket
+// stitch + rolled cuff in the lighter shade.
+function Leg(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$6,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M144 444 L149 550",
+    fill: "none",
+    stroke: STITCH,
+    strokeWidth: 1.8
+  }), React.createElement("path", {
+    d: "M150 450 Q156 466 172 470",
+    fill: "none",
+    stroke: STITCH,
+    strokeWidth: 2
+  }), React.createElement("path", {
+    d: "M142 552 Q142 548 147 548 H189 Q194 548 194 552 V576 Q194 584 186 584 H150 Q142 584 142 576 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M146 555 H190",
+    fill: "none",
+    stroke: STITCH,
+    strokeWidth: 2
+  }));
+}
+var Jeans = {
+  Leg: Leg
+};
+
+var SW$7 = HEAD_GEOMETRY.STROKE;
+var STITCH$1 = '#8A8F96';
+// Relaxed shorts to mid-thigh (left-authored).
+function Leg$1(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$7,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M140 430 L144 505 Q145 515 159 516 L177 516 Q191 515 192 505 L194 430 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M145 511 H191",
+    fill: "none",
+    stroke: STITCH$1,
+    strokeWidth: 2
+  }));
+}
+var Shorts = {
+  Leg: Leg$1
+};
+
+// Registry of bottoms variants — same drop-in model as topMap / the face maps.
+var bottomsMap = {
+  jeans: Jeans,
+  shorts: Shorts
+};
+function registerBottoms(key, set) {
+  bottomsMap[key] = set;
+}
+
+var SW$8 = HEAD_GEOMETRY.STROKE;
+// Converse-style low-top (left-authored): white sole + toe cap, canvas upper,
+// foxing stripe, criss-cross laces + eyelets.
+function Shoe(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$8,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
     d: "M110 610 Q106 624 122 626 L186 626 Q194 626 194 616 V610 Q150 620 118 606 Q110 606 110 610 Z",
     fill: "#FFFFFF"
   }), React.createElement("path", {
     d: "M120 606 Q120 584 144 581 L180 581 Q190 582 190 596 L190 608 Q150 618 120 606 Z",
-    fill: shoe.base
+    fill: color.base
   }), React.createElement("path", {
     d: "M110 608 Q107 591 124 586 Q139 582 146 596 Q150 608 138 612 Q122 615 113 612 Q110 610 110 608 Z",
     fill: "#FFFFFF"
   }), React.createElement("path", {
     d: "M122 604 Q150 613 188 603",
     fill: "none",
-    stroke: shoe.shade,
+    stroke: color.shade,
     strokeWidth: 2.5
   }), React.createElement("path", {
     d: "M151 587 L168 592 M151 593 L168 588 M152 598 L167 601 M152 601 L167 598",
@@ -3228,49 +3370,98 @@ function Leg(_ref) {
     r: 1.6,
     fill: "#FFFFFF",
     stroke: "none"
-  }), bottoms === 'shorts' ? React.createElement(React.Fragment, null, React.createElement("path", {
-    d: "M140 430 L144 505 Q145 515 159 516 L177 516 Q191 515 192 505 L194 430 Z",
-    fill: bc.base
-  }), React.createElement("path", {
-    d: "M145 511 H191",
-    fill: "none",
-    stroke: STITCH,
-    strokeWidth: 2
-  })) : React.createElement(React.Fragment, null, React.createElement("path", {
-    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
-    fill: bc.base
-  }), React.createElement("path", {
-    d: "M144 444 L149 550",
-    fill: "none",
-    stroke: STITCH,
-    strokeWidth: 1.8
-  }), React.createElement("path", {
-    d: "M150 450 Q156 466 172 470",
-    fill: "none",
-    stroke: STITCH,
-    strokeWidth: 2
-  }), React.createElement("path", {
-    d: "M142 552 Q142 548 147 548 H189 Q194 548 194 552 V576 Q194 584 186 584 H150 Q142 584 142 576 Z",
-    fill: bc.shade
-  }), React.createElement("path", {
-    d: "M146 555 H190",
-    fill: "none",
-    stroke: STITCH,
-    strokeWidth: 2
-  })))));
+  }));
+}
+var Sneakers = {
+  Shoe: Shoe
+};
+
+// Registry of shoe variants — same drop-in model as topMap / the face maps.
+var shoeMap = {
+  sneakers: Sneakers
+};
+function registerShoe(key, set) {
+  shoeMap[key] = set;
 }
 
-var _excluded$3 = ["bottoms", "bottomsColor", "shoeColor", "showCircle", "pose"];
-// A full-body BeanHead: the library's <Avatar> head (clipped to head-only,
-// background circle removed) merged with hand-authored, individually-animatable
-// body parts (neck, torso, arms+hands, two legs with jeans/shorts + sneakers).
-// Renders a self-contained 400x690 SVG; head + body share the library palette.
+// Bottoms + shoe palettes (additions beyond the head's clothing palette).
+// `shade`: bottoms → lighter rolled-cuff/fold color; shoes → canvas shadow/lace
+// accent. Records are intentionally mutable: the consuming app registers
+// database-stored colors at boot via the register* helpers.
+var BOTTOMS_COLORS = {
+  denim: {
+    base: '#3E5063',
+    shade: '#9DB0BE'
+  },
+  black: {
+    base: '#2E3138',
+    shade: '#6E727A'
+  },
+  khaki: {
+    base: '#C2A878',
+    shade: '#E2D4B6'
+  },
+  red: {
+    base: '#C0473E',
+    shade: '#E08C84'
+  }
+};
+var SHOE_COLORS = {
+  purple: {
+    base: '#5E3A9E',
+    shade: '#47297A'
+  },
+  white: {
+    base: '#EFEFEF',
+    shade: '#CFCFCF'
+  },
+  black: {
+    base: '#34373E',
+    shade: '#22242A'
+  },
+  red: {
+    base: '#C0473E',
+    shade: '#9E392F'
+  }
+};
+function registerBottomsColor(key, pair) {
+  BOTTOMS_COLORS[key] = pair;
+}
+function registerShoeColor(key, pair) {
+  SHOE_COLORS[key] = pair;
+}
+function bottomsHex(key) {
+  var _BOTTOMS_COLORS$key;
+  return (_BOTTOMS_COLORS$key = BOTTOMS_COLORS[key]) !== null && _BOTTOMS_COLORS$key !== void 0 ? _BOTTOMS_COLORS$key : BOTTOMS_COLORS.denim;
+}
+function shoeHex(key) {
+  var _SHOE_COLORS$key;
+  return (_SHOE_COLORS$key = SHOE_COLORS[key]) !== null && _SHOE_COLORS$key !== void 0 ? _SHOE_COLORS$key : SHOE_COLORS.white;
+}
+
+var _excluded$3 = ["clothing", "bottoms", "bottomsColor", "shoes", "shoeColor", "showCircle", "pose"];
+var MIRROR = 'translate(400 0) scale(-1 1)';
+// The full-body SKELETON. It owns every slot's pivot <g> — arm pivots at the
+// shoulders, leg pivots at the hips, an upper-body bob group — and mounts
+// registry-selected garment components INSIDE those pivots. Any registered part,
+// whatever its shape or color, inherits the motion automatically; parts never
+// carry their own rig.
+//
+// SIGN CONVENTION: a Pose degree is the VISUAL clockwise rotation of that limb.
+// Right-side limbs render inside a mirror transform, which flips rotation
+// direction, so the skeleton NEGATES the pose value for mirrored pivots.
+// (Never put a CSS transform-origin on the same <g> as the SVG mirror transform
+// attribute — the browser would apply the mirror around that origin.)
 function FullBeanHead(_ref) {
-  var _head$skinTone, _head$clothing, _head$clothingColor, _pose$bob;
-  var _ref$bottoms = _ref.bottoms,
+  var _head$skinTone, _head$clothingColor, _topMap$clothing, _bottomsMap$bottoms, _shoeMap$shoes, _pose$bob, _pose$leftLegDeg, _pose$rightLegDeg, _pose$leftArmDeg, _pose$rightArmDeg;
+  var _ref$clothing = _ref.clothing,
+    clothing = _ref$clothing === void 0 ? 'shirt' : _ref$clothing,
+    _ref$bottoms = _ref.bottoms,
     bottoms = _ref$bottoms === void 0 ? 'jeans' : _ref$bottoms,
     _ref$bottomsColor = _ref.bottomsColor,
     bottomsColor = _ref$bottomsColor === void 0 ? 'denim' : _ref$bottomsColor,
+    _ref$shoes = _ref.shoes,
+    shoes = _ref$shoes === void 0 ? 'sneakers' : _ref$shoes,
     _ref$shoeColor = _ref.shoeColor,
     shoeColor = _ref$shoeColor === void 0 ? 'purple' : _ref$shoeColor,
     _ref$showCircle = _ref.showCircle,
@@ -3278,44 +3469,73 @@ function FullBeanHead(_ref) {
     pose = _ref.pose,
     head = _objectWithoutPropertiesLoose(_ref, _excluded$3);
   var viewBox = HEAD_GEOMETRY.viewBox;
-  var skinTone = (_head$skinTone = head.skinTone) !== null && _head$skinTone !== void 0 ? _head$skinTone : 'light';
-  var clothing = (_head$clothing = head.clothing) !== null && _head$clothing !== void 0 ? _head$clothing : 'shirt';
-  var clothingColor = (_head$clothingColor = head.clothingColor) !== null && _head$clothingColor !== void 0 ? _head$clothingColor : 'white';
+  var sk = skinPair((_head$skinTone = head.skinTone) !== null && _head$skinTone !== void 0 ? _head$skinTone : 'light');
+  var cl = clothingPair((_head$clothingColor = head.clothingColor) !== null && _head$clothingColor !== void 0 ? _head$clothingColor : 'white');
+  var bc = bottomsHex(bottomsColor);
+  var sc = shoeHex(shoeColor);
+  var Top = (_topMap$clothing = topMap[clothing]) !== null && _topMap$clothing !== void 0 ? _topMap$clothing : topMap.shirt;
+  var Bottom = (_bottomsMap$bottoms = bottomsMap[bottoms]) !== null && _bottomsMap$bottoms !== void 0 ? _bottomsMap$bottoms : bottomsMap.jeans;
+  var Shoe = (_shoeMap$shoes = shoeMap[shoes]) !== null && _shoeMap$shoes !== void 0 ? _shoeMap$shoes : shoeMap.sneakers;
   var bob = (_pose$bob = pose === null || pose === void 0 ? void 0 : pose.bob) !== null && _pose$bob !== void 0 ? _pose$bob : 0;
+  // The head's own torso/clothing is clipped away by AvatarHead; force a known
+  // clothing key so the inner Avatar never looks up a registered-only key
+  // (clothingMap[unknown] would crash).
+  var headProps = _extends({}, head, {
+    clothing: 'shirt'
+  });
+  var legChildren = React.createElement(React.Fragment, null, React.createElement(SkinLeg, {
+    skin: sk
+  }), React.createElement(Shoe.Shoe, {
+    color: sc
+  }), React.createElement(Bottom.Leg, {
+    color: bc
+  }));
+  var armChildren = React.createElement(React.Fragment, null, React.createElement(SkinArm, {
+    skin: sk
+  }), React.createElement(Top.Sleeve, {
+    color: cl
+  }));
   return React.createElement("svg", {
     viewBox: "0 0 " + viewBox.w + " " + viewBox.h,
     width: "100%",
     xmlns: "http://www.w3.org/2000/svg"
-  }, React.createElement(GroundShadow, null), React.createElement(Leg, {
-    side: "left",
-    skinTone: skinTone,
-    bottoms: bottoms,
-    bottomsColor: bottomsColor,
-    shoeColor: shoeColor,
-    deg: pose === null || pose === void 0 ? void 0 : pose.leftLegDeg
-  }), React.createElement(Leg, {
-    side: "right",
-    skinTone: skinTone,
-    bottoms: bottoms,
-    bottomsColor: bottomsColor,
-    shoeColor: shoeColor,
-    deg: pose === null || pose === void 0 ? void 0 : pose.rightLegDeg
-  }), React.createElement("g", {
+  }, React.createElement(GroundShadow, null), React.createElement("g", null, React.createElement("g", {
+    className: "leg-pivot",
+    style: {
+      transformOrigin: '166px 432px',
+      transform: "rotate(" + ((_pose$leftLegDeg = pose === null || pose === void 0 ? void 0 : pose.leftLegDeg) !== null && _pose$leftLegDeg !== void 0 ? _pose$leftLegDeg : 0) + "deg)"
+    }
+  }, legChildren)), React.createElement("g", {
+    transform: MIRROR
+  }, React.createElement("g", {
+    className: "leg-pivot",
+    style: {
+      transformOrigin: '166px 432px',
+      transform: "rotate(" + -((_pose$rightLegDeg = pose === null || pose === void 0 ? void 0 : pose.rightLegDeg) !== null && _pose$rightLegDeg !== void 0 ? _pose$rightLegDeg : 0) + "deg)"
+    }
+  }, legChildren)), React.createElement("g", {
     transform: "translate(0 " + bob + ")"
   }, React.createElement(Neck, {
-    skinTone: skinTone
-  }), React.createElement(AvatarHead, Object.assign({}, head, {
+    skin: sk
+  }), React.createElement(AvatarHead, Object.assign({}, headProps, {
     showCircle: showCircle
-  })), React.createElement(Body, {
-    clothing: clothing,
-    clothingColor: clothingColor
-  }), React.createElement(Arms, {
-    skinTone: skinTone,
-    clothing: clothing,
-    clothingColor: clothingColor,
-    leftArmDeg: pose === null || pose === void 0 ? void 0 : pose.leftArmDeg,
-    rightArmDeg: pose === null || pose === void 0 ? void 0 : pose.rightArmDeg
-  })));
+  })), React.createElement(Top.Torso, {
+    color: cl
+  }), React.createElement("g", {
+    className: "arm-pivot",
+    style: {
+      transformOrigin: '140px 305px',
+      transform: "rotate(" + ((_pose$leftArmDeg = pose === null || pose === void 0 ? void 0 : pose.leftArmDeg) !== null && _pose$leftArmDeg !== void 0 ? _pose$leftArmDeg : 0) + "deg)"
+    }
+  }, armChildren), React.createElement("g", {
+    transform: MIRROR
+  }, React.createElement("g", {
+    className: "arm-pivot",
+    style: {
+      transformOrigin: '140px 305px',
+      transform: "rotate(" + -((_pose$rightArmDeg = pose === null || pose === void 0 ? void 0 : pose.rightArmDeg) !== null && _pose$rightArmDeg !== void 0 ? _pose$rightArmDeg : 0) + "deg)"
+    }
+  }, armChildren))));
 }
 
 // Each animation is a list of frames; each frame is a Pose state (rendered as the
@@ -3435,5 +3655,5 @@ function FrameAnimator(_ref) {
   }));
 }
 
-export { ANIMATIONS, ANIMATION_NAMES, Avatar, Avatar as BeanHead, FrameAnimator, FullBeanHead, Noop, ThemeContext, accessoryMap, bodyMap, clothingMap, eyebrowsMap, eyesMap, facialHairMap, graphicsMap, hairMap, hatMap, mouthsMap, theme, useFrameAnimation };
+export { ANIMATIONS, ANIMATION_NAMES, Avatar, BOTTOMS_COLORS, Avatar as BeanHead, FrameAnimator, FullBeanHead, Noop, SHOE_COLORS, ThemeContext, accessoryMap, bodyMap, bottomsHex, bottomsMap, clothingMap, clothingPair, eyebrowsMap, eyesMap, facialHairMap, graphicsMap, hairMap, hatMap, mouthsMap, registerBottoms, registerBottomsColor, registerClothingColor, registerShoe, registerShoeColor, registerSkinTone, registerTop, shoeHex, shoeMap, skinPair, theme, topMap, useFrameAnimation };
 //# sourceMappingURL=beanheads.esm.js.map
