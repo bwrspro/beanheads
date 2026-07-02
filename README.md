@@ -172,6 +172,7 @@ the browser repaints. It's discrete frame-swapping at `fps`, driven by one React
 
 | You want to add…                              | What to do                                                                                     | Already dynamic? | Effort |
 | --------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------- | ------ |
+| a **face-part variant** (eyes / hair / mouth / brows / facial-hair) | add the SVG component under `src/components/<slot>/` + register it in that slot's map (`eyesMap`, `hairMap`, …); `FullBeanHead` forwards all head props | ✅ (library registry) | easy |
 | a **bottoms / shoe color**                    | add one key to `BOTTOMS` / `SHOES` in `palette.ts` (`{ base, shade }`)                          | ✅ (string-key lookup) | trivial |
 | a **skin / clothing color**                   | add it to the library `theme.ts` (`colors.skin` / `colors.clothing`)                           | ✅               | trivial |
 | a **new animation** (using existing limbs)    | add a `Pose[]` to `ANIMATIONS`; it auto-appears in `ANIMATION_NAMES`. Any frame count.          | ✅               | easy   |
@@ -185,3 +186,18 @@ component. If you expect many shape variants, the clean upgrade is to mirror the
 face model: give each slot its own map (`bottomsMap`, `topMap`, `shoeMap`) selected by key,
 so new variants become drop-in components instead of conditionals. That refactor is
 contained (one map per slot) and would make the body as extensible as the face.
+
+### Adding face parts (already fully dynamic)
+
+Face features use the library's **registry** model, so they're the easiest to extend —
+and `FullBeanHead` forwards **every** head prop straight through to `<Avatar>`, so nothing
+in `src/fullbody` needs to change:
+
+1. **Add the SVG** as a component, e.g. `src/components/eyes/Sleepy.tsx`.
+2. **Register it** in that slot's map in `Avatar.tsx`: `eyesMap.sleepy = Sleepy`. The prop
+   type `keyof typeof eyesMap` picks it up automatically.
+3. **Use it**: `<FullBeanHead eyes="sleepy" … />` — no fullbody changes.
+
+New face **colors** (skin / hair / clothing / lip) are likewise one key in `theme.ts`
+(`colors.skin`, `colors.hair`, …). This registry-per-slot pattern is exactly what the body
+**shapes** should adopt (see the note above) to become equally drop-in.
