@@ -3795,7 +3795,7 @@ function useFrameAnimation(frameCount, fps, playing) {
     setIndex = _useState[1];
   var last = useRef(0);
   useEffect(function () {
-    if (!playing || frameCount <= 0) return;
+    if (!playing || frameCount <= 0 || fps <= 0) return;
     var interval = 1000 / fps;
     var raf = 0;
     var _tick = function tick(t) {

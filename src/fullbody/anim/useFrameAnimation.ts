@@ -7,7 +7,7 @@ export function useFrameAnimation(frameCount: number, fps: number, playing: bool
   const last = useRef(0)
 
   useEffect(() => {
-    if (!playing || frameCount <= 0) return
+    if (!playing || frameCount <= 0 || fps <= 0) return
     const interval = 1000 / fps
     let raf = 0
     const tick = (t: number) => {
