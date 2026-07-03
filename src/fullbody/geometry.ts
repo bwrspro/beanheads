@@ -10,3 +10,9 @@ export const HEAD_GEOMETRY = {
   CENTER_X: 200,
   STROKE: 5,
 } as const
+
+// Chest area a torso decal is scaled into (decals are authored in a 100x100
+// box). Centered on the figure, below the collar (y~308), above the hem curve,
+// inside the side seams; arms render on top, so slight edge overlap just tucks
+// the decal behind the arm naturally.
+export const DECAL_BOX = { x: 162, y: 318, w: 76, h: 76 } as const

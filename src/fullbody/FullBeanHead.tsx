@@ -1,14 +1,16 @@
 import React from 'react'
 import { AvatarProps } from '../components/Avatar'
 import { Pose } from './anim/pose'
-import { HEAD_GEOMETRY } from './geometry'
+import { HEAD_GEOMETRY, DECAL_BOX } from './geometry'
 import { AvatarHead } from './AvatarHead'
 import { GroundShadow } from './parts/GroundShadow'
 import { Neck } from './parts/Neck'
 import { SkinArm, SkinLeg } from './parts/limbs'
 import { topMap } from './tops'
+import { TORSO_D } from './tops/torso'
 import { bottomsMap } from './bottoms'
 import { shoeMap } from './shoes'
+import { graphicMap } from './graphics'
 import { skinPair, clothingPair } from './theme'
 import { bottomsHex, shoeHex } from './palette'
 
@@ -17,6 +19,8 @@ const MIRROR = 'translate(400 0) scale(-1 1)'
 export interface FullBeanHeadProps extends Omit<AvatarProps, 'clothing'> {
   /** top variant — key into topMap ('shirt' | 'vneck' | 'tankTop' | 'jacket' | any registered key) */
   clothing?: string
+  /** torso decal — key into graphicMap ('star' | any registered key); unknown/absent = no decal */
+  topGraphic?: string
   /** bottoms variant — key into bottomsMap ('jeans' | 'shorts' | registered) */
   bottoms?: string
   /** trouser color — key into BOTTOMS_COLORS (registered keys included) */
@@ -44,6 +48,7 @@ export interface FullBeanHeadProps extends Omit<AvatarProps, 'clothing'> {
 // attribute — the browser would apply the mirror around that origin.)
 export function FullBeanHead({
   clothing = 'shirt',
+  topGraphic,
   bottoms = 'jeans',
   bottomsColor = 'denim',
   shoes = 'sneakers',
@@ -60,6 +65,8 @@ export function FullBeanHead({
   const Top = topMap[clothing] ?? topMap.shirt
   const Bottom = bottomsMap[bottoms] ?? bottomsMap.jeans
   const Shoe = shoeMap[shoes] ?? shoeMap.sneakers
+  // Unknown/unregistered decal keys safely render nothing (DB rows may outlive art)
+  const Graphic = topGraphic ? graphicMap[topGraphic] : undefined
   const bob = pose?.bob ?? 0
 
   // The head's own torso/clothing is clipped away by AvatarHead; force a known
@@ -111,6 +118,22 @@ export function FullBeanHead({
           <AvatarHead {...headProps} showCircle={showCircle} />
         </g>
         <Top.Torso color={cl} />
+        {/* torso decal — 100x100-authored art scaled into the chest box and
+            clipped to the torso silhouette; renders under the arms, so edge
+            overlap tucks behind them. (Same-id clipPaths across multiple
+            avatars on a page are identical, so collisions are benign.) */}
+        {Graphic && (
+          <>
+            <clipPath id="bh-torso-decal-clip">
+              <path d={TORSO_D} />
+            </clipPath>
+            <g clipPath="url(#bh-torso-decal-clip)">
+              <g transform={`translate(${DECAL_BOX.x} ${DECAL_BOX.y}) scale(${DECAL_BOX.w / 100} ${DECAL_BOX.h / 100})`}>
+                <Graphic color={cl} />
+              </g>
+            </g>
+          </>
+        )}
         {/* left arm */}
         <g className="arm-pivot" style={{ transformOrigin: '140px 305px', transform: `rotate(${pose?.leftArmDeg ?? 0}deg)` }}>
           {armChildren}

@@ -63,3 +63,13 @@ export const ANIMATIONS: Record<string, Pose[]> = {
 
 export type AnimationName = keyof typeof ANIMATIONS
 export const ANIMATION_NAMES = Object.keys(ANIMATIONS)
+
+// Runtime registration — animations are plain Pose[] data, so apps can load
+// them from a database at boot exactly like parts and colors. Mutates
+// ANIMATION_NAMES in place (same array reference) so pickers built over it see
+// new keys. Re-registering an existing key replaces its frames.
+export function registerAnimation(key: string, frames: Pose[]): void {
+  const isNew = !(key in ANIMATIONS)
+  ANIMATIONS[key] = frames
+  if (isNew) ANIMATION_NAMES.push(key)
+}

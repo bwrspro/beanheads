@@ -15,3 +15,9 @@ export declare const HEAD_GEOMETRY: {
     readonly CENTER_X: 200;
     readonly STROKE: 5;
 };
+export declare const DECAL_BOX: {
+    readonly x: 162;
+    readonly y: 318;
+    readonly w: 76;
+    readonly h: 76;
+};

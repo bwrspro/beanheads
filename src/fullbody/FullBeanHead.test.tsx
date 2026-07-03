@@ -1,9 +1,10 @@
 import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { FullBeanHead } from './FullBeanHead'
-import { ANIMATIONS } from './anim/animations'
+import { ANIMATIONS, ANIMATION_NAMES, registerAnimation } from './anim/animations'
 import { registerTop } from './tops'
 import { registerBottomsColor } from './palette'
+import { registerGraphic, imageGraphic } from './graphics'
 
 describe('FullBeanHead', () => {
   it('renders a self-contained full-body svg', () => {
@@ -79,5 +80,45 @@ describe('FullBeanHead', () => {
   it('shiver holds a concerned face across all 5 frames', () => {
     expect(ANIMATIONS.shiver).toHaveLength(5)
     expect(ANIMATIONS.shiver.every((f) => f.eyebrows === 'concerned' && f.mouth === 'sad')).toBe(true)
+  })
+
+  it('renders the built-in star decal only when topGraphic is set', () => {
+    const plain = renderToStaticMarkup(<FullBeanHead skinTone="brown" clothing="shirt" />)
+    const decaled = renderToStaticMarkup(<FullBeanHead skinTone="brown" clothing="shirt" topGraphic="star" />)
+    expect(plain).not.toContain('data-decal="star"')
+    expect(decaled).toContain('data-decal="star"')
+    expect(decaled).toContain('bh-torso-decal-clip')
+  })
+
+  it('unknown decal keys render nothing (DB rows may outlive art)', () => {
+    const html = renderToStaticMarkup(<FullBeanHead skinTone="brown" topGraphic="ghost" />)
+    expect(html).toContain('<svg')
+    expect(html).not.toContain('bh-torso-decal-clip')
+  })
+
+  it('supports runtime-registered decals, including asset-backed ones (database-driven)', () => {
+    registerGraphic('dbLogo', function DbLogo() {
+      return <circle cx={50} cy={50} r={40} fill="#ab34cd" />
+    })
+    registerGraphic('eventTee', imageGraphic('https://cdn.example/event-2026.png'))
+    const inline = renderToStaticMarkup(<FullBeanHead skinTone="light" topGraphic="dbLogo" />)
+    const image = renderToStaticMarkup(<FullBeanHead skinTone="light" topGraphic="eventTee" />)
+    expect(inline).toContain('#ab34cd')
+    expect(image).toContain('https://cdn.example/event-2026.png')
+    expect(image).toContain('preserveAspectRatio')
+  })
+
+  it('supports runtime-registered animations (database-driven)', () => {
+    const before = ANIMATION_NAMES.length
+    registerAnimation('dbBounce', [{ bob: -8 }, { bob: 0 }])
+    expect(ANIMATIONS.dbBounce).toHaveLength(2)
+    expect(ANIMATION_NAMES).toContain('dbBounce')
+    expect(ANIMATION_NAMES.length).toBe(before + 1)
+    // re-registering replaces frames without duplicating the picker entry
+    registerAnimation('dbBounce', [{ bob: -4 }])
+    expect(ANIMATIONS.dbBounce).toHaveLength(1)
+    expect(ANIMATION_NAMES.filter((n) => n === 'dbBounce')).toHaveLength(1)
+    const html = renderToStaticMarkup(<FullBeanHead skinTone="brown" pose={ANIMATIONS.dbBounce[0]} />)
+    expect(html).toContain('<svg')
   })
 })

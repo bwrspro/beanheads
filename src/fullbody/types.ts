@@ -19,6 +19,12 @@ export interface LimbProps {
   skin: ColorPair
 }
 
+// Props for a torso decal (print/logo/pattern). Authored in a 100x100 box; the
+// skeleton scales it into the chest area and clips it to the torso silhouette.
+// Receives the resolved clothing color so a decal MAY adapt (contrast, tint);
+// most decals ignore it.
+export type GraphicProps = PieceProps
+
 // A "top" occupies two skeleton slots: the torso, and (per arm) a sleeve overlay
 // drawn on top of the skin arm INSIDE the arm pivot — so any top, of any sleeve
 // length, moves with the arm automatically. Authored for the LEFT side; the

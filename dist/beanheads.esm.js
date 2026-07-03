@@ -2943,6 +2943,16 @@ var HEAD_GEOMETRY = {
   CENTER_X: 200,
   STROKE: 5
 };
+// Chest area a torso decal is scaled into (decals are authored in a 100x100
+// box). Centered on the figure, below the collar (y~308), above the hem curve,
+// inside the side seams; arms render on top, so slight edge overlap just tucks
+// the decal behind the arm naturally.
+var DECAL_BOX = {
+  x: 162,
+  y: 318,
+  w: 76,
+  h: 76
+};
 
 var _excluded$2 = ["showCircle"];
 // Unique clip-path id per instance, without useId (keeps React >=16 support).
@@ -3419,6 +3429,43 @@ function registerShoe(key, set) {
   shoeMap[key] = set;
 }
 
+// Registry of torso decals (prints / logos / patterns) — same mutable-record
+// model as topMap/bottomsMap/shoeMap. A decal is a plain component authored in
+// a 100x100 box; the skeleton scales it into the chest (DECAL_BOX) and clips it
+// to the torso silhouette, so any registered decal fits any registered top.
+// Apps register database-driven decals at boot: inline SVG via registerGraphic,
+// hosted images (PNG/SVG url) via registerGraphic(key, imageGraphic(url)).
+// Built-in sample decal — proves the slot end-to-end and gives the sandbox a swatch.
+function Star(_ref) {
+  var color = _ref.color;
+  return React.createElement("path", {
+    d: "M50 6 L61 38 L95 38 L67 58 L78 92 L50 71 L22 92 L33 58 L5 38 L39 38 Z",
+    fill: color.shade,
+    "data-decal": "star"
+  });
+}
+var graphicMap = {
+  star: Star
+};
+function registerGraphic(key, graphic) {
+  graphicMap[key] = graphic;
+}
+// Factory for asset-backed decals (the bulk/event pipeline): any hosted PNG/SVG
+// becomes a registrable decal. Fitted with "meet" so non-square art letterboxes
+// inside the 100x100 contract instead of stretching.
+function imageGraphic(href) {
+  return function ImageGraphic(_props) {
+    return React.createElement("image", {
+      href: href,
+      x: 0,
+      y: 0,
+      width: 100,
+      height: 100,
+      preserveAspectRatio: "xMidYMid meet"
+    });
+  };
+}
+
 // Bottoms + shoe palettes (additions beyond the head's clothing palette).
 // `shade`: bottoms → lighter rolled-cuff/fold color; shoes → canvas shadow/lace
 // accent. Records are intentionally mutable: the consuming app registers
@@ -3474,7 +3521,7 @@ function shoeHex(key) {
   return (_SHOE_COLORS$key = SHOE_COLORS[key]) !== null && _SHOE_COLORS$key !== void 0 ? _SHOE_COLORS$key : SHOE_COLORS.white;
 }
 
-var _excluded$3 = ["clothing", "bottoms", "bottomsColor", "shoes", "shoeColor", "showCircle", "pose"];
+var _excluded$3 = ["clothing", "topGraphic", "bottoms", "bottomsColor", "shoes", "shoeColor", "showCircle", "pose"];
 var MIRROR = 'translate(400 0) scale(-1 1)';
 // The full-body SKELETON. It owns every slot's pivot <g> — arm pivots at the
 // shoulders, leg pivots at the hips, an upper-body bob group — and mounts
@@ -3491,6 +3538,7 @@ function FullBeanHead(_ref) {
   var _head$skinTone, _head$clothingColor, _topMap$clothing, _bottomsMap$bottoms, _shoeMap$shoes, _pose$bob, _pose$leftLegDeg, _pose$rightLegDeg, _pose$headDeg, _pose$leftArmDeg, _pose$rightArmDeg;
   var _ref$clothing = _ref.clothing,
     clothing = _ref$clothing === void 0 ? 'shirt' : _ref$clothing,
+    topGraphic = _ref.topGraphic,
     _ref$bottoms = _ref.bottoms,
     bottoms = _ref$bottoms === void 0 ? 'jeans' : _ref$bottoms,
     _ref$bottomsColor = _ref.bottomsColor,
@@ -3511,6 +3559,8 @@ function FullBeanHead(_ref) {
   var Top = (_topMap$clothing = topMap[clothing]) !== null && _topMap$clothing !== void 0 ? _topMap$clothing : topMap.shirt;
   var Bottom = (_bottomsMap$bottoms = bottomsMap[bottoms]) !== null && _bottomsMap$bottoms !== void 0 ? _bottomsMap$bottoms : bottomsMap.jeans;
   var Shoe = (_shoeMap$shoes = shoeMap[shoes]) !== null && _shoeMap$shoes !== void 0 ? _shoeMap$shoes : shoeMap.sneakers;
+  // Unknown/unregistered decal keys safely render nothing (DB rows may outlive art)
+  var Graphic = topGraphic ? graphicMap[topGraphic] : undefined;
   var bob = (_pose$bob = pose === null || pose === void 0 ? void 0 : pose.bob) !== null && _pose$bob !== void 0 ? _pose$bob : 0;
   // The head's own torso/clothing is clipped away by AvatarHead; force a known
   // clothing key so the inner Avatar never looks up a registered-only key
@@ -3569,7 +3619,17 @@ function FullBeanHead(_ref) {
     showCircle: showCircle
   }))), React.createElement(Top.Torso, {
     color: cl
-  }), React.createElement("g", {
+  }), Graphic && React.createElement(React.Fragment, null, React.createElement("clipPath", {
+    id: "bh-torso-decal-clip"
+  }, React.createElement("path", {
+    d: TORSO_D
+  })), React.createElement("g", {
+    clipPath: "url(#bh-torso-decal-clip)"
+  }, React.createElement("g", {
+    transform: "translate(" + DECAL_BOX.x + " " + DECAL_BOX.y + ") scale(" + DECAL_BOX.w / 100 + " " + DECAL_BOX.h / 100 + ")"
+  }, React.createElement(Graphic, {
+    color: cl
+  })))), React.createElement("g", {
     className: "arm-pivot",
     style: {
       transformOrigin: '140px 305px',
@@ -3786,6 +3846,15 @@ var ANIMATIONS = {
   }]
 };
 var ANIMATION_NAMES = /*#__PURE__*/Object.keys(ANIMATIONS);
+// Runtime registration — animations are plain Pose[] data, so apps can load
+// them from a database at boot exactly like parts and colors. Mutates
+// ANIMATION_NAMES in place (same array reference) so pickers built over it see
+// new keys. Re-registering an existing key replaces its frames.
+function registerAnimation(key, frames) {
+  var isNew = !(key in ANIMATIONS);
+  ANIMATIONS[key] = frames;
+  if (isNew) ANIMATION_NAMES.push(key);
+}
 
 // Advances a frame index 0..frameCount-1 at `fps`, looping, while `playing`.
 // Frame-based (no tweening): each tick switches to the next stored frame.
@@ -3834,5 +3903,5 @@ function FrameAnimator(_ref) {
   }));
 }
 
-export { ANIMATIONS, ANIMATION_NAMES, Avatar, BOTTOMS_COLORS, Avatar as BeanHead, FrameAnimator, FullBeanHead, Noop, SHOE_COLORS, ThemeContext, accessoryMap, bodyMap, bottomsHex, bottomsMap, clothingMap, clothingPair, eyebrowsMap, eyesMap, facialHairMap, graphicsMap, hairMap, hatMap, mouthsMap, registerBottoms, registerBottomsColor, registerClothingColor, registerShoe, registerShoeColor, registerSkinTone, registerTop, shoeHex, shoeMap, skinPair, theme, topMap, useFrameAnimation };
+export { ANIMATIONS, ANIMATION_NAMES, Avatar, BOTTOMS_COLORS, Avatar as BeanHead, FrameAnimator, FullBeanHead, Noop, SHOE_COLORS, ThemeContext, accessoryMap, bodyMap, bottomsHex, bottomsMap, clothingMap, clothingPair, eyebrowsMap, eyesMap, facialHairMap, graphicMap, graphicsMap, hairMap, hatMap, imageGraphic, mouthsMap, registerAnimation, registerBottoms, registerBottomsColor, registerClothingColor, registerGraphic, registerShoe, registerShoeColor, registerSkinTone, registerTop, shoeHex, shoeMap, skinPair, theme, topMap, useFrameAnimation };
 //# sourceMappingURL=beanheads.esm.js.map

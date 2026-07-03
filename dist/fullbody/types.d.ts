@@ -9,6 +9,7 @@ export interface PieceProps {
 export interface LimbProps {
     skin: ColorPair;
 }
+export declare type GraphicProps = PieceProps;
 export interface TopSet {
     Torso: ComponentType<PieceProps>;
     Sleeve: ComponentType<PieceProps>;
