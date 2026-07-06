@@ -3241,6 +3241,227 @@ var Jacket = {
   Sleeve: Sleeve$3
 };
 
+var SW$6 = HEAD_GEOMETRY.STROKE;
+// Polo: crew body + collar wings + two-button placket; short sleeve with trim.
+// Promoted from the avatar-lab review harness (screenshot-reviewed 2026-07-04).
+function Torso$4(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$6,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M178 290 L196 300 L188 312 Q178 304 178 290 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M222 290 L204 300 L212 312 Q222 304 222 290 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M200 300 V336",
+    fill: "none"
+  }), React.createElement("circle", {
+    cx: 200,
+    cy: 314,
+    r: 2.5,
+    fill: color.shade,
+    strokeWidth: 1.5
+  }), React.createElement("circle", {
+    cx: 200,
+    cy: 328,
+    r: 2.5,
+    fill: color.shade,
+    strokeWidth: 1.5
+  }));
+}
+function Sleeve$4(_ref2) {
+  var color = _ref2.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$6,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M151 297 Q128 301 126 324 Q127 338 143 339 L166 333 Q171 307 160 298 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M128 330 L165 324 L166 333 L143 339 Q131 338 128 330 Z",
+    fill: color.shade
+  }));
+}
+var Polo = {
+  Torso: Torso$4,
+  Sleeve: Sleeve$4
+};
+
+var SW$7 = HEAD_GEOMETRY.STROKE;
+// Hoodie (hood down): drawstrings + kangaroo pocket + neckline bulge; long
+// sleeve with cuff. A hood-UP variant needs a behind-head skeleton slot —
+// see trap #5 in the avatar-parts skill; this one stays fully in front.
+// Promoted from the avatar-lab review harness (screenshot-reviewed 2026-07-04).
+function Torso$5(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$7,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M172 292 Q200 312 228 292 Q226 306 200 310 Q174 306 172 292 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M192 306 L189 334",
+    fill: "none",
+    strokeWidth: 3.5
+  }), React.createElement("path", {
+    d: "M208 306 L211 334",
+    fill: "none",
+    strokeWidth: 3.5
+  }), React.createElement("path", {
+    d: "M168 384 Q166 380 172 379 L228 379 Q234 380 232 384 L226 420 Q225 425 219 425 L181 425 Q175 425 174 420 Z",
+    fill: color.shade
+  }));
+}
+function Sleeve$5(_ref2) {
+  var color = _ref2.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$7,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 452 Q124 466 142 466 Q158 466 157 452 L155 364 Q154 338 146 332 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M126 452 Q126 448 131 448 H152 Q157 448 157 452 V462 Q157 468 151 468 H132 Q126 468 126 462 Z",
+    fill: color.shade
+  }));
+}
+var Hoodie = {
+  Torso: Torso$5,
+  Sleeve: Sleeve$5
+};
+
+var SW$8 = HEAD_GEOMETRY.STROKE;
+// Sweater: ribbed crew collar + ribbed hem band; long sleeve with ribbed cuff.
+// Promoted from the avatar-lab review harness (screenshot-reviewed 2026-07-04).
+function Torso$6(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$8,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M176 288 Q200 302 224 288 Q223 308 200 312 Q177 308 176 288 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M158 430 H242 L242 446 L158 446 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M170 432 V444 M184 432 V444 M198 432 V444 M212 432 V444 M226 432 V444",
+    fill: "none",
+    strokeWidth: 2
+  }));
+}
+function Sleeve$6(_ref2) {
+  var color = _ref2.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$8,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 450 Q124 464 142 464 Q158 464 157 450 L155 364 Q154 338 146 332 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M126 448 Q126 444 131 444 H152 Q157 444 157 448 V462 Q157 468 151 468 H132 Q126 468 126 462 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M133 448 V464 M140 448 V466 M147 448 V465",
+    fill: "none",
+    strokeWidth: 2
+  }));
+}
+var Sweater = {
+  Torso: Torso$6,
+  Sleeve: Sleeve$6
+};
+
+var SW$9 = HEAD_GEOMETRY.STROKE;
+// Button shirt: pointed collar + full placket with buttons; short sleeve.
+// Promoted from the avatar-lab review harness (screenshot-reviewed 2026-07-04).
+function Torso$7(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$9,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M200 298 L176 289 Q173 303 191 312 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M200 298 L224 289 Q227 303 209 312 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M200 302 V446",
+    fill: "none"
+  }), React.createElement("circle", {
+    cx: 200,
+    cy: 330,
+    r: 2.5,
+    fill: color.shade,
+    strokeWidth: 1.5
+  }), React.createElement("circle", {
+    cx: 200,
+    cy: 360,
+    r: 2.5,
+    fill: color.shade,
+    strokeWidth: 1.5
+  }), React.createElement("circle", {
+    cx: 200,
+    cy: 390,
+    r: 2.5,
+    fill: color.shade,
+    strokeWidth: 1.5
+  }), React.createElement("circle", {
+    cx: 200,
+    cy: 420,
+    r: 2.5,
+    fill: color.shade,
+    strokeWidth: 1.5
+  }));
+}
+function Sleeve$7(_ref2) {
+  var color = _ref2.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$9,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M151 297 Q128 301 126 324 Q127 338 143 339 L166 333 Q171 307 160 298 Z",
+    fill: color.base
+  }));
+}
+var ButtonShirt = {
+  Torso: Torso$7,
+  Sleeve: Sleeve$7
+};
+
 // Registry of top variants — the same model as the library's face maps
 // (eyesMap, hairMap, …): each variant is a drop-in component set keyed by
 // string. The record is intentionally mutable: apps can register more variants
@@ -3249,13 +3470,17 @@ var topMap = {
   shirt: Crew,
   vneck: VNeck$1,
   tankTop: TankTop$1,
-  jacket: Jacket
+  jacket: Jacket,
+  polo: Polo,
+  hoodie: Hoodie,
+  sweater: Sweater,
+  buttonShirt: ButtonShirt
 };
 function registerTop(key, set) {
   topMap[key] = set;
 }
 
-var SW$6 = HEAD_GEOMETRY.STROKE;
+var SW$a = HEAD_GEOMETRY.STROKE;
 var STITCH = '#8A8F96';
 // Relaxed jeans leg (left-authored): tapered leg + side seam + front-pocket
 // stitch + rolled cuff in the lighter shade.
@@ -3263,7 +3488,7 @@ function Leg(_ref) {
   var color = _ref.color;
   return React.createElement("g", {
     stroke: OUTLINE,
-    strokeWidth: SW$6,
+    strokeWidth: SW$a,
     strokeLinejoin: "round",
     strokeLinecap: "round"
   }, React.createElement("path", {
@@ -3293,14 +3518,14 @@ var Jeans = {
   Leg: Leg
 };
 
-var SW$7 = HEAD_GEOMETRY.STROKE;
+var SW$b = HEAD_GEOMETRY.STROKE;
 var STITCH$1 = '#8A8F96';
 // Relaxed shorts to mid-thigh (left-authored).
 function Leg$1(_ref) {
   var color = _ref.color;
   return React.createElement("g", {
     stroke: OUTLINE,
-    strokeWidth: SW$7,
+    strokeWidth: SW$b,
     strokeLinejoin: "round",
     strokeLinecap: "round"
   }, React.createElement("path", {
@@ -3326,14 +3551,14 @@ function registerBottoms(key, set) {
   bottomsMap[key] = set;
 }
 
-var SW$8 = HEAD_GEOMETRY.STROKE;
+var SW$c = HEAD_GEOMETRY.STROKE;
 // Converse-style low-top (left-authored): white sole + toe cap, canvas upper,
 // foxing stripe, criss-cross laces + eyelets.
 function Shoe(_ref) {
   var color = _ref.color;
   return React.createElement("g", {
     stroke: OUTLINE,
-    strokeWidth: SW$8,
+    strokeWidth: SW$c,
     strokeLinejoin: "round",
     strokeLinecap: "round"
   }, React.createElement("path", {
@@ -3386,14 +3611,14 @@ var Sneakers = {
   Shoe: Shoe
 };
 
-var SW$9 = HEAD_GEOMETRY.STROKE;
+var SW$d = HEAD_GEOMETRY.STROKE;
 // Mid-calf boot (left-authored): tall shaft, folded top cuff, heel block +
 // white-free sole (unlike sneakers). Jeans cuffs paint over the shaft top.
 function Shoe$1(_ref) {
   var color = _ref.color;
   return React.createElement("g", {
     stroke: OUTLINE,
-    strokeWidth: SW$9,
+    strokeWidth: SW$d,
     strokeLinejoin: "round",
     strokeLinecap: "round"
   }, React.createElement("path", {

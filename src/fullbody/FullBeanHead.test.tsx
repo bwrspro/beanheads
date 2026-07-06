@@ -30,6 +30,15 @@ describe('FullBeanHead', () => {
     expect(jacket).toContain('M200 300 V446') // jacket open front
   })
 
+  it('renders the promoted tops (polo / hoodie / sweater / buttonShirt)', () => {
+    const render = (clothing: string) =>
+      renderToStaticMarkup(<FullBeanHead skinTone="brown" clothingColor="red" clothing={clothing} />)
+    expect(render('polo')).toContain('M200 300 V336') // short placket
+    expect(render('hoodie')).toContain('M192 306 L189 334') // drawstring
+    expect(render('sweater')).toContain('M170 432 V444') // hem ribbing
+    expect(render('buttonShirt')).toContain('M200 302 V446') // full placket
+  })
+
   it('supports runtime-registered tops and colors (database-driven)', () => {
     registerTop('dbCape', {
       Torso: function CapeTorso() {

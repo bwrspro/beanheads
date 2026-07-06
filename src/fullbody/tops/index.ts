@@ -3,6 +3,10 @@ import { Crew } from './Crew'
 import { VNeck } from './VNeck'
 import { TankTop } from './TankTop'
 import { Jacket } from './Jacket'
+import { Polo } from './Polo'
+import { Hoodie } from './Hoodie'
+import { Sweater } from './Sweater'
+import { ButtonShirt } from './ButtonShirt'
 
 // Registry of top variants — the same model as the library's face maps
 // (eyesMap, hairMap, …): each variant is a drop-in component set keyed by
@@ -13,6 +17,10 @@ export const topMap: Record<string, TopSet> = {
   vneck: VNeck,
   tankTop: TankTop,
   jacket: Jacket,
+  polo: Polo,
+  hoodie: Hoodie,
+  sweater: Sweater,
+  buttonShirt: ButtonShirt,
 }
 
 export function registerTop(key: string, set: TopSet): void {
