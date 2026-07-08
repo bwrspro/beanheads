@@ -14,6 +14,8 @@ export { topMap, registerTop } from './fullbody/tops';
 export { bottomsMap, registerBottoms } from './fullbody/bottoms';
 export { shoeMap, registerShoe } from './fullbody/shoes';
 export { graphicMap, registerGraphic, imageGraphic } from './fullbody/graphics';
+export { patternMap, registerPattern } from './fullbody/patterns';
+export type { PatternDef } from './fullbody/patterns';
 export { BOTTOMS_COLORS, SHOE_COLORS, registerBottomsColor, registerShoeColor, bottomsHex, shoeHex, } from './fullbody/palette';
 export { registerClothingColor, registerSkinTone, skinPair, clothingPair } from './fullbody/theme';
 export type { ColorPair, PieceProps, LimbProps, GraphicProps, TopSet, BottomsSet, ShoeSet } from './fullbody/types';

@@ -5,6 +5,7 @@ import { ANIMATIONS, ANIMATION_NAMES, registerAnimation } from './anim/animation
 import { registerTop } from './tops'
 import { registerBottomsColor } from './palette'
 import { registerGraphic, imageGraphic } from './graphics'
+import { registerPattern } from './patterns'
 
 describe('FullBeanHead', () => {
   it('renders a self-contained full-body svg', () => {
@@ -115,6 +116,37 @@ describe('FullBeanHead', () => {
     expect(inline).toContain('#ab34cd')
     expect(image).toContain('https://cdn.example/event-2026.png')
     expect(image).toContain('preserveAspectRatio')
+  })
+
+  it('patterns the top and bottoms base fills only when set (built-in stripes)', () => {
+    const plain = renderToStaticMarkup(<FullBeanHead skinTone="brown" clothing="shirt" />)
+    const striped = renderToStaticMarkup(
+      <FullBeanHead skinTone="brown" clothing="shirt" clothingColor="red" topPattern="stripes" />
+    )
+    expect(plain).not.toContain('bh-pat-')
+    expect(striped).toContain('<pattern id="bh-pat-stripes-')
+    expect(striped).toContain('fill="url(#bh-pat-stripes-')
+  })
+
+  it('unknown pattern keys fall back to flat color (DB rows may outlive art)', () => {
+    const html = renderToStaticMarkup(<FullBeanHead skinTone="brown" topPattern="ghost" bottomsPattern="ghost" />)
+    expect(html).toContain('<svg')
+    expect(html).not.toContain('bh-pat-')
+  })
+
+  it('supports runtime-registered patterns on both garments (database-driven)', () => {
+    registerPattern('dbDots', { d: 'M6 3 A3 3 0 1 1 5.99 3Z M16 13 A3 3 0 1 1 15.99 13Z', w: 20, h: 20 })
+    const html = renderToStaticMarkup(
+      <FullBeanHead skinTone="light" clothing="polo" topPattern="dbDots" bottomsPattern="dbDots" bottomsColor="red" />
+    )
+    // two tiles: one per garment color pair, referenced by both piece sets
+    expect(html).toContain('bh-pat-dbDots-')
+    expect((html.match(/<pattern /g) ?? []).length).toBe(2)
+    // decal art still receives the real hex pair, not a paint-server reference
+    const decaled = renderToStaticMarkup(
+      <FullBeanHead skinTone="light" topPattern="dbDots" topGraphic="star" />
+    )
+    expect(decaled).toContain('data-decal="star"')
   })
 
   it('supports runtime-registered animations (database-driven)', () => {

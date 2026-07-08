@@ -11,16 +11,40 @@ import { TORSO_D } from './tops/torso'
 import { bottomsMap } from './bottoms'
 import { shoeMap } from './shoes'
 import { graphicMap } from './graphics'
+import { patternMap, PatternDef } from './patterns'
 import { skinPair, clothingPair } from './theme'
 import { bottomsHex, shoeHex } from './palette'
+import { ColorPair } from './types'
 
 const MIRROR = 'translate(400 0) scale(-1 1)'
+
+// Deterministic per (pattern, color): same-config avatars on one page emit
+// identical defs, so id collisions are benign (same contract as the decal clip).
+function patternFillId(key: string, color: ColorPair): string {
+  return `bh-pat-${key}-${color.base.replace(/[^0-9a-zA-Z]/g, '')}`
+}
+
+// One repeating fabric tile: motif drawn in the pair's shade over a base-
+// colored ground. userSpaceOnUse keeps the tile continuous across torso and
+// sleeves, and lets the fill rotate with a posed limb like real fabric.
+function PatternTile({ id, def, color }: { id: string; def: PatternDef; color: ColorPair }) {
+  return (
+    <pattern id={id} patternUnits="userSpaceOnUse" width={def.w} height={def.h}>
+      <rect width={def.w} height={def.h} fill={color.base} />
+      <path d={def.d} fill={color.shade} />
+    </pattern>
+  )
+}
 
 export interface FullBeanHeadProps extends Omit<AvatarProps, 'clothing'> {
   /** top variant — key into topMap ('shirt' | 'vneck' | 'tankTop' | 'jacket' | any registered key) */
   clothing?: string
   /** torso decal — key into graphicMap ('star' | any registered key); unknown/absent = no decal */
   topGraphic?: string
+  /** fabric pattern for the top — key into patternMap ('stripes' | registered); unknown/absent = flat color */
+  topPattern?: string
+  /** fabric pattern for the bottoms — key into patternMap; unknown/absent = flat color */
+  bottomsPattern?: string
   /** bottoms variant — key into bottomsMap ('jeans' | 'shorts' | registered) */
   bottoms?: string
   /** trouser color — key into BOTTOMS_COLORS (registered keys included) */
@@ -49,6 +73,8 @@ export interface FullBeanHeadProps extends Omit<AvatarProps, 'clothing'> {
 export function FullBeanHead({
   clothing = 'shirt',
   topGraphic,
+  topPattern,
+  bottomsPattern,
   bottoms = 'jeans',
   bottomsColor = 'denim',
   shoes = 'sneakers',
@@ -67,6 +93,17 @@ export function FullBeanHead({
   const Shoe = shoeMap[shoes] ?? shoeMap.sneakers
   // Unknown/unregistered decal keys safely render nothing (DB rows may outlive art)
   const Graphic = topGraphic ? graphicMap[topGraphic] : undefined
+  // Fabric patterns swap the pair's flat base for a url(#tile) paint. Only the
+  // base surface is patterned — shade stays flat so collars, cuffs and all-shade
+  // sleeves read as solid trim. Unknown keys fall back to flat color (DB rows
+  // may outlive art). The decal keeps the real hex pair: motif art tints from
+  // hexes, not paint-server references.
+  const topPat = topPattern ? patternMap[topPattern] : undefined
+  const bottomsPat = bottomsPattern ? patternMap[bottomsPattern] : undefined
+  const topPatId = topPat ? patternFillId(topPattern as string, cl) : undefined
+  const bottomsPatId = bottomsPat ? patternFillId(bottomsPattern as string, bc) : undefined
+  const clFill: ColorPair = topPatId ? { base: `url(#${topPatId})`, shade: cl.shade } : cl
+  const bcFill: ColorPair = bottomsPatId ? { base: `url(#${bottomsPatId})`, shade: bc.shade } : bc
   const bob = pose?.bob ?? 0
 
   // The head's own torso/clothing is clipped away by AvatarHead; force a known
@@ -85,18 +122,24 @@ export function FullBeanHead({
     <>
       <SkinLeg skin={sk} />
       <Shoe.Shoe color={sc} />
-      <Bottom.Leg color={bc} />
+      <Bottom.Leg color={bcFill} />
     </>
   )
   const armChildren = (
     <>
       <SkinArm skin={sk} />
-      <Top.Sleeve color={cl} />
+      <Top.Sleeve color={clFill} />
     </>
   )
 
   return (
     <svg viewBox={`0 0 ${viewBox.w} ${viewBox.h}`} width="100%" xmlns="http://www.w3.org/2000/svg">
+      {(topPat || bottomsPat) && (
+        <defs>
+          {topPat && topPatId && <PatternTile id={topPatId} def={topPat} color={cl} />}
+          {bottomsPat && bottomsPatId && <PatternTile id={bottomsPatId} def={bottomsPat} color={bc} />}
+        </defs>
+      )}
       <GroundShadow />
       {/* left leg */}
       <g>
@@ -117,7 +160,7 @@ export function FullBeanHead({
         <g className="head-pivot" style={{ transformOrigin: '200px 268px', transform: `rotate(${pose?.headDeg ?? 0}deg)` }}>
           <AvatarHead {...headProps} showCircle={showCircle} />
         </g>
-        <Top.Torso color={cl} />
+        <Top.Torso color={clFill} />
         {/* torso decal — 100x100-authored art scaled into the chest box and
             clipped to the torso silhouette; renders under the arms, so edge
             overlap tucks behind them. (Same-id clipPaths across multiple

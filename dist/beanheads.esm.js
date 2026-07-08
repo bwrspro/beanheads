@@ -3691,6 +3691,18 @@ function imageGraphic(href) {
   };
 }
 
+// Built-in sample pattern — proves the slot end-to-end and gives the sandbox a swatch.
+var patternMap = {
+  stripes: {
+    d: 'M0 0H20V8H0Z',
+    w: 20,
+    h: 20
+  }
+};
+function registerPattern(key, def) {
+  patternMap[key] = def;
+}
+
 // Bottoms + shoe palettes (additions beyond the head's clothing palette).
 // `shade`: bottoms → lighter rolled-cuff/fold color; shoes → canvas shadow/lace
 // accent. Records are intentionally mutable: the consuming app registers
@@ -3746,8 +3758,34 @@ function shoeHex(key) {
   return (_SHOE_COLORS$key = SHOE_COLORS[key]) !== null && _SHOE_COLORS$key !== void 0 ? _SHOE_COLORS$key : SHOE_COLORS.white;
 }
 
-var _excluded$3 = ["clothing", "topGraphic", "bottoms", "bottomsColor", "shoes", "shoeColor", "showCircle", "pose"];
+var _excluded$3 = ["clothing", "topGraphic", "topPattern", "bottomsPattern", "bottoms", "bottomsColor", "shoes", "shoeColor", "showCircle", "pose"];
 var MIRROR = 'translate(400 0) scale(-1 1)';
+// Deterministic per (pattern, color): same-config avatars on one page emit
+// identical defs, so id collisions are benign (same contract as the decal clip).
+function patternFillId(key, color) {
+  return "bh-pat-" + key + "-" + color.base.replace(/[^0-9a-zA-Z]/g, '');
+}
+// One repeating fabric tile: motif drawn in the pair's shade over a base-
+// colored ground. userSpaceOnUse keeps the tile continuous across torso and
+// sleeves, and lets the fill rotate with a posed limb like real fabric.
+function PatternTile(_ref) {
+  var id = _ref.id,
+    def = _ref.def,
+    color = _ref.color;
+  return React.createElement("pattern", {
+    id: id,
+    patternUnits: "userSpaceOnUse",
+    width: def.w,
+    height: def.h
+  }, React.createElement("rect", {
+    width: def.w,
+    height: def.h,
+    fill: color.base
+  }), React.createElement("path", {
+    d: def.d,
+    fill: color.shade
+  }));
+}
 // The full-body SKELETON. It owns every slot's pivot <g> — arm pivots at the
 // shoulders, leg pivots at the hips, an upper-body bob group — and mounts
 // registry-selected garment components INSIDE those pivots. Any registered part,
@@ -3759,23 +3797,25 @@ var MIRROR = 'translate(400 0) scale(-1 1)';
 // direction, so the skeleton NEGATES the pose value for mirrored pivots.
 // (Never put a CSS transform-origin on the same <g> as the SVG mirror transform
 // attribute — the browser would apply the mirror around that origin.)
-function FullBeanHead(_ref) {
+function FullBeanHead(_ref2) {
   var _head$skinTone, _head$clothingColor, _topMap$clothing, _bottomsMap$bottoms, _shoeMap$shoes, _pose$bob, _pose$leftLegDeg, _pose$rightLegDeg, _pose$headDeg, _pose$leftArmDeg, _pose$rightArmDeg;
-  var _ref$clothing = _ref.clothing,
-    clothing = _ref$clothing === void 0 ? 'shirt' : _ref$clothing,
-    topGraphic = _ref.topGraphic,
-    _ref$bottoms = _ref.bottoms,
-    bottoms = _ref$bottoms === void 0 ? 'jeans' : _ref$bottoms,
-    _ref$bottomsColor = _ref.bottomsColor,
-    bottomsColor = _ref$bottomsColor === void 0 ? 'denim' : _ref$bottomsColor,
-    _ref$shoes = _ref.shoes,
-    shoes = _ref$shoes === void 0 ? 'sneakers' : _ref$shoes,
-    _ref$shoeColor = _ref.shoeColor,
-    shoeColor = _ref$shoeColor === void 0 ? 'purple' : _ref$shoeColor,
-    _ref$showCircle = _ref.showCircle,
-    showCircle = _ref$showCircle === void 0 ? false : _ref$showCircle,
-    pose = _ref.pose,
-    head = _objectWithoutPropertiesLoose(_ref, _excluded$3);
+  var _ref2$clothing = _ref2.clothing,
+    clothing = _ref2$clothing === void 0 ? 'shirt' : _ref2$clothing,
+    topGraphic = _ref2.topGraphic,
+    topPattern = _ref2.topPattern,
+    bottomsPattern = _ref2.bottomsPattern,
+    _ref2$bottoms = _ref2.bottoms,
+    bottoms = _ref2$bottoms === void 0 ? 'jeans' : _ref2$bottoms,
+    _ref2$bottomsColor = _ref2.bottomsColor,
+    bottomsColor = _ref2$bottomsColor === void 0 ? 'denim' : _ref2$bottomsColor,
+    _ref2$shoes = _ref2.shoes,
+    shoes = _ref2$shoes === void 0 ? 'sneakers' : _ref2$shoes,
+    _ref2$shoeColor = _ref2.shoeColor,
+    shoeColor = _ref2$shoeColor === void 0 ? 'purple' : _ref2$shoeColor,
+    _ref2$showCircle = _ref2.showCircle,
+    showCircle = _ref2$showCircle === void 0 ? false : _ref2$showCircle,
+    pose = _ref2.pose,
+    head = _objectWithoutPropertiesLoose(_ref2, _excluded$3);
   var viewBox = HEAD_GEOMETRY.viewBox;
   var sk = skinPair((_head$skinTone = head.skinTone) !== null && _head$skinTone !== void 0 ? _head$skinTone : 'light');
   var cl = clothingPair((_head$clothingColor = head.clothingColor) !== null && _head$clothingColor !== void 0 ? _head$clothingColor : 'white');
@@ -3786,6 +3826,23 @@ function FullBeanHead(_ref) {
   var Shoe = (_shoeMap$shoes = shoeMap[shoes]) !== null && _shoeMap$shoes !== void 0 ? _shoeMap$shoes : shoeMap.sneakers;
   // Unknown/unregistered decal keys safely render nothing (DB rows may outlive art)
   var Graphic = topGraphic ? graphicMap[topGraphic] : undefined;
+  // Fabric patterns swap the pair's flat base for a url(#tile) paint. Only the
+  // base surface is patterned — shade stays flat so collars, cuffs and all-shade
+  // sleeves read as solid trim. Unknown keys fall back to flat color (DB rows
+  // may outlive art). The decal keeps the real hex pair: motif art tints from
+  // hexes, not paint-server references.
+  var topPat = topPattern ? patternMap[topPattern] : undefined;
+  var bottomsPat = bottomsPattern ? patternMap[bottomsPattern] : undefined;
+  var topPatId = topPat ? patternFillId(topPattern, cl) : undefined;
+  var bottomsPatId = bottomsPat ? patternFillId(bottomsPattern, bc) : undefined;
+  var clFill = topPatId ? {
+    base: "url(#" + topPatId + ")",
+    shade: cl.shade
+  } : cl;
+  var bcFill = bottomsPatId ? {
+    base: "url(#" + bottomsPatId + ")",
+    shade: bc.shade
+  } : bc;
   var bob = (_pose$bob = pose === null || pose === void 0 ? void 0 : pose.bob) !== null && _pose$bob !== void 0 ? _pose$bob : 0;
   // The head's own torso/clothing is clipped away by AvatarHead; force a known
   // clothing key so the inner Avatar never looks up a registered-only key
@@ -3805,18 +3862,26 @@ function FullBeanHead(_ref) {
   }), React.createElement(Shoe.Shoe, {
     color: sc
   }), React.createElement(Bottom.Leg, {
-    color: bc
+    color: bcFill
   }));
   var armChildren = React.createElement(React.Fragment, null, React.createElement(SkinArm, {
     skin: sk
   }), React.createElement(Top.Sleeve, {
-    color: cl
+    color: clFill
   }));
   return React.createElement("svg", {
     viewBox: "0 0 " + viewBox.w + " " + viewBox.h,
     width: "100%",
     xmlns: "http://www.w3.org/2000/svg"
-  }, React.createElement(GroundShadow, null), React.createElement("g", null, React.createElement("g", {
+  }, (topPat || bottomsPat) && React.createElement("defs", null, topPat && topPatId && React.createElement(PatternTile, {
+    id: topPatId,
+    def: topPat,
+    color: cl
+  }), bottomsPat && bottomsPatId && React.createElement(PatternTile, {
+    id: bottomsPatId,
+    def: bottomsPat,
+    color: bc
+  })), React.createElement(GroundShadow, null), React.createElement("g", null, React.createElement("g", {
     className: "leg-pivot",
     style: {
       transformOrigin: '166px 432px',
@@ -3843,7 +3908,7 @@ function FullBeanHead(_ref) {
   }, React.createElement(AvatarHead, Object.assign({}, headProps, {
     showCircle: showCircle
   }))), React.createElement(Top.Torso, {
-    color: cl
+    color: clFill
   }), Graphic && React.createElement(React.Fragment, null, React.createElement("clipPath", {
     id: "bh-torso-decal-clip"
   }, React.createElement("path", {
@@ -4128,5 +4193,5 @@ function FrameAnimator(_ref) {
   }));
 }
 
-export { ANIMATIONS, ANIMATION_NAMES, Avatar, BOTTOMS_COLORS, Avatar as BeanHead, FrameAnimator, FullBeanHead, Noop, SHOE_COLORS, ThemeContext, accessoryMap, bodyMap, bottomsHex, bottomsMap, clothingMap, clothingPair, eyebrowsMap, eyesMap, facialHairMap, graphicMap, graphicsMap, hairMap, hatMap, imageGraphic, mouthsMap, registerAnimation, registerBottoms, registerBottomsColor, registerClothingColor, registerGraphic, registerShoe, registerShoeColor, registerSkinTone, registerTop, shoeHex, shoeMap, skinPair, theme, topMap, useFrameAnimation };
+export { ANIMATIONS, ANIMATION_NAMES, Avatar, BOTTOMS_COLORS, Avatar as BeanHead, FrameAnimator, FullBeanHead, Noop, SHOE_COLORS, ThemeContext, accessoryMap, bodyMap, bottomsHex, bottomsMap, clothingMap, clothingPair, eyebrowsMap, eyesMap, facialHairMap, graphicMap, graphicsMap, hairMap, hatMap, imageGraphic, mouthsMap, patternMap, registerAnimation, registerBottoms, registerBottomsColor, registerClothingColor, registerGraphic, registerPattern, registerShoe, registerShoeColor, registerSkinTone, registerTop, shoeHex, shoeMap, skinPair, theme, topMap, useFrameAnimation };
 //# sourceMappingURL=beanheads.esm.js.map

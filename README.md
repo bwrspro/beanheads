@@ -67,6 +67,8 @@ Accepts **all `<BeanHead>` / `AvatarProps`** (`skinTone`, `eyes`, `eyebrows`,
 | `bottomsColor` | `string`               | `'denim'`  | `denim` · `black` · `khaki` · `red`              |
 | `shoes`        | `string`               | `'sneakers'` | shoe variant — key into `shoeMap` (`sneakers` · `boots` + registered keys) |
 | `shoeColor`    | `string`               | `'purple'` | `purple` · `white` · `black` · `red`             |
+| `topPattern`   | `string`               | —          | fabric pattern for the top — key into `patternMap` (`stripes` + registered keys); unknown/absent = flat color |
+| `bottomsPattern` | `string`             | —          | fabric pattern for the bottoms — key into `patternMap`  |
 | `showCircle`   | `boolean`              | `false`    | debug: render the head background circle (A/B)   |
 | `pose`         | `Pose`                 | —          | current animation-frame pose (see below)         |
 
@@ -161,6 +163,13 @@ model:
 | top     | `topMap`     | `shirt` · `vneck` · `tankTop` · `jacket`   | `registerTop(key, { Torso, Sleeve })` |
 | bottoms | `bottomsMap` | `jeans` · `shorts`                         | `registerBottoms(key, { Leg })` |
 | shoes   | `shoeMap`    | `sneakers` · `boots`                       | `registerShoe(key, { Shoe })` |
+| pattern | `patternMap` | `stripes`                                  | `registerPattern(key, { d, w, h })` |
+
+A **pattern** is data, not a component: a small vector tile (`d` = motif
+subpaths drawn in the garment's shade color over a base-colored ground, `w`/`h`
+= tile size) repeated across every base-filled surface. One registered pattern
+works on any top or bottoms in any color; shade-filled trim (collars, cuffs)
+stays solid.
 
 Adding a variant = **one file + one map line** (see `src/fullbody/tops/Jacket.tsx`
 — the whole "jacket" variant). Shipping 20–50 seasonal jackets is 20–50 small
@@ -199,6 +208,7 @@ means what it says on both sides.
 | default parts (skin limbs, neck, built-in variants) | **hardcoded** (components) |
 | colors (skin / clothing / bottoms / shoes)   | **database-ready**: app loads rows at boot → `registerSkinTone` / `registerClothingColor` / `registerBottomsColor` / `registerShoeColor`; props then reference the stored key |
 | part catalog (which variants exist / are owned) | **database-ready**: store registry keys (and optionally SVG path data) → `registerTop` / `registerBottoms` / `registerShoe` at boot; `<FullBeanHead clothing={dbKey}>` |
+| fabric patterns                              | **database-ready**: store `{d,w,h}` tile JSON → `registerPattern(key, def)` at boot; `<FullBeanHead topPattern={dbKey} bottomsPattern={dbKey}>` |
 | whole new slots (backpack, pets, held items) | **deferred** — intentionally not implemented yet |
 
 Unknown keys never crash: every lookup falls back to the default variant/color.
