@@ -1394,8 +1394,506 @@ var Turban = {
   Back: Back$9
 };
 
-var Front$a = Noop;
-var Back$a = function Back() {
+// Baseball cap: full crown hugging the head dome + fat curved visor across the brow.
+var Front$a = function Front(_ref) {
+  var color = _ref.color,
+    _ref$scale = _ref.scale,
+    scale = _ref$scale === void 0 ? 1 : _ref$scale;
+  var _useTheme = useTheme(),
+    colors = _useTheme.colors;
+  var _colors$clothing$colo = colors.clothing[color],
+    base = _colors$clothing$colo.base,
+    shadow = _colors$clothing$colo.shadow;
+  return React.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  }, React.createElement("path", {
+    d: "M250 430 Q240 210 490 200 Q740 210 730 430 Q490 380 250 430 Z",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React.createElement("path", {
+    d: "M262 415 Q270 300 370 245 Q300 310 296 408 Z",
+    fill: shadow
+  }), React.createElement("path", {
+    d: "M490 200 L490 392",
+    fill: "none",
+    stroke: colors.outline,
+    strokeWidth: "8px"
+  }), React.createElement("path", {
+    d: "M365 222 Q352 320 344 410",
+    fill: "none",
+    stroke: colors.outline,
+    strokeWidth: "6px"
+  }), React.createElement("path", {
+    d: "M615 222 Q628 320 636 410",
+    fill: "none",
+    stroke: colors.outline,
+    strokeWidth: "6px"
+  }), React.createElement("path", {
+    d: "M220 458 Q225 412 310 405 Q490 388 670 405 Q755 412 760 458 Q490 498 220 458 Z",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React.createElement("path", {
+    d: "M240 462 Q490 494 740 462 Q490 480 240 462 Z",
+    fill: shadow
+  }), React.createElement("circle", {
+    cx: "490",
+    cy: "202",
+    r: "20",
+    fill: shadow,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }));
+};
+var Back$a = function Back(_ref2) {
+  var _ref2$scale = _ref2.scale,
+    scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
+  return React.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  });
+};
+
+var Cap = {
+  __proto__: null,
+  Front: Front$a,
+  Back: Back$a
+};
+
+// Gold crown: solid band + three points with jewels; hatColor = thin cushion ribbon under the band.
+var Front$b = function Front(_ref) {
+  var color = _ref.color,
+    _ref$scale = _ref.scale,
+    scale = _ref$scale === void 0 ? 1 : _ref$scale;
+  var _useTheme = useTheme(),
+    colors = _useTheme.colors;
+  var base = colors.clothing[color].base;
+  var gold = '#FFD24A';
+  var goldShade = '#C9A227';
+  return React.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  }, React.createElement("path", {
+    d: "M295 438 Q490 476 685 438 L688 452 Q490 492 292 452 Z",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }), React.createElement("path", {
+    d: "M300 330 L360 175 L420 330 Z",
+    fill: gold,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React.createElement("path", {
+    d: "M430 330 L490 148 L550 330 Z",
+    fill: gold,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React.createElement("path", {
+    d: "M560 330 L620 175 L680 330 Z",
+    fill: gold,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React.createElement("path", {
+    d: "M290 322 L690 322 Q698 322 697 334 L688 440 Q490 478 292 440 L283 334 Q282 322 290 322 Z",
+    fill: gold,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React.createElement("path", {
+    d: "M292 415 Q490 452 688 415 L688 438 Q490 476 292 438 Z",
+    fill: goldShade
+  }), React.createElement("circle", {
+    cx: "360",
+    cy: "185",
+    r: "22",
+    fill: "#E24A4A",
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }), React.createElement("circle", {
+    cx: "490",
+    cy: "158",
+    r: "22",
+    fill: "#4A6FE2",
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }), React.createElement("circle", {
+    cx: "620",
+    cy: "185",
+    r: "22",
+    fill: "#E24A4A",
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }), React.createElement("circle", {
+    cx: "490",
+    cy: "380",
+    r: "26",
+    fill: "#4A6FE2",
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }));
+};
+var Back$b = function Back(_ref2) {
+  var _ref2$scale = _ref2.scale,
+    scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
+  return React.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  });
+};
+
+var Crown = {
+  __proto__: null,
+  Front: Front$b,
+  Back: Back$b
+};
+
+// Wizard hat: wide brim + tall bent cone (tip stays below the head-clip ceiling ~y120).
+var Front$c = function Front(_ref) {
+  var color = _ref.color,
+    _ref$scale = _ref.scale,
+    scale = _ref$scale === void 0 ? 1 : _ref$scale;
+  var _useTheme = useTheme(),
+    colors = _useTheme.colors;
+  var _colors$clothing$colo = colors.clothing[color],
+    base = _colors$clothing$colo.base,
+    shadow = _colors$clothing$colo.shadow;
+  return React.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  }, React.createElement("path", {
+    d: "M340 445 Q420 300 458 155 Q462 120 505 128 Q520 132 528 160 Q570 310 645 445 Q490 410 340 445 Z",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React.createElement("path", {
+    d: "M528 175 Q565 320 630 435 Q560 415 505 418 Q525 300 508 180 Z",
+    fill: shadow
+  }), React.createElement("path", {
+    d: "M460 150 Q430 118 392 130 Q420 138 442 165",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React.createElement("ellipse", {
+    cx: "490",
+    cy: "455",
+    rx: "305",
+    ry: "48",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React.createElement("path", {
+    d: "M200 462 Q490 520 780 462 Q490 495 200 462 Z",
+    fill: shadow
+  }), React.createElement("path", {
+    d: "M420 300 L436 268 L452 300 L436 332 Z",
+    fill: "white",
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "6px"
+  }), React.createElement("path", {
+    d: "M540 370 L554 342 L568 370 L554 398 Z",
+    fill: "white",
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "6px"
+  }));
+};
+var Back$c = function Back(_ref2) {
+  var _ref2$scale = _ref2.scale,
+    scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
+  return React.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  });
+};
+
+var WizardHat = {
+  __proto__: null,
+  Front: Front$c,
+  Back: Back$c
+};
+
+// Pirate tricorn: black crown + swooping wide brim with raised wings, skull & crossbones,
+// hatColor = brim trim line.
+var Front$d = function Front(_ref) {
+  var color = _ref.color,
+    _ref$scale = _ref.scale,
+    scale = _ref$scale === void 0 ? 1 : _ref$scale;
+  var _useTheme = useTheme(),
+    colors = _useTheme.colors;
+  var base = colors.clothing[color].base;
+  var black = '#26282E';
+  return React.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  }, React.createElement("path", {
+    d: "M320 340 Q330 215 490 205 Q650 215 660 340 Z",
+    fill: black,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React.createElement("path", {
+    d: "M165 405 Q195 245 355 268 Q490 232 625 268 Q785 245 815 405 Q700 330 490 342 Q280 330 165 405 Z",
+    fill: black,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React.createElement("path", {
+    d: "M165 405 Q280 330 490 342 Q700 330 815 405",
+    fill: "none",
+    stroke: base,
+    strokeWidth: "12px",
+    strokeLinecap: "round"
+  }), React.createElement("line", {
+    x1: "432",
+    y1: "258",
+    x2: "548",
+    y2: "330",
+    stroke: "white",
+    strokeWidth: "16px",
+    strokeLinecap: "round"
+  }), React.createElement("line", {
+    x1: "432",
+    y1: "330",
+    x2: "548",
+    y2: "258",
+    stroke: "white",
+    strokeWidth: "16px",
+    strokeLinecap: "round"
+  }), React.createElement("circle", {
+    cx: "490",
+    cy: "292",
+    r: "32",
+    fill: "white",
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }), React.createElement("circle", {
+    cx: "479",
+    cy: "288",
+    r: "6.5",
+    fill: colors.outline,
+    stroke: "none"
+  }), React.createElement("circle", {
+    cx: "501",
+    cy: "288",
+    r: "6.5",
+    fill: colors.outline,
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M484 306 L496 306",
+    stroke: colors.outline,
+    strokeWidth: "5px",
+    strokeLinecap: "round"
+  }));
+};
+var Back$d = function Back(_ref2) {
+  var _ref2$scale = _ref2.scale,
+    scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
+  var _useTheme2 = useTheme(),
+    colors = _useTheme2.colors;
+  var black = '#26282E';
+  return React.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  }, React.createElement("path", {
+    d: "M280 440 Q490 460 700 440 L690 460 Q490 470 290 460 Z",
+    fill: black,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }));
+};
+
+var Pirate = {
+  __proto__: null,
+  Front: Front$d,
+  Back: Back$d
+};
+
+// Headphones: two-tone headband arcing over the dome into big ear cups at the head sides.
+var Front$e = function Front(_ref) {
+  var color = _ref.color,
+    _ref$scale = _ref.scale,
+    scale = _ref$scale === void 0 ? 1 : _ref$scale;
+  var _useTheme = useTheme(),
+    colors = _useTheme.colors;
+  var _colors$clothing$colo = colors.clothing[color],
+    base = _colors$clothing$colo.base,
+    shadow = _colors$clothing$colo.shadow;
+  return React.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  }, React.createElement("path", {
+    d: "M245 470 Q250 145 490 138 Q730 145 735 470",
+    fill: "none",
+    stroke: colors.outline,
+    strokeWidth: "30px",
+    strokeLinecap: "round"
+  }), React.createElement("path", {
+    d: "M245 470 Q250 145 490 138 Q730 145 735 470",
+    fill: "none",
+    stroke: base,
+    strokeWidth: "14px",
+    strokeLinecap: "round"
+  }), React.createElement("ellipse", {
+    cx: "245",
+    cy: "505",
+    rx: "64",
+    ry: "80",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React.createElement("ellipse", {
+    cx: "252",
+    cy: "505",
+    rx: "38",
+    ry: "56",
+    fill: shadow
+  }), React.createElement("ellipse", {
+    cx: "735",
+    cy: "505",
+    rx: "64",
+    ry: "80",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React.createElement("ellipse", {
+    cx: "728",
+    cy: "505",
+    rx: "38",
+    ry: "56",
+    fill: shadow
+  }));
+};
+var Back$e = function Back(_ref2) {
+  var _ref2$scale = _ref2.scale,
+    scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
+  return React.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  });
+};
+
+var Headphones = {
+  __proto__: null,
+  Front: Front$e,
+  Back: Back$e
+};
+
+// Chef toque: three puffs overlapping a rounded cylinder band; hatColor = bottom ribbon.
+var Front$f = function Front(_ref) {
+  var color = _ref.color,
+    _ref$scale = _ref.scale,
+    scale = _ref$scale === void 0 ? 1 : _ref$scale;
+  var _useTheme = useTheme(),
+    colors = _useTheme.colors;
+  var base = colors.clothing[color].base;
+  var white = '#F7F7F7';
+  var shade = '#DFDFE4';
+  return React.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  }, React.createElement("circle", {
+    cx: "360",
+    cy: "235",
+    r: "78",
+    fill: white,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React.createElement("circle", {
+    cx: "620",
+    cy: "235",
+    r: "78",
+    fill: white,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React.createElement("circle", {
+    cx: "490",
+    cy: "195",
+    r: "85",
+    fill: white,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React.createElement("path", {
+    d: "M290 262 Q282 258 300 254 L680 254 Q698 258 690 262 L688 400 Q490 442 292 400 Z",
+    fill: white,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React.createElement("path", {
+    d: "M640 268 Q652 330 648 396 Q600 412 560 414 Q590 340 588 270 Z",
+    fill: shade
+  }), React.createElement("path", {
+    d: "M292 400 Q490 442 688 400 L687 418 Q490 458 293 418 Z",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }));
+};
+var Back$f = function Back(_ref2) {
+  var _ref2$scale = _ref2.scale,
+    scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
+  return React.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  });
+};
+
+var Chef = {
+  __proto__: null,
+  Front: Front$f,
+  Back: Back$f
+};
+
+var Front$g = Noop;
+var Back$g = function Back() {
   var _useTheme = useTheme(),
     skin = _useTheme.skin,
     colors = _useTheme.colors;
@@ -1422,11 +1920,11 @@ var Back$a = function Back() {
 
 var Chest = {
   __proto__: null,
-  Front: Front$a,
-  Back: Back$a
+  Front: Front$g,
+  Back: Back$g
 };
 
-var Front$b = function Front(_ref) {
+var Front$h = function Front(_ref) {
   var clothingColor = _ref.clothingColor;
   var _useTheme = useTheme(),
     colors = _useTheme.colors;
@@ -1451,7 +1949,7 @@ var Front$b = function Front(_ref) {
     fill: colors.outline
   }));
 };
-var Back$b = function Back(_ref2) {
+var Back$h = function Back(_ref2) {
   var clothingColor = _ref2.clothingColor,
     braStraps = _ref2.braStraps;
   var _useTheme2 = useTheme(),
@@ -1552,8 +2050,8 @@ var Back$b = function Back(_ref2) {
 
 var Breasts = {
   __proto__: null,
-  Front: Front$b,
-  Back: Back$b
+  Front: Front$h,
+  Back: Back$h
 };
 
 var MediumBeard = function MediumBeard(_ref) {
@@ -2055,7 +2553,7 @@ var GatsbyGraphic = function GatsbyGraphic() {
   }));
 };
 
-var Front$c = function Front(_ref) {
+var Front$i = function Front(_ref) {
   var color = _ref.color;
   var _useTheme = useTheme(),
     colors = _useTheme.colors,
@@ -2081,7 +2579,7 @@ var Front$c = function Front(_ref) {
     fill: colors.outline
   }));
 };
-var Back$c = function Back(_ref2) {
+var Back$i = function Back(_ref2) {
   var color = _ref2.color;
   var _useTheme2 = useTheme(),
     colors = _useTheme2.colors;
@@ -2118,8 +2616,8 @@ var braStraps = false;
 
 var Dress = {
   __proto__: null,
-  Front: Front$c,
-  Back: Back$c,
+  Front: Front$i,
+  Back: Back$i,
   braStraps: braStraps
 };
 
@@ -2832,7 +3330,14 @@ var hatMap = {
     Back: Noop
   },
   beanie: Beanie,
-  turban: Turban
+  turban: Turban,
+  // headgear wave (v0.8.0) — surfaced by the fullbody editor's Headgear tab
+  cap: Cap,
+  crown: Crown,
+  wizardHat: WizardHat,
+  pirate: Pirate,
+  headphones: Headphones,
+  chef: Chef
 };
 var bodyMap = {
   chest: Chest,
@@ -3462,6 +3967,513 @@ var ButtonShirt = {
   Sleeve: Sleeve$7
 };
 
+var SW$a = HEAD_GEOMETRY.STROKE;
+// Camp-collar vacation shirt: open V collar + chunky white 5-petal flowers.
+function Flower(_ref) {
+  var cx = _ref.cx,
+    cy = _ref.cy;
+  var petals = [[0, -5.2], [4.9, -1.6], [3.1, 4.2], [-3.1, 4.2], [-4.9, -1.6]];
+  return React.createElement("g", {
+    stroke: "none"
+  }, petals.map(function (_ref2, i) {
+    var dx = _ref2[0],
+      dy = _ref2[1];
+    return React.createElement("circle", {
+      key: i,
+      cx: cx + dx,
+      cy: cy + dy,
+      r: 3.4,
+      fill: "#FFFFFF"
+    });
+  }), React.createElement("circle", {
+    cx: cx,
+    cy: cy,
+    r: 2.4,
+    fill: "#FFD24A"
+  }));
+}
+function Torso$8(_ref3) {
+  var color = _ref3.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$a,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M188 294 L200 320 L212 294 L206 291 L200 306 L194 291 Z",
+    fill: color.shade
+  }), React.createElement(Flower, {
+    cx: 168,
+    cy: 342
+  }), React.createElement(Flower, {
+    cx: 233,
+    cy: 354
+  }), React.createElement(Flower, {
+    cx: 179,
+    cy: 398
+  }), React.createElement(Flower, {
+    cx: 223,
+    cy: 418
+  }), React.createElement(Flower, {
+    cx: 205,
+    cy: 372
+  }));
+}
+function Sleeve$8(_ref4) {
+  var color = _ref4.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$a,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M129 330 Q121 338 122 360 L124 392 Q124 402 141 402 Q158 402 157 392 L156 360 Q154 338 146 332 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M124 388 L156 388 L157 392 Q158 402 141 402 Q124 402 124 392 Z",
+    fill: color.shade
+  }), React.createElement(Flower, {
+    cx: 139,
+    cy: 362
+  }));
+}
+var Hawaiian = {
+  Torso: Torso$8,
+  Sleeve: Sleeve$8
+};
+
+var SW$b = HEAD_GEOMETRY.STROKE;
+// Sports jersey: contrast raglan yokes + big white number patch reading "10".
+function Torso$9(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$b,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M152 298 Q176 284 200 292 L200 312 Q174 302 156 314 Q152 306 152 298 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M248 298 Q224 284 200 292 L200 312 Q226 302 244 314 Q248 306 248 298 Z",
+    fill: color.shade
+  }), React.createElement("rect", {
+    x: 178,
+    y: 330,
+    width: 44,
+    height: 62,
+    rx: 6,
+    fill: "#FFFFFF"
+  }), React.createElement("path", {
+    d: "M186 352 L194 342 L198 342 L198 380 L191 380 L191 352 Z",
+    fill: color.shade,
+    stroke: "none"
+  }), React.createElement("circle", {
+    cx: 209,
+    cy: 361,
+    r: 11.5,
+    fill: "none",
+    stroke: color.shade,
+    strokeWidth: 6
+  }), React.createElement("path", {
+    d: "M139 424 L261 424 L260 436 L140 436 Z",
+    fill: color.shade,
+    stroke: "none"
+  }));
+}
+function Sleeve$9(_ref2) {
+  var color = _ref2.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$b,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M129 330 Q121 338 122 360 L124 392 Q124 402 141 402 Q158 402 157 392 L156 360 Q154 338 146 332 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M123 354 L156 354 L156 366 L123 366 Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  }));
+}
+var Jersey = {
+  Torso: Torso$9,
+  Sleeve: Sleeve$9
+};
+
+var SW$c = HEAD_GEOMETRY.STROKE;
+// Formal tuxedo jacket with white shirt front and bowtie
+function Torso$a(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$c,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: TORSO_D,
+    fill: "#1F2229"
+  }), React.createElement("path", {
+    d: "M200 298 L188 350 L212 350 Z",
+    fill: "#FFFFFF"
+  }), React.createElement("path", {
+    d: "M188 292 L192 298 L200 295 L208 298 L212 292 L210 298 L200 301 L190 298 Z",
+    fill: color.shade
+  }), React.createElement("circle", {
+    cx: "200",
+    cy: "335",
+    r: "3",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M225 385 L230 385 L230 390 L225 390 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M198 310 L186 340 L196 320 Z",
+    fill: "none",
+    strokeWidth: 2
+  }), React.createElement("path", {
+    d: "M202 310 L214 340 L204 320 Z",
+    fill: "none",
+    strokeWidth: 2
+  }));
+}
+function Sleeve$a(_ref2) {
+  var color = _ref2.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$c,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 452 Q124 466 142 466 Q158 466 157 452 L155 364 Q154 338 146 332 Z",
+    fill: "#1F2229"
+  }), React.createElement("path", {
+    d: "M126 452 Q126 448 131 448 H152 Q157 448 157 452 V462 Q157 468 151 468 H132 Q126 468 126 462 Z",
+    fill: "#FFFFFF"
+  }), React.createElement("circle", {
+    cx: 141,
+    cy: 458,
+    r: 2.2,
+    fill: color.base,
+    stroke: "none"
+  }));
+}
+var Tuxedo = {
+  Torso: Torso$a,
+  Sleeve: Sleeve$a
+};
+
+var SW$d = HEAD_GEOMETRY.STROKE;
+var SUIT = '#F4F6F8';
+var PANEL = '#B9C2CC';
+// Astronaut suit: white suit, chest control panel, accent shoulder bands + belt.
+function Torso$b(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$d,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: TORSO_D,
+    fill: SUIT
+  }), React.createElement("path", {
+    d: "M150 300 Q166 290 182 292 L180 308 Q164 302 154 312 Z",
+    fill: color.base,
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M250 300 Q234 290 218 292 L220 308 Q236 302 246 312 Z",
+    fill: color.base,
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M200 306 V422",
+    fill: "none",
+    stroke: PANEL,
+    strokeWidth: 4
+  }), React.createElement("rect", {
+    x: 182,
+    y: 330,
+    width: 36,
+    height: 44,
+    rx: 5,
+    fill: PANEL
+  }), React.createElement("circle", {
+    cx: 191,
+    cy: 341,
+    r: 4,
+    fill: "#E24A4A",
+    stroke: "none"
+  }), React.createElement("circle", {
+    cx: 200,
+    cy: 341,
+    r: 4,
+    fill: "#F5A623",
+    stroke: "none"
+  }), React.createElement("circle", {
+    cx: 209,
+    cy: 341,
+    r: 4,
+    fill: "#4AA34A",
+    stroke: "none"
+  }), React.createElement("rect", {
+    x: 188,
+    y: 352,
+    width: 24,
+    height: 5,
+    rx: 2,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React.createElement("rect", {
+    x: 188,
+    y: 361,
+    width: 16,
+    height: 5,
+    rx: 2,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M138 420 L262 420 L261 436 L139 436 Z",
+    fill: color.base
+  }), React.createElement("rect", {
+    x: 193,
+    y: 422,
+    width: 14,
+    height: 12,
+    rx: 2,
+    fill: "#FFD24A"
+  }));
+}
+function Sleeve$b(_ref2) {
+  var color = _ref2.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$d,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 452 Q124 466 142 466 Q158 466 157 452 L155 364 Q154 338 146 332 Z",
+    fill: SUIT
+  }), React.createElement("path", {
+    d: "M122 344 L155 344 L155 356 L122 356 Z",
+    fill: color.base,
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M125 446 L157 446 L157 460 Q157 466 142 466 Q125 466 125 458 Z",
+    fill: color.base
+  }));
+}
+var Astronaut = {
+  Torso: Torso$b,
+  Sleeve: Sleeve$b
+};
+
+var SW$e = HEAD_GEOMETRY.STROKE;
+// Dino costume: belly oval + big triangle spikes on the torso sides and sleeves.
+function Torso$c(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$e,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M140 332 L116 322 L141 312 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M138 372 L113 362 L139 352 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M140 412 L116 402 L141 392 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M260 332 L284 322 L259 312 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M262 372 L287 362 L261 352 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M260 412 L284 402 L259 392 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React.createElement("ellipse", {
+    cx: 200,
+    cy: 382,
+    rx: 34,
+    ry: 48,
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M178 356 Q200 348 222 356",
+    fill: "none",
+    stroke: OUTLINE,
+    strokeWidth: 2
+  }));
+}
+function Sleeve$c(_ref2) {
+  var color = _ref2.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$e,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M123 368 L104 361 L124 353 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M125 410 L106 403 L126 395 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 452 Q124 466 142 466 Q158 466 157 452 L155 364 Q154 338 146 332 Z",
+    fill: color.base
+  }));
+}
+var Dino = {
+  Torso: Torso$c,
+  Sleeve: Sleeve$c
+};
+
+var SW$f = HEAD_GEOMETRY.STROKE;
+// Wizard robe: starry robe with crescent moon, trim hem, wide bell sleeves.
+function Star(_ref) {
+  var cx = _ref.cx,
+    cy = _ref.cy,
+    r = _ref.r;
+  return React.createElement("path", {
+    d: "M" + cx + " " + (cy - r) + " L" + (cx + r * 0.55) + " " + cy + " L" + cx + " " + (cy + r) + " L" + (cx - r * 0.55) + " " + cy + " Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  });
+}
+function Torso$d(_ref2) {
+  var color = _ref2.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$f,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React.createElement(Star, {
+    cx: 170,
+    cy: 332,
+    r: 11
+  }), React.createElement(Star, {
+    cx: 232,
+    cy: 372,
+    r: 12
+  }), React.createElement(Star, {
+    cx: 182,
+    cy: 392,
+    r: 9
+  }), React.createElement(Star, {
+    cx: 214,
+    cy: 412,
+    r: 8
+  }), React.createElement("path", {
+    d: "M222 316 A15 15 0 1 0 238 340 A11.5 11.5 0 1 1 222 316 Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M138 416 L262 416 L260 430 Q261 446 242 446 L158 446 Q139 446 140 430 Z",
+    fill: color.shade
+  }), React.createElement(Star, {
+    cx: 200,
+    cy: 431,
+    r: 7
+  }));
+}
+function Sleeve$d(_ref3) {
+  var color = _ref3.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$f,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M129 330 Q119 340 117 372 L112 450 Q110 468 138 468 Q161 468 158 448 L153 372 Q152 340 146 332 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M113 444 L157 444 L158 452 Q160 468 138 468 Q111 468 112 452 Z",
+    fill: color.shade
+  }), React.createElement(Star, {
+    cx: 136,
+    cy: 396,
+    r: 8
+  }));
+}
+var Wizard = {
+  Torso: Torso$d,
+  Sleeve: Sleeve$d
+};
+
+var SW$g = HEAD_GEOMETRY.STROKE;
+// Superhero suit: big lightning emblem in a white circle + belt with buckle + glove cuffs.
+function Torso$e(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$g,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React.createElement("circle", {
+    cx: 200,
+    cy: 354,
+    r: 17,
+    fill: "#FFFFFF"
+  }), React.createElement("path", {
+    d: "M205 340 L190 358 L198 358 L193 370 L211 350 L202 350 L208 340 Z",
+    fill: "#FFD24A",
+    stroke: OUTLINE,
+    strokeWidth: 1.6
+  }), React.createElement("path", {
+    d: "M138 424 L262 424 L261 440 L139 440 Z",
+    fill: color.shade
+  }), React.createElement("rect", {
+    x: 193,
+    y: 425,
+    width: 14,
+    height: 14,
+    rx: 2,
+    fill: "#FFD24A"
+  }), React.createElement("path", {
+    d: "M186 296 L200 310 L214 296",
+    fill: "none",
+    stroke: color.shade,
+    strokeWidth: 4
+  }));
+}
+function Sleeve$e(_ref2) {
+  var color = _ref2.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$g,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 452 Q124 466 142 466 Q158 466 157 452 L155 364 Q154 338 146 332 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M124 438 L156 438 L157 452 Q157 466 142 466 Q124 466 125 452 Z",
+    fill: color.shade
+  }));
+}
+var Hero = {
+  Torso: Torso$e,
+  Sleeve: Sleeve$e
+};
+
 // Registry of top variants — the same model as the library's face maps
 // (eyesMap, hairMap, …): each variant is a drop-in component set keyed by
 // string. The record is intentionally mutable: apps can register more variants
@@ -3474,13 +4486,21 @@ var topMap = {
   polo: Polo,
   hoodie: Hoodie,
   sweater: Sweater,
-  buttonShirt: ButtonShirt
+  buttonShirt: ButtonShirt,
+  // premium wave (v0.8.0): sold as catalog rows, components ship here
+  hawaiian: Hawaiian,
+  jersey: Jersey,
+  tuxedo: Tuxedo,
+  astronaut: Astronaut,
+  dino: Dino,
+  wizard: Wizard,
+  hero: Hero
 };
 function registerTop(key, set) {
   topMap[key] = set;
 }
 
-var SW$a = HEAD_GEOMETRY.STROKE;
+var SW$h = HEAD_GEOMETRY.STROKE;
 var STITCH = '#8A8F96';
 // Relaxed jeans leg (left-authored): tapered leg + side seam + front-pocket
 // stitch + rolled cuff in the lighter shade.
@@ -3488,7 +4508,7 @@ function Leg(_ref) {
   var color = _ref.color;
   return React.createElement("g", {
     stroke: OUTLINE,
-    strokeWidth: SW$a,
+    strokeWidth: SW$h,
     strokeLinejoin: "round",
     strokeLinecap: "round"
   }, React.createElement("path", {
@@ -3518,14 +4538,14 @@ var Jeans = {
   Leg: Leg
 };
 
-var SW$b = HEAD_GEOMETRY.STROKE;
+var SW$i = HEAD_GEOMETRY.STROKE;
 var STITCH$1 = '#8A8F96';
 // Relaxed shorts to mid-thigh (left-authored).
 function Leg$1(_ref) {
   var color = _ref.color;
   return React.createElement("g", {
     stroke: OUTLINE,
-    strokeWidth: SW$b,
+    strokeWidth: SW$i,
     strokeLinejoin: "round",
     strokeLinecap: "round"
   }, React.createElement("path", {
@@ -3542,23 +4562,286 @@ var Shorts = {
   Leg: Leg$1
 };
 
+var SW$j = HEAD_GEOMETRY.STROKE;
+// Cargo pants: big flap pocket on the thigh + rolled cuff.
+function Leg$2(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$j,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: color.base
+  }), React.createElement("rect", {
+    x: 146,
+    y: 474,
+    width: 26,
+    height: 34,
+    rx: 3,
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M145 474 L173 474 L172 486 L146 486 Z",
+    fill: color.shade
+  }), React.createElement("circle", {
+    cx: 159,
+    cy: 492,
+    r: 2.4,
+    fill: color.shade,
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M142 552 Q142 548 147 548 H189 Q194 548 194 552 V576 Q194 584 186 584 H150 Q142 584 142 576 Z",
+    fill: color.shade
+  }));
+}
+var Cargo = {
+  Leg: Leg$2
+};
+
+var SW$k = HEAD_GEOMETRY.STROKE;
+// Track pants: fat double white side stripe + elastic cuff.
+function Leg$3(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$k,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M146 432 L151 554 L158 554 L153 432 Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M158 432 L163 554 L169 554 L164 432 Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M144 550 Q144 546 149 546 H188 Q193 546 193 550 V572 Q193 580 185 580 H152 Q144 580 144 572 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M150 554 V574 M160 555 V576 M170 555 V576 M180 554 V574",
+    fill: "none",
+    strokeWidth: 2
+  }));
+}
+var Track = {
+  Leg: Leg$3
+};
+
+var SW$l = HEAD_GEOMETRY.STROKE;
+// Camouflage pants: khaki base with irregular green blob pattern.
+function Leg$4(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$l,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: "#6B7A4F"
+  }), React.createElement("path", {
+    d: "M148 450 Q152 448 156 452 Q154 458 150 456 Z",
+    fill: "#4A5638"
+  }), React.createElement("path", {
+    d: "M170 475 Q175 472 179 478 Q176 485 171 482 Z",
+    fill: "#8A9A6A"
+  }), React.createElement("path", {
+    d: "M145 510 Q150 507 154 513 Q150 520 145 517 Z",
+    fill: "#4A5638"
+  }), React.createElement("path", {
+    d: "M178 530 Q183 528 187 534 Q184 541 179 538 Z",
+    fill: "#8A9A6A"
+  }), React.createElement("path", {
+    d: "M158 555 Q162 552 166 558 Q163 564 159 561 Z",
+    fill: "#4A5638"
+  }), React.createElement("path", {
+    d: "M142 552 Q142 548 147 548 H189 Q194 548 194 552 V576 Q194 584 186 584 H150 Q142 584 142 576 Z",
+    fill: color.shade
+  }));
+}
+var Camo = {
+  Leg: Leg$4
+};
+
+var SW$m = HEAD_GEOMETRY.STROKE;
+// Ripped jeans: wide white knee gashes with thread ticks + rolled cuff.
+function Leg$5(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$m,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M148 476 L189 473 L187 484 L150 487 Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M150 506 L187 503 L185 514 L152 517 Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M153 536 L185 533 L184 542 L155 545 Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M156 476 V487 M168 475 V486 M180 474 V485 M160 506 V516 M174 505 V515",
+    fill: "none",
+    stroke: "#FFFFFF",
+    strokeWidth: 1.6
+  }), React.createElement("path", {
+    d: "M142 552 Q142 548 147 548 H189 Q194 548 194 552 V574 Q194 582 186 582 H150 Q142 582 142 574 Z",
+    fill: color.shade
+  }));
+}
+var Ripped = {
+  Leg: Leg$5
+};
+
+var SW$n = HEAD_GEOMETRY.STROKE;
+// Joggers: baggy balloon leg gathered into a tall cuff + white drawstrings.
+function Leg$6(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$n,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M138 430 L139 500 Q139 540 152 547 L184 547 Q196 540 196 500 L197 430 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M150 452 Q158 468 172 472",
+    fill: "none",
+    strokeWidth: 2.4
+  }), React.createElement("path", {
+    d: "M162 434 L159 452 M172 434 L175 452",
+    fill: "none",
+    stroke: "#FFFFFF",
+    strokeWidth: 2.6
+  }), React.createElement("path", {
+    d: "M150 547 H185 Q193 548 193 558 V574 Q193 582 185 582 H152 Q144 582 144 574 V558 Q144 548 150 547 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M152 552 V578 M168 552 V580 M184 552 V578",
+    fill: "none",
+    strokeWidth: 2
+  }));
+}
+var Joggers = {
+  Leg: Leg$6
+};
+
+var SW$o = HEAD_GEOMETRY.STROKE;
+// Knight leg armor: metal leg with knee plate and rivets.
+function Leg$7(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$o,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: "#AEB6C2"
+  }), React.createElement("circle", {
+    cx: "168",
+    cy: "500",
+    r: "11",
+    fill: "#8F98A6"
+  }), React.createElement("circle", {
+    cx: "162",
+    cy: "497",
+    r: "2",
+    fill: "#6E7684"
+  }), React.createElement("circle", {
+    cx: "174",
+    cy: "497",
+    r: "2",
+    fill: "#6E7684"
+  }), React.createElement("circle", {
+    cx: "168",
+    cy: "506",
+    r: "2",
+    fill: "#6E7684"
+  }), React.createElement("path", {
+    d: "M142 552 Q142 548 147 548 H189 Q194 548 194 552 V576 Q194 584 186 584 H150 Q142 584 142 576 Z",
+    fill: color.shade
+  }));
+}
+var Armor = {
+  Leg: Leg$7
+};
+
+var SW$p = HEAD_GEOMETRY.STROKE;
+// Rainbow leggings: slim leg with five stacked color bands.
+function Leg$8(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$p,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: "#FFFFFF"
+  }), React.createElement("path", {
+    d: "M140 430 L145 457 L194 457 L194 430 Z",
+    fill: "#E24A4A"
+  }), React.createElement("path", {
+    d: "M140 457 L145 484 L194 484 L194 457 Z",
+    fill: "#F5A623"
+  }), React.createElement("path", {
+    d: "M140 484 L145 511 L194 511 L194 484 Z",
+    fill: "#F8E71C"
+  }), React.createElement("path", {
+    d: "M140 511 L145 538 L194 538 L194 511 Z",
+    fill: "#4AA34A"
+  }), React.createElement("path", {
+    d: "M140 538 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 538 Z",
+    fill: "#4A6FE2"
+  }), React.createElement("path", {
+    d: "M142 552 Q142 548 147 548 H189 Q194 548 194 552 V576 Q194 584 186 584 H150 Q142 584 142 576 Z",
+    fill: color.shade
+  }));
+}
+var Rainbow = {
+  Leg: Leg$8
+};
+
 // Registry of bottoms variants — same drop-in model as topMap / the face maps.
 var bottomsMap = {
   jeans: Jeans,
-  shorts: Shorts
+  shorts: Shorts,
+  // premium wave (v0.8.0)
+  cargo: Cargo,
+  track: Track,
+  camo: Camo,
+  ripped: Ripped,
+  joggers: Joggers,
+  armor: Armor,
+  rainbow: Rainbow
 };
 function registerBottoms(key, set) {
   bottomsMap[key] = set;
 }
 
-var SW$c = HEAD_GEOMETRY.STROKE;
+var SW$q = HEAD_GEOMETRY.STROKE;
 // Converse-style low-top (left-authored): white sole + toe cap, canvas upper,
 // foxing stripe, criss-cross laces + eyelets.
 function Shoe(_ref) {
   var color = _ref.color;
   return React.createElement("g", {
     stroke: OUTLINE,
-    strokeWidth: SW$c,
+    strokeWidth: SW$q,
     strokeLinejoin: "round",
     strokeLinecap: "round"
   }, React.createElement("path", {
@@ -3611,14 +4894,14 @@ var Sneakers = {
   Shoe: Shoe
 };
 
-var SW$d = HEAD_GEOMETRY.STROKE;
+var SW$r = HEAD_GEOMETRY.STROKE;
 // Mid-calf boot (left-authored): tall shaft, folded top cuff, heel block +
 // white-free sole (unlike sneakers). Jeans cuffs paint over the shaft top.
 function Shoe$1(_ref) {
   var color = _ref.color;
   return React.createElement("g", {
     stroke: OUTLINE,
-    strokeWidth: SW$d,
+    strokeWidth: SW$r,
     strokeLinejoin: "round",
     strokeLinecap: "round"
   }, React.createElement("path", {
@@ -3645,10 +4928,360 @@ var Boots = {
   Shoe: Shoe$1
 };
 
+var SW$s = HEAD_GEOMETRY.STROKE;
+// High-top sneakers: ankle collar above the shoe line, big laces, white sole + toe cap.
+function Shoe$2(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$s,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M110 610 Q106 624 122 626 L186 626 Q194 626 194 616 V610 Q150 620 118 606 Q110 606 110 610 Z",
+    fill: "#FFFFFF"
+  }), React.createElement("path", {
+    d: "M150 546 Q150 540 160 540 L184 540 Q191 541 191 550 L190 596 Q150 610 120 600 Q112 596 116 586 Q126 564 144 553 Q147 548 150 546 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M150 546 Q150 540 160 540 L184 540 Q191 541 191 550 L191 558 Q170 552 151 556 Z",
+    fill: color.shade
+  }), React.createElement("path", {
+    d: "M110 608 Q107 591 124 586 Q139 582 146 596 Q150 608 138 612 Q122 615 113 612 Q110 610 110 608 Z",
+    fill: "#FFFFFF"
+  }), React.createElement("path", {
+    d: "M122 604 Q150 613 188 603",
+    fill: "none",
+    stroke: color.shade,
+    strokeWidth: 2.5
+  }), React.createElement("path", {
+    d: "M154 562 L182 570 M154 570 L182 562 M155 578 L181 586 M155 586 L181 578",
+    fill: "none",
+    stroke: "#FFFFFF",
+    strokeWidth: 2.6
+  }), React.createElement("circle", {
+    cx: 153,
+    cy: 565,
+    r: 1.7,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React.createElement("circle", {
+    cx: 153,
+    cy: 581,
+    r: 1.7,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React.createElement("circle", {
+    cx: 183,
+    cy: 565,
+    r: 1.7,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React.createElement("circle", {
+    cx: 183,
+    cy: 581,
+    r: 1.7,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }));
+}
+var HighTops = {
+  Shoe: Shoe$2
+};
+
+var SW$t = HEAD_GEOMETRY.STROKE;
+var CORK = '#B9855C';
+// Sandals: cork sole + two fat colored straps over the open foot.
+function Shoe$3(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$t,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M110 608 Q104 622 120 626 L188 626 Q196 625 195 614 Q150 622 116 606 Q110 605 110 608 Z",
+    fill: CORK
+  }), React.createElement("path", {
+    d: "M128 588 Q150 600 182 596 L184 612 Q148 616 122 602 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M170 582 L188 582 L189 612 L172 612 Z",
+    fill: color.base
+  }), React.createElement("circle", {
+    cx: 180,
+    cy: 590,
+    r: 2.2,
+    fill: color.shade,
+    stroke: "none"
+  }));
+}
+var Sandals = {
+  Shoe: Shoe$3
+};
+
+var SW$u = HEAD_GEOMETRY.STROKE;
+var BLACK = '#26282E';
+// Soccer cleats: colored upper + white swoosh + black sole with studs poking below.
+function Shoe$4(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$u,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M126 622 L136 622 L134 632 L128 632 Z",
+    fill: BLACK
+  }), React.createElement("path", {
+    d: "M149 622 L159 622 L157 632 L151 632 Z",
+    fill: BLACK
+  }), React.createElement("path", {
+    d: "M172 622 L182 622 L180 632 L174 632 Z",
+    fill: BLACK
+  }), React.createElement("path", {
+    d: "M110 608 Q106 620 122 623 L186 623 Q194 623 194 613 V607 Q150 617 118 604 Q110 604 110 608 Z",
+    fill: BLACK
+  }), React.createElement("path", {
+    d: "M120 604 Q120 582 144 579 L180 579 Q190 580 190 594 L190 606 Q150 616 120 604 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M126 598 Q148 606 176 594 Q152 610 130 604 Z",
+    fill: "#FFFFFF",
+    strokeWidth: 1.5
+  }), React.createElement("path", {
+    d: "M148 584 L172 584 M147 590 L171 590",
+    fill: "none",
+    stroke: color.shade,
+    strokeWidth: 2.4
+  }));
+}
+var Cleats = {
+  Shoe: Shoe$4
+};
+
+var SW$v = HEAD_GEOMETRY.STROKE;
+// Roller skates: color boot y ~575, white toe cap, platform sole, two yellow wheels with hub.
+function Shoe$5(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$v,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M122 575 Q120 585 120 600 L190 600 Q192 585 192 575 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M125 595 Q125 588 135 586 L175 586 Q185 588 185 595 Z",
+    fill: "#FFFFFF"
+  }), React.createElement("path", {
+    d: "M114 608 Q106 622 122 626 L186 626 Q194 626 194 612 V608 Z",
+    fill: color.base
+  }), React.createElement("circle", {
+    cx: "135",
+    cy: "618",
+    r: "7",
+    fill: "#FFD24A"
+  }), React.createElement("circle", {
+    cx: "135",
+    cy: "618",
+    r: "3",
+    fill: "#9C7A24"
+  }), React.createElement("circle", {
+    cx: "170",
+    cy: "618",
+    r: "7",
+    fill: "#FFD24A"
+  }), React.createElement("circle", {
+    cx: "170",
+    cy: "618",
+    r: "3",
+    fill: "#9C7A24"
+  }), React.createElement("path", {
+    d: "M115 595 L118 600",
+    fill: "none",
+    stroke: color.shade,
+    strokeWidth: 2,
+    strokeLinecap: "round"
+  }));
+}
+var Skates = {
+  Shoe: Shoe$5
+};
+
+var SW$w = HEAD_GEOMETRY.STROKE;
+var METAL = '#AEB6C2';
+var DARK = '#6E7684';
+// Rocket boots: metal boot + heel fin + flame burst below the sole.
+function Shoe$6(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$w,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M128 620 L136 648 L144 620 Z",
+    fill: "#F5A623",
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M146 620 L156 656 L166 620 Z",
+    fill: "#F5A623",
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M168 620 L175 644 L182 620 Z",
+    fill: "#F5A623",
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M150 620 L156 642 L162 620 Z",
+    fill: "#E24A4A",
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M188 582 L203 574 L199 600 L189 598 Z",
+    fill: color.base
+  }), React.createElement("path", {
+    d: "M120 604 Q120 578 146 576 L182 576 Q192 578 192 594 L192 608 Q150 618 120 604 Z",
+    fill: METAL
+  }), React.createElement("path", {
+    d: "M112 608 Q108 618 122 621 L186 621 Q193 621 193 611 Q150 619 118 604 Q113 604 112 608 Z",
+    fill: DARK
+  }), React.createElement("path", {
+    d: "M124 592 L188 588",
+    fill: "none",
+    stroke: color.base,
+    strokeWidth: 3
+  }), React.createElement("circle", {
+    cx: 132,
+    cy: 584,
+    r: 2,
+    fill: DARK,
+    stroke: "none"
+  }), React.createElement("circle", {
+    cx: 172,
+    cy: 581,
+    r: 2,
+    fill: DARK,
+    stroke: "none"
+  }));
+}
+var RocketBoots = {
+  Shoe: Shoe$6
+};
+
+var SW$x = HEAD_GEOMETRY.STROKE;
+// Moon boots: puffy white chunky boot with segment lines, thick gray sole, color strap band.
+function Shoe$7(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$x,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("path", {
+    d: "M118 585 Q115 580 135 579 L175 579 Q190 580 192 595 L192 608 Q150 616 118 585 Z",
+    fill: "#F4F6F8"
+  }), React.createElement("path", {
+    d: "M125 595 L180 595 M128 603 L178 603",
+    fill: "none",
+    stroke: "#D0D0D0",
+    strokeWidth: 2
+  }), React.createElement("path", {
+    d: "M114 610 Q106 624 122 626 L186 626 Q194 626 194 614 V610 Z",
+    fill: "#B9C2CC"
+  }), React.createElement("path", {
+    d: "M120 608 Q160 614 188 608",
+    fill: "none",
+    stroke: color.base,
+    strokeWidth: 4,
+    strokeLinecap: "round"
+  }));
+}
+var MoonBoots = {
+  Shoe: Shoe$7
+};
+
+var SW$y = HEAD_GEOMETRY.STROKE;
+// Bunny slippers: white fluffy slipper, two upright ears y ~550-580, pink inner ear, face details.
+function Shoe$8(_ref) {
+  var color = _ref.color;
+  return React.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$y,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React.createElement("ellipse", {
+    cx: "138",
+    cy: "562",
+    rx: "9",
+    ry: "26",
+    fill: "#FFFFFF"
+  }), React.createElement("ellipse", {
+    cx: "138",
+    cy: "564",
+    rx: "4.5",
+    ry: "18",
+    fill: "#F2A7C3",
+    stroke: "none"
+  }), React.createElement("ellipse", {
+    cx: "164",
+    cy: "562",
+    rx: "9",
+    ry: "26",
+    fill: "#FFFFFF"
+  }), React.createElement("ellipse", {
+    cx: "164",
+    cy: "564",
+    rx: "4.5",
+    ry: "18",
+    fill: "#F2A7C3",
+    stroke: "none"
+  }), React.createElement("path", {
+    d: "M116 596 Q112 606 118 614 L186 614 Q192 606 189 596 Q150 586 116 596 Z",
+    fill: "#FFFFFF"
+  }), React.createElement("path", {
+    d: "M112 610 Q105 624 122 626 L186 626 Q195 626 194 614 Q150 622 116 608 Q112 607 112 610 Z",
+    fill: "#FFFFFF"
+  }), React.createElement("path", {
+    d: "M180 598 Q188 602 190 612 L195 612 Q194 599 187 594 Z",
+    fill: color.base
+  }), React.createElement("circle", {
+    cx: "132",
+    cy: "604",
+    r: "2.6",
+    fill: "#000000",
+    stroke: "none"
+  }), React.createElement("circle", {
+    cx: "146",
+    cy: "604",
+    r: "2.6",
+    fill: "#000000",
+    stroke: "none"
+  }), React.createElement("ellipse", {
+    cx: "139",
+    cy: "611",
+    rx: "3.4",
+    ry: "2.6",
+    fill: "#F2A7C3",
+    stroke: "none"
+  }));
+}
+var BunnySlippers = {
+  Shoe: Shoe$8
+};
+
 // Registry of shoe variants — same drop-in model as topMap / the face maps.
 var shoeMap = {
   sneakers: Sneakers,
-  boots: Boots
+  boots: Boots,
+  // premium wave (v0.8.0)
+  highTops: HighTops,
+  sandals: Sandals,
+  cleats: Cleats,
+  skates: Skates,
+  rocketBoots: RocketBoots,
+  moonBoots: MoonBoots,
+  bunnySlippers: BunnySlippers
 };
 function registerShoe(key, set) {
   shoeMap[key] = set;
@@ -3661,7 +5294,7 @@ function registerShoe(key, set) {
 // Apps register database-driven decals at boot: inline SVG via registerGraphic,
 // hosted images (PNG/SVG url) via registerGraphic(key, imageGraphic(url)).
 // Built-in sample decal — proves the slot end-to-end and gives the sandbox a swatch.
-function Star(_ref) {
+function Star$1(_ref) {
   var color = _ref.color;
   return React.createElement("path", {
     d: "M50 6 L61 38 L95 38 L67 58 L78 92 L50 71 L22 92 L33 58 L5 38 L39 38 Z",
@@ -3670,7 +5303,7 @@ function Star(_ref) {
   });
 }
 var graphicMap = {
-  star: Star
+  star: Star$1
 };
 function registerGraphic(key, graphic) {
   graphicMap[key] = graphic;

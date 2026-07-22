@@ -179,4 +179,31 @@ describe('FullBeanHead', () => {
     const html = renderToStaticMarkup(<FullBeanHead skinTone="brown" pose={ANIMATIONS.dbBounce[0]} />)
     expect(html).toContain('<svg')
   })
+
+  it('renders every premium-wave variant without crashing (v0.8.0)', () => {
+    const tops = ['hawaiian', 'jersey', 'tuxedo', 'astronaut', 'dino', 'wizard', 'hero']
+    const bottoms = ['cargo', 'track', 'camo', 'ripped', 'joggers', 'armor', 'rainbow']
+    const shoes = ['highTops', 'sandals', 'cleats', 'skates', 'rocketBoots', 'moonBoots', 'bunnySlippers']
+    for (const clothing of tops) {
+      const html = renderToStaticMarkup(<FullBeanHead skinTone="brown" clothingColor="red" clothing={clothing} />)
+      expect(html).toContain('<svg')
+      expect(html.length).toBeGreaterThan(2000)
+    }
+    for (const b of bottoms) {
+      expect(renderToStaticMarkup(<FullBeanHead skinTone="brown" bottoms={b} bottomsColor="denim" />)).toContain('<svg')
+    }
+    for (const s of shoes) {
+      expect(renderToStaticMarkup(<FullBeanHead skinTone="brown" shoes={s} shoeColor="red" />)).toContain('<svg')
+    }
+  })
+
+  it('renders every headgear variant through the hat prop (v0.8.0)', () => {
+    const hats = ['beanie', 'turban', 'cap', 'crown', 'wizardHat', 'pirate', 'headphones', 'chef']
+    for (const hat of hats) {
+      const html = renderToStaticMarkup(
+        <FullBeanHead skinTone="brown" hat={hat as never} hatColor="blue" />
+      )
+      expect(html).toContain('<svg')
+    }
+  })
 })
