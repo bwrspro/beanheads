@@ -128,6 +128,23 @@ describe('FullBeanHead', () => {
     expect(striped).toContain('fill="url(#bh-pat-stripes-')
   })
 
+  it('same-config instances get distinct pattern + decal ids (a display:none twin must not hijack url(#))', () => {
+    const html = renderToStaticMarkup(
+      <div>
+        <FullBeanHead skinTone="brown" clothingColor="red" topPattern="stripes" topGraphic="star" />
+        <FullBeanHead skinTone="brown" clothingColor="red" topPattern="stripes" topGraphic="star" />
+      </div>
+    )
+    const patternIds = (html.match(/<pattern id="[^"]+"/g) ?? []).filter((v, i, a) => a.indexOf(v) === i)
+    const clipIds = (html.match(/<clipPath id="bh-torso-decal-clip[^"]*"/g) ?? []).filter((v, i, a) => a.indexOf(v) === i)
+    expect(patternIds.length).toBe(2)
+    expect(clipIds.length).toBe(2)
+    // each instance references its own def
+    patternIds.forEach((id) => {
+      expect(html).toContain(`fill="url(#${id.slice('<pattern id="'.length, -1)})"`)
+    })
+  })
+
   it('unknown pattern keys fall back to flat color (DB rows may outlive art)', () => {
     const html = renderToStaticMarkup(<FullBeanHead skinTone="brown" topPattern="ghost" bottomsPattern="ghost" />)
     expect(html).toContain('<svg')

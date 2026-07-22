@@ -3767,10 +3767,22 @@ function shoeHex(key) {
 
 var _excluded$3 = ["clothing", "topGraphic", "topPattern", "bottomsPattern", "bottoms", "bottomsColor", "shoes", "shoeColor", "showCircle", "pose"];
 var MIRROR = 'translate(400 0) scale(-1 1)';
-// Deterministic per (pattern, color): same-config avatars on one page emit
-// identical defs, so id collisions are benign (same contract as the decal clip).
-function patternFillId(key, color) {
-  return "bh-pat-" + key + "-" + color.base.replace(/[^0-9a-zA-Z]/g, '');
+// Unique per-instance id suffix (same trick as AvatarHead's useClipId; React
+// >=16, no useId). Ids MUST differ between instances: url(#) resolves to the
+// document-first element with that id, and Chromium refuses to paint a
+// <pattern>/<clipPath> referenced from inside a display:none subtree — so a
+// hidden same-config twin (e.g. a responsive duplicate of an editor preview)
+// silently kills the fabric fill of every visible avatar sharing its ids.
+var instanceCounter = 0;
+function useInstanceId() {
+  var _useState = React.useState(function () {
+      return "i" + (instanceCounter += 1);
+    }),
+    id = _useState[0];
+  return id;
+}
+function patternFillId(key, color, uid) {
+  return "bh-pat-" + key + "-" + color.base.replace(/[^0-9a-zA-Z]/g, '') + "-" + uid;
 }
 // One repeating fabric tile: motif drawn in the pair's shade over a base-
 // colored ground. userSpaceOnUse keeps the tile continuous across torso and
@@ -3824,6 +3836,7 @@ function FullBeanHead(_ref2) {
     pose = _ref2.pose,
     head = _objectWithoutPropertiesLoose(_ref2, _excluded$3);
   var viewBox = HEAD_GEOMETRY.viewBox;
+  var uid = useInstanceId();
   var sk = skinPair((_head$skinTone = head.skinTone) !== null && _head$skinTone !== void 0 ? _head$skinTone : 'light');
   var cl = clothingPair((_head$clothingColor = head.clothingColor) !== null && _head$clothingColor !== void 0 ? _head$clothingColor : 'white');
   var bc = bottomsHex(bottomsColor);
@@ -3840,8 +3853,9 @@ function FullBeanHead(_ref2) {
   // hexes, not paint-server references.
   var topPat = topPattern ? patternMap[topPattern] : undefined;
   var bottomsPat = bottomsPattern ? patternMap[bottomsPattern] : undefined;
-  var topPatId = topPat ? patternFillId(topPattern, cl) : undefined;
-  var bottomsPatId = bottomsPat ? patternFillId(bottomsPattern, bc) : undefined;
+  var topPatId = topPat ? patternFillId(topPattern, cl, uid) : undefined;
+  var bottomsPatId = bottomsPat ? patternFillId(bottomsPattern, bc, uid) : undefined;
+  var decalClipId = "bh-torso-decal-clip-" + uid;
   var clFill = topPatId ? {
     base: "url(#" + topPatId + ")",
     shade: cl.shade
@@ -3917,11 +3931,11 @@ function FullBeanHead(_ref2) {
   }))), React__default.createElement(Top.Torso, {
     color: clFill
   }), Graphic && React__default.createElement(React__default.Fragment, null, React__default.createElement("clipPath", {
-    id: "bh-torso-decal-clip"
+    id: decalClipId
   }, React__default.createElement("path", {
     d: TORSO_D
   })), React__default.createElement("g", {
-    clipPath: "url(#bh-torso-decal-clip)"
+    clipPath: "url(#" + decalClipId + ")"
   }, React__default.createElement("g", {
     transform: "translate(" + DECAL_BOX.x + " " + DECAL_BOX.y + ") scale(" + DECAL_BOX.w / 100 + " " + DECAL_BOX.h / 100 + ")"
   }, React__default.createElement(Graphic, {

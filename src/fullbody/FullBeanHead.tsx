@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AvatarProps } from '../components/Avatar'
 import { Pose } from './anim/pose'
 import { HEAD_GEOMETRY, DECAL_BOX } from './geometry'
@@ -18,10 +18,20 @@ import { ColorPair } from './types'
 
 const MIRROR = 'translate(400 0) scale(-1 1)'
 
-// Deterministic per (pattern, color): same-config avatars on one page emit
-// identical defs, so id collisions are benign (same contract as the decal clip).
-function patternFillId(key: string, color: ColorPair): string {
-  return `bh-pat-${key}-${color.base.replace(/[^0-9a-zA-Z]/g, '')}`
+// Unique per-instance id suffix (same trick as AvatarHead's useClipId; React
+// >=16, no useId). Ids MUST differ between instances: url(#) resolves to the
+// document-first element with that id, and Chromium refuses to paint a
+// <pattern>/<clipPath> referenced from inside a display:none subtree — so a
+// hidden same-config twin (e.g. a responsive duplicate of an editor preview)
+// silently kills the fabric fill of every visible avatar sharing its ids.
+let instanceCounter = 0
+function useInstanceId() {
+  const [id] = useState(() => `i${(instanceCounter += 1)}`)
+  return id
+}
+
+function patternFillId(key: string, color: ColorPair, uid: string): string {
+  return `bh-pat-${key}-${color.base.replace(/[^0-9a-zA-Z]/g, '')}-${uid}`
 }
 
 // One repeating fabric tile: motif drawn in the pair's shade over a base-
@@ -84,6 +94,7 @@ export function FullBeanHead({
   ...head
 }: FullBeanHeadProps) {
   const { viewBox } = HEAD_GEOMETRY
+  const uid = useInstanceId()
   const sk = skinPair((head.skinTone as string) ?? 'light')
   const cl = clothingPair((head.clothingColor as string) ?? 'white')
   const bc = bottomsHex(bottomsColor)
@@ -100,8 +111,9 @@ export function FullBeanHead({
   // hexes, not paint-server references.
   const topPat = topPattern ? patternMap[topPattern] : undefined
   const bottomsPat = bottomsPattern ? patternMap[bottomsPattern] : undefined
-  const topPatId = topPat ? patternFillId(topPattern as string, cl) : undefined
-  const bottomsPatId = bottomsPat ? patternFillId(bottomsPattern as string, bc) : undefined
+  const topPatId = topPat ? patternFillId(topPattern as string, cl, uid) : undefined
+  const bottomsPatId = bottomsPat ? patternFillId(bottomsPattern as string, bc, uid) : undefined
+  const decalClipId = `bh-torso-decal-clip-${uid}`
   const clFill: ColorPair = topPatId ? { base: `url(#${topPatId})`, shade: cl.shade } : cl
   const bcFill: ColorPair = bottomsPatId ? { base: `url(#${bottomsPatId})`, shade: bc.shade } : bc
   const bob = pose?.bob ?? 0
@@ -163,14 +175,13 @@ export function FullBeanHead({
         <Top.Torso color={clFill} />
         {/* torso decal — 100x100-authored art scaled into the chest box and
             clipped to the torso silhouette; renders under the arms, so edge
-            overlap tucks behind them. (Same-id clipPaths across multiple
-            avatars on a page are identical, so collisions are benign.) */}
+            overlap tucks behind them. */}
         {Graphic && (
           <>
-            <clipPath id="bh-torso-decal-clip">
+            <clipPath id={decalClipId}>
               <path d={TORSO_D} />
             </clipPath>
-            <g clipPath="url(#bh-torso-decal-clip)">
+            <g clipPath={`url(#${decalClipId})`}>
               <g transform={`translate(${DECAL_BOX.x} ${DECAL_BOX.y}) scale(${DECAL_BOX.w / 100} ${DECAL_BOX.h / 100})`}>
                 <Graphic color={cl} />
               </g>
