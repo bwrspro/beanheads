@@ -180,10 +180,10 @@ describe('FullBeanHead', () => {
     expect(html).toContain('<svg')
   })
 
-  it('renders every premium-wave variant without crashing (v0.8.0)', () => {
-    const tops = ['hawaiian', 'jersey', 'tuxedo', 'astronaut', 'dino', 'wizard', 'hero']
-    const bottoms = ['cargo', 'track', 'camo', 'ripped', 'joggers', 'armor', 'rainbow']
-    const shoes = ['highTops', 'sandals', 'cleats', 'skates', 'rocketBoots', 'moonBoots', 'bunnySlippers']
+  it('renders every premium-wave variant without crashing (v0.8.0 + v0.9.0)', () => {
+    const tops = ['hawaiian', 'jersey', 'tuxedo', 'astronaut', 'dino', 'wizard', 'hero', 'robot', 'pumpkin']
+    const bottoms = ['cargo', 'track', 'camo', 'ripped', 'joggers', 'armor', 'rainbow', 'mermaid']
+    const shoes = ['highTops', 'sandals', 'cleats', 'skates', 'rocketBoots', 'moonBoots', 'bunnySlippers', 'monsterClaws', 'duckFeet']
     for (const clothing of tops) {
       const html = renderToStaticMarkup(<FullBeanHead skinTone="brown" clothingColor="red" clothing={clothing} />)
       expect(html).toContain('<svg')
@@ -195,6 +195,20 @@ describe('FullBeanHead', () => {
     for (const s of shoes) {
       expect(renderToStaticMarkup(<FullBeanHead skinTone="brown" shoes={s} shoeColor="red" />)).toContain('<svg')
     }
+  })
+
+  it('supports independent pattern motif colors (topPatternColor / bottomsPatternColor)', () => {
+    const dflt = renderToStaticMarkup(
+      <FullBeanHead skinTone="light" clothingColor="red" topPattern="stripes" />
+    )
+    const custom = renderToStaticMarkup(
+      <FullBeanHead skinTone="light" clothingColor="red" topPattern="stripes" topPatternColor="white" bottomsPattern="stripes" bottomsPatternColor="black" />
+    )
+    // motif override lands in the tile fill and keys the pattern id
+    expect(custom).toContain('fill="#FFFFFF"')
+    expect((custom.match(/<pattern /g) ?? []).length).toBe(2)
+    const idOf = (html: string) => html.match(/bh-pat-stripes-[0-9a-zA-Z]+/)?.[0].replace(/-i\d+$/, '')
+    expect(idOf(custom)).not.toBe(idOf(dflt))
   })
 
   it('renders every headgear variant through the hat prop (v0.8.0)', () => {

@@ -8,6 +8,8 @@ import { Skates } from './Skates'
 import { RocketBoots } from './RocketBoots'
 import { MoonBoots } from './MoonBoots'
 import { BunnySlippers } from './BunnySlippers'
+import { MonsterClaws } from './MonsterClaws'
+import { DuckFeet } from './DuckFeet'
 
 // Registry of shoe variants — same drop-in model as topMap / the face maps.
 export const shoeMap: Record<string, ShoeSet> = {
@@ -21,6 +23,9 @@ export const shoeMap: Record<string, ShoeSet> = {
   rocketBoots: RocketBoots,
   moonBoots: MoonBoots,
   bunnySlippers: BunnySlippers,
+  // silhouette wave (v0.9.0)
+  monsterClaws: MonsterClaws,
+  duckFeet: DuckFeet,
 }
 
 export function registerShoe(key: string, set: ShoeSet): void {

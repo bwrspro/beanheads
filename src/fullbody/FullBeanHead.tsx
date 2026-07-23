@@ -30,18 +30,21 @@ function useInstanceId() {
   return id
 }
 
-function patternFillId(key: string, color: ColorPair, uid: string): string {
-  return `bh-pat-${key}-${color.base.replace(/[^0-9a-zA-Z]/g, '')}-${uid}`
+function patternFillId(key: string, ground: string, motif: string, uid: string): string {
+  const hex = (value: string) => value.replace(/[^0-9a-zA-Z]/g, '')
+  return `bh-pat-${key}-${hex(ground)}${hex(motif)}-${uid}`
 }
 
-// One repeating fabric tile: motif drawn in the pair's shade over a base-
-// colored ground. userSpaceOnUse keeps the tile continuous across torso and
-// sleeves, and lets the fill rotate with a posed limb like real fabric.
-function PatternTile({ id, def, color }: { id: string; def: PatternDef; color: ColorPair }) {
+// One repeating fabric tile: motif drawn over a garment-colored ground. The
+// motif color defaults to the garment's shade but can be chosen independently
+// (topPatternColor / bottomsPatternColor) for contrast combos. userSpaceOnUse
+// keeps the tile continuous across torso and sleeves, and lets the fill rotate
+// with a posed limb like real fabric.
+function PatternTile({ id, def, ground, motif }: { id: string; def: PatternDef; ground: string; motif: string }) {
   return (
     <pattern id={id} patternUnits="userSpaceOnUse" width={def.w} height={def.h}>
-      <rect width={def.w} height={def.h} fill={color.base} />
-      <path d={def.d} fill={color.shade} />
+      <rect width={def.w} height={def.h} fill={ground} />
+      <path d={def.d} fill={motif} />
     </pattern>
   )
 }
@@ -55,6 +58,10 @@ export interface FullBeanHeadProps extends Omit<AvatarProps, 'clothing'> {
   topPattern?: string
   /** fabric pattern for the bottoms — key into patternMap; unknown/absent = flat color */
   bottomsPattern?: string
+  /** motif color for the top pattern — clothing-color key; absent = the top's shade */
+  topPatternColor?: string
+  /** motif color for the bottoms pattern — clothing-color key; absent = the bottoms' shade */
+  bottomsPatternColor?: string
   /** bottoms variant — key into bottomsMap ('jeans' | 'shorts' | registered) */
   bottoms?: string
   /** trouser color — key into BOTTOMS_COLORS (registered keys included) */
@@ -85,6 +92,8 @@ export function FullBeanHead({
   topGraphic,
   topPattern,
   bottomsPattern,
+  topPatternColor,
+  bottomsPatternColor,
   bottoms = 'jeans',
   bottomsColor = 'denim',
   shoes = 'sneakers',
@@ -111,8 +120,10 @@ export function FullBeanHead({
   // hexes, not paint-server references.
   const topPat = topPattern ? patternMap[topPattern] : undefined
   const bottomsPat = bottomsPattern ? patternMap[bottomsPattern] : undefined
-  const topPatId = topPat ? patternFillId(topPattern as string, cl, uid) : undefined
-  const bottomsPatId = bottomsPat ? patternFillId(bottomsPattern as string, bc, uid) : undefined
+  const topMotif = topPatternColor ? clothingPair(topPatternColor).base : cl.shade
+  const bottomsMotif = bottomsPatternColor ? clothingPair(bottomsPatternColor).base : bc.shade
+  const topPatId = topPat ? patternFillId(topPattern as string, cl.base, topMotif, uid) : undefined
+  const bottomsPatId = bottomsPat ? patternFillId(bottomsPattern as string, bc.base, bottomsMotif, uid) : undefined
   const decalClipId = `bh-torso-decal-clip-${uid}`
   const clFill: ColorPair = topPatId ? { base: `url(#${topPatId})`, shade: cl.shade } : cl
   const bcFill: ColorPair = bottomsPatId ? { base: `url(#${bottomsPatId})`, shade: bc.shade } : bc
@@ -148,8 +159,8 @@ export function FullBeanHead({
     <svg viewBox={`0 0 ${viewBox.w} ${viewBox.h}`} width="100%" xmlns="http://www.w3.org/2000/svg">
       {(topPat || bottomsPat) && (
         <defs>
-          {topPat && topPatId && <PatternTile id={topPatId} def={topPat} color={cl} />}
-          {bottomsPat && bottomsPatId && <PatternTile id={bottomsPatId} def={bottomsPat} color={bc} />}
+          {topPat && topPatId && <PatternTile id={topPatId} def={topPat} ground={cl.base} motif={topMotif} />}
+          {bottomsPat && bottomsPatId && <PatternTile id={bottomsPatId} def={bottomsPat} ground={bc.base} motif={bottomsMotif} />}
         </defs>
       )}
       <GroundShadow />

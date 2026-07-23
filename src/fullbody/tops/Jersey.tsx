@@ -6,7 +6,9 @@ import { TORSO_D } from './torso'
 
 const SW = HEAD_GEOMETRY.STROKE
 
-// Sports jersey: contrast raglan yokes + big white number patch reading "10".
+// Sports jersey: contrast raglan yokes, lace-up collar, side + hem stripes.
+// Chest stays CLEAN on purpose — team logos/numbers come from the topGraphic
+// decal layer, never baked into the garment.
 function Torso({ color }: PieceProps) {
   return (
     <g stroke={OUTLINE} strokeWidth={SW} strokeLinejoin="round" strokeLinecap="round">
@@ -14,12 +16,12 @@ function Torso({ color }: PieceProps) {
       {/* raglan shoulder yokes */}
       <path d="M152 298 Q176 284 200 292 L200 312 Q174 302 156 314 Q152 306 152 298 Z" fill={color.shade} />
       <path d="M248 298 Q224 284 200 292 L200 312 Q226 302 244 314 Q248 306 248 298 Z" fill={color.shade} />
-      {/* number patch */}
-      <rect x={178} y={330} width={44} height={62} rx={6} fill="#FFFFFF" />
-      {/* "1" */}
-      <path d="M186 352 L194 342 L198 342 L198 380 L191 380 L191 352 Z" fill={color.shade} stroke="none" />
-      {/* "0" */}
-      <circle cx={209} cy={361} r={11.5} fill="none" stroke={color.shade} strokeWidth={6} />
+      {/* lace-up collar */}
+      <path d="M192 296 L200 312 L208 296" fill="none" stroke={color.shade} strokeWidth={3.4} />
+      <path d="M194 302 L206 302 M195 307 L205 307" fill="none" stroke="#FFFFFF" strokeWidth={2} />
+      {/* side stripes */}
+      <path d="M137 330 L140 424 L147 424 L144 330 Z" fill={color.shade} stroke="none" />
+      <path d="M263 330 L260 424 L253 424 L256 330 Z" fill={color.shade} stroke="none" />
       {/* hem stripe */}
       <path d="M139 424 L261 424 L260 436 L140 436 Z" fill={color.shade} stroke="none" />
     </g>

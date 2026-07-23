@@ -14,6 +14,8 @@ import { Astronaut } from './Astronaut'
 import { Dino } from './Dino'
 import { Wizard } from './Wizard'
 import { Hero } from './Hero'
+import { Robot } from './Robot'
+import { Pumpkin } from './Pumpkin'
 
 // Registry of top variants — the same model as the library's face maps
 // (eyesMap, hairMap, …): each variant is a drop-in component set keyed by
@@ -36,6 +38,9 @@ export const topMap: Record<string, TopSet> = {
   dino: Dino,
   wizard: Wizard,
   hero: Hero,
+  // silhouette wave (v0.9.0)
+  robot: Robot,
+  pumpkin: Pumpkin,
 }
 
 export function registerTop(key: string, set: TopSet): void {

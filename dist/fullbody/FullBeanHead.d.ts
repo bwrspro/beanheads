@@ -10,6 +10,10 @@ export interface FullBeanHeadProps extends Omit<AvatarProps, 'clothing'> {
     topPattern?: string;
     /** fabric pattern for the bottoms — key into patternMap; unknown/absent = flat color */
     bottomsPattern?: string;
+    /** motif color for the top pattern — clothing-color key; absent = the top's shade */
+    topPatternColor?: string;
+    /** motif color for the bottoms pattern — clothing-color key; absent = the bottoms' shade */
+    bottomsPatternColor?: string;
     /** bottoms variant — key into bottomsMap ('jeans' | 'shorts' | registered) */
     bottoms?: string;
     /** trouser color — key into BOTTOMS_COLORS (registered keys included) */
@@ -23,4 +27,4 @@ export interface FullBeanHeadProps extends Omit<AvatarProps, 'clothing'> {
     /** current animation-frame pose (rotations + bob); omit for a static figure */
     pose?: Pose;
 }
-export declare function FullBeanHead({ clothing, topGraphic, topPattern, bottomsPattern, bottoms, bottomsColor, shoes, shoeColor, showCircle, pose, ...head }: FullBeanHeadProps): React.JSX.Element;
+export declare function FullBeanHead({ clothing, topGraphic, topPattern, bottomsPattern, topPatternColor, bottomsPatternColor, bottoms, bottomsColor, shoes, shoeColor, showCircle, pose, ...head }: FullBeanHeadProps): React.JSX.Element;

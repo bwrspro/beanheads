@@ -8,11 +8,20 @@ import { HatProps } from './types'
 export const Front = ({ color, scale = 1 }: ClothingProps & HatProps) => {
   const { colors } = useTheme()
 
-  const { base } = colors.clothing[color]
+  const { base, shadow } = colors.clothing[color]
   const black = '#26282E'
 
   return (
     <g style={{ transformOrigin: 'center' }} transform={`scale(${scale})`}>
+      {/* plume feather in hatColor */}
+      <path
+        d="M238 312 Q192 245 220 168 Q244 158 262 182 Q278 250 266 308 Q250 322 238 312 Z"
+        fill={base}
+        stroke={colors.outline}
+        strokeMiterlimit={10}
+        strokeWidth="10px"
+      />
+      <path d="M247 300 Q235 240 240 186" fill="none" stroke={shadow} strokeWidth="8px" strokeLinecap="round" />
       <path d="M320 340 Q330 215 490 205 Q650 215 660 340 Z" fill={black} stroke={colors.outline} strokeMiterlimit={10} strokeWidth="12px" />
       <path
         d="M165 405 Q195 245 355 268 Q490 232 625 268 Q785 245 815 405 Q700 330 490 342 Q280 330 165 405 Z"
@@ -21,7 +30,7 @@ export const Front = ({ color, scale = 1 }: ClothingProps & HatProps) => {
         strokeMiterlimit={10}
         strokeWidth="12px"
       />
-      <path d="M165 405 Q280 330 490 342 Q700 330 815 405" fill="none" stroke={base} strokeWidth="12px" strokeLinecap="round" />
+      <path d="M175 398 Q285 326 490 338 Q695 326 805 398" fill="none" stroke={base} strokeWidth="18px" strokeLinecap="round" />
       <line x1="432" y1="258" x2="548" y2="330" stroke="white" strokeWidth="16px" strokeLinecap="round" />
       <line x1="432" y1="330" x2="548" y2="258" stroke="white" strokeWidth="16px" strokeLinecap="round" />
       <circle cx="490" cy="292" r="32" fill="white" stroke={colors.outline} strokeMiterlimit={10} strokeWidth="8px" />

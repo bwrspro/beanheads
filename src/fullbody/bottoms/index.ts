@@ -8,6 +8,7 @@ import { Ripped } from './Ripped'
 import { Joggers } from './Joggers'
 import { Armor } from './Armor'
 import { Rainbow } from './Rainbow'
+import { Mermaid } from './Mermaid'
 
 // Registry of bottoms variants — same drop-in model as topMap / the face maps.
 export const bottomsMap: Record<string, BottomsSet> = {
@@ -21,6 +22,8 @@ export const bottomsMap: Record<string, BottomsSet> = {
   joggers: Joggers,
   armor: Armor,
   rainbow: Rainbow,
+  // silhouette wave (v0.9.0)
+  mermaid: Mermaid,
 }
 
 export function registerBottoms(key: string, set: BottomsSet): void {

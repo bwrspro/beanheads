@@ -6,19 +6,16 @@ import { TORSO_D } from './torso'
 
 const SW = HEAD_GEOMETRY.STROKE
 
-// Superhero suit: big lightning emblem in a white circle + belt with buckle + glove cuffs.
+// Superhero suit: contrast side panels + belt with buckle + glove cuffs.
+// Chest stays CLEAN on purpose — emblems come from the topGraphic decal
+// layer, never baked into the garment.
 function Torso({ color }: PieceProps) {
   return (
     <g stroke={OUTLINE} strokeWidth={SW} strokeLinejoin="round" strokeLinecap="round">
       <path d={TORSO_D} fill={color.base} />
-      {/* chest emblem */}
-      <circle cx={200} cy={354} r={17} fill="#FFFFFF" />
-      <path
-        d="M205 340 L190 358 L198 358 L193 370 L211 350 L202 350 L208 340 Z"
-        fill="#FFD24A"
-        stroke={OUTLINE}
-        strokeWidth={1.6}
-      />
+      {/* contrast side panels */}
+      <path d="M136 328 Q142 326 148 328 L151 424 L139 424 Z" fill={color.shade} stroke="none" />
+      <path d="M264 328 Q258 326 252 328 L249 424 L261 424 Z" fill={color.shade} stroke="none" />
       {/* belt + buckle */}
       <path d="M138 424 L262 424 L261 440 L139 440 Z" fill={color.shade} />
       <rect x={193} y={425} width={14} height={14} rx={2} fill="#FFD24A" />
