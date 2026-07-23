@@ -3,7 +3,7 @@
 .DS_Store
 node_modules
 .cache
-parts
+/parts
 
 # Note: dist/ is intentionally committed on bwrs-main so consumers
 # can install via git URL without running a build step.

@@ -10,6 +10,12 @@ import * as Afro from '../components/hair/Afro';
 import * as BobCut from '../components/hair/BobCut';
 import * as Beanie from '../components/hats/Beanie';
 import * as Turban from '../components/hats/Turban';
+import * as Cap from '../components/hats/Cap';
+import * as Crown from '../components/hats/Crown';
+import * as WizardHat from '../components/hats/WizardHat';
+import * as Pirate from '../components/hats/Pirate';
+import * as Headphones from '../components/hats/Headphones';
+import * as Chef from '../components/hats/Chef';
 import * as Chest from '../components/bodies/Chest';
 import * as Breasts from '../components/bodies/Breasts';
 import * as Dress from './clothing/Dress';
@@ -121,6 +127,12 @@ export declare const hatMap: {
     };
     beanie: typeof Beanie;
     turban: typeof Turban;
+    cap: typeof Cap;
+    crown: typeof Crown;
+    wizardHat: typeof WizardHat;
+    pirate: typeof Pirate;
+    headphones: typeof Headphones;
+    chef: typeof Chef;
 };
 export declare const bodyMap: {
     chest: typeof Chest;

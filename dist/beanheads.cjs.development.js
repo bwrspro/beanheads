@@ -121,6 +121,15 @@ var theme = {
   colors: colors
 };
 
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
 function _objectWithoutPropertiesLoose(r, e) {
   if (null == r) return {};
   var t = {};
@@ -1392,8 +1401,552 @@ var Turban = {
   Back: Back$9
 };
 
-var Front$a = Noop;
-var Back$a = function Back() {
+// Baseball cap: full crown hugging the head dome + fat curved visor across the brow.
+var Front$a = function Front(_ref) {
+  var color = _ref.color,
+    _ref$scale = _ref.scale,
+    scale = _ref$scale === void 0 ? 1 : _ref$scale;
+  var _useTheme = useTheme(),
+    colors = _useTheme.colors;
+  var _colors$clothing$colo = colors.clothing[color],
+    base = _colors$clothing$colo.base,
+    shadow = _colors$clothing$colo.shadow;
+  return React__default.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  }, React__default.createElement("path", {
+    d: "M250 430 Q240 210 490 200 Q740 210 730 430 Q490 380 250 430 Z",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React__default.createElement("path", {
+    d: "M262 415 Q270 300 370 245 Q300 310 296 408 Z",
+    fill: shadow
+  }), React__default.createElement("path", {
+    d: "M490 200 L490 392",
+    fill: "none",
+    stroke: colors.outline,
+    strokeWidth: "8px"
+  }), React__default.createElement("path", {
+    d: "M365 222 Q352 320 344 410",
+    fill: "none",
+    stroke: colors.outline,
+    strokeWidth: "6px"
+  }), React__default.createElement("path", {
+    d: "M615 222 Q628 320 636 410",
+    fill: "none",
+    stroke: colors.outline,
+    strokeWidth: "6px"
+  }), React__default.createElement("path", {
+    d: "M220 458 Q225 412 310 405 Q490 388 670 405 Q755 412 760 458 Q490 498 220 458 Z",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React__default.createElement("path", {
+    d: "M240 462 Q490 494 740 462 Q490 480 240 462 Z",
+    fill: shadow
+  }), React__default.createElement("circle", {
+    cx: "490",
+    cy: "202",
+    r: "20",
+    fill: shadow,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }));
+};
+var Back$a = function Back(_ref2) {
+  var _ref2$scale = _ref2.scale,
+    scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
+  return React__default.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  });
+};
+
+var Cap = {
+  __proto__: null,
+  Front: Front$a,
+  Back: Back$a
+};
+
+// Gold crown over a velvet cushion band — hatColor floods the big velvet panel
+// so color choices read instantly; gold frame/points/jewels stay royal.
+var Front$b = function Front(_ref) {
+  var color = _ref.color,
+    _ref$scale = _ref.scale,
+    scale = _ref$scale === void 0 ? 1 : _ref$scale;
+  var _useTheme = useTheme(),
+    colors = _useTheme.colors;
+  var _colors$clothing$colo = colors.clothing[color],
+    base = _colors$clothing$colo.base,
+    shadow = _colors$clothing$colo.shadow;
+  var gold = '#FFD24A';
+  var goldShade = '#C9A227';
+  return React__default.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  }, React__default.createElement("path", {
+    d: "M300 330 L360 175 L420 330 Z",
+    fill: gold,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React__default.createElement("path", {
+    d: "M430 330 L490 148 L550 330 Z",
+    fill: gold,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React__default.createElement("path", {
+    d: "M560 330 L620 175 L680 330 Z",
+    fill: gold,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React__default.createElement("path", {
+    d: "M290 322 L690 322 Q698 322 697 334 L688 440 Q490 478 292 440 L283 334 Q282 322 290 322 Z",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React__default.createElement("path", {
+    d: "M292 420 Q490 456 688 420 L688 438 Q490 476 292 438 Z",
+    fill: shadow
+  }), React__default.createElement("path", {
+    d: "M286 322 L694 322 L694 344 L287 344 Z",
+    fill: gold,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }), React__default.createElement("path", {
+    d: "M292 432 Q490 470 688 432 L687 446 Q490 484 293 446 Z",
+    fill: goldShade,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }), React__default.createElement("circle", {
+    cx: 360,
+    cy: 185,
+    r: 22,
+    fill: "#E24A4A",
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }), React__default.createElement("circle", {
+    cx: 490,
+    cy: 158,
+    r: 22,
+    fill: "#4A6FE2",
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }), React__default.createElement("circle", {
+    cx: 620,
+    cy: 185,
+    r: 22,
+    fill: "#E24A4A",
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }), React__default.createElement("circle", {
+    cx: 490,
+    cy: 388,
+    r: 24,
+    fill: gold,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }));
+};
+var Back$b = function Back(_ref2) {
+  var _ref2$scale = _ref2.scale,
+    scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
+  return React__default.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  });
+};
+
+var Crown = {
+  __proto__: null,
+  Front: Front$b,
+  Back: Back$b
+};
+
+// Wizard hat, take 5: brim lifted onto the crown (cy 414) with hair showing
+// underneath; cone shortened so the tip stays inside the real ceiling — the
+// ROOT fullbody viewBox top maps to inner y≈104 (the AvatarHead clip rect is
+// looser, y≈-119, and is NOT the binding constraint).
+var Front$c = function Front(_ref) {
+  var color = _ref.color,
+    _ref$scale = _ref.scale,
+    scale = _ref$scale === void 0 ? 1 : _ref$scale;
+  var _useTheme = useTheme(),
+    colors = _useTheme.colors;
+  var _colors$clothing$colo = colors.clothing[color],
+    base = _colors$clothing$colo.base,
+    shadow = _colors$clothing$colo.shadow;
+  return React__default.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  }, React__default.createElement("path", {
+    d: "M340 402 Q420 290 462 175 Q472 132 448 118 Q430 106 404 112 Q440 118 446 148 Q448 172 506 170 Q548 290 660 402 Q490 360 340 402 Z",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React__default.createElement("path", {
+    d: "M506 182 Q545 292 645 394 Q574 372 514 376 Q528 275 500 187 Z",
+    fill: shadow
+  }), React__default.createElement("circle", {
+    cx: 393,
+    cy: 120,
+    r: 15,
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React__default.createElement("ellipse", {
+    cx: "490",
+    cy: "414",
+    rx: "315",
+    ry: "48",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React__default.createElement("path", {
+    d: "M180 420 Q490 484 800 420 Q490 456 180 420 Z",
+    fill: shadow
+  }), React__default.createElement("path", {
+    d: "M378 392 Q490 364 615 392 L610 364 Q490 338 384 364 Z",
+    fill: shadow,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }), React__default.createElement("rect", {
+    x: 474,
+    y: 348,
+    width: 34,
+    height: 32,
+    rx: 5,
+    fill: "#FFD24A",
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }), React__default.createElement("path", {
+    d: "M428 250 L444 220 L460 250 L444 280 Z",
+    fill: "white",
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "6px"
+  }), React__default.createElement("path", {
+    d: "M548 318 L562 292 L576 318 L562 344 Z",
+    fill: "white",
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "6px"
+  }));
+};
+var Back$c = function Back(_ref2) {
+  var _ref2$scale = _ref2.scale,
+    scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
+  return React__default.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  });
+};
+
+var WizardHat = {
+  __proto__: null,
+  Front: Front$c,
+  Back: Back$c
+};
+
+// Pirate tricorn: black crown + swooping wide brim with raised wings, skull & crossbones,
+// hatColor = brim trim line.
+var Front$d = function Front(_ref) {
+  var color = _ref.color,
+    _ref$scale = _ref.scale,
+    scale = _ref$scale === void 0 ? 1 : _ref$scale;
+  var _useTheme = useTheme(),
+    colors = _useTheme.colors;
+  var _colors$clothing$colo = colors.clothing[color],
+    base = _colors$clothing$colo.base,
+    shadow = _colors$clothing$colo.shadow;
+  var black = '#26282E';
+  return React__default.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  }, React__default.createElement("path", {
+    d: "M238 312 Q192 245 220 168 Q244 158 262 182 Q278 250 266 308 Q250 322 238 312 Z",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React__default.createElement("path", {
+    d: "M247 300 Q235 240 240 186",
+    fill: "none",
+    stroke: shadow,
+    strokeWidth: "8px",
+    strokeLinecap: "round"
+  }), React__default.createElement("path", {
+    d: "M320 340 Q330 215 490 205 Q650 215 660 340 Z",
+    fill: black,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React__default.createElement("path", {
+    d: "M165 405 Q195 245 355 268 Q490 232 625 268 Q785 245 815 405 Q700 330 490 342 Q280 330 165 405 Z",
+    fill: black,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React__default.createElement("path", {
+    d: "M175 398 Q285 326 490 338 Q695 326 805 398",
+    fill: "none",
+    stroke: base,
+    strokeWidth: "18px",
+    strokeLinecap: "round"
+  }), React__default.createElement("line", {
+    x1: "432",
+    y1: "258",
+    x2: "548",
+    y2: "330",
+    stroke: "white",
+    strokeWidth: "16px",
+    strokeLinecap: "round"
+  }), React__default.createElement("line", {
+    x1: "432",
+    y1: "330",
+    x2: "548",
+    y2: "258",
+    stroke: "white",
+    strokeWidth: "16px",
+    strokeLinecap: "round"
+  }), React__default.createElement("circle", {
+    cx: "490",
+    cy: "292",
+    r: "32",
+    fill: "white",
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }), React__default.createElement("circle", {
+    cx: "479",
+    cy: "288",
+    r: "6.5",
+    fill: colors.outline,
+    stroke: "none"
+  }), React__default.createElement("circle", {
+    cx: "501",
+    cy: "288",
+    r: "6.5",
+    fill: colors.outline,
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M484 306 L496 306",
+    stroke: colors.outline,
+    strokeWidth: "5px",
+    strokeLinecap: "round"
+  }));
+};
+var Back$d = function Back(_ref2) {
+  var _ref2$scale = _ref2.scale,
+    scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
+  var _useTheme2 = useTheme(),
+    colors = _useTheme2.colors;
+  var black = '#26282E';
+  return React__default.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  }, React__default.createElement("path", {
+    d: "M280 440 Q490 460 700 440 L690 460 Q490 470 290 460 Z",
+    fill: black,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }));
+};
+
+var Pirate = {
+  __proto__: null,
+  Front: Front$d,
+  Back: Back$d
+};
+
+// Headphones: two-tone headband arcing over the dome into big ear cups at the head sides.
+var Front$e = function Front(_ref) {
+  var color = _ref.color,
+    _ref$scale = _ref.scale,
+    scale = _ref$scale === void 0 ? 1 : _ref$scale;
+  var _useTheme = useTheme(),
+    colors = _useTheme.colors;
+  var _colors$clothing$colo = colors.clothing[color],
+    base = _colors$clothing$colo.base,
+    shadow = _colors$clothing$colo.shadow;
+  return React__default.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  }, React__default.createElement("path", {
+    d: "M245 470 Q250 145 490 138 Q730 145 735 470",
+    fill: "none",
+    stroke: colors.outline,
+    strokeWidth: "30px",
+    strokeLinecap: "round"
+  }), React__default.createElement("path", {
+    d: "M245 470 Q250 145 490 138 Q730 145 735 470",
+    fill: "none",
+    stroke: base,
+    strokeWidth: "14px",
+    strokeLinecap: "round"
+  }), React__default.createElement("ellipse", {
+    cx: "245",
+    cy: "505",
+    rx: "64",
+    ry: "80",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React__default.createElement("ellipse", {
+    cx: "252",
+    cy: "505",
+    rx: "38",
+    ry: "56",
+    fill: shadow
+  }), React__default.createElement("ellipse", {
+    cx: "735",
+    cy: "505",
+    rx: "64",
+    ry: "80",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React__default.createElement("ellipse", {
+    cx: "728",
+    cy: "505",
+    rx: "38",
+    ry: "56",
+    fill: shadow
+  }));
+};
+var Back$e = function Back(_ref2) {
+  var _ref2$scale = _ref2.scale,
+    scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
+  return React__default.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  });
+};
+
+var Headphones = {
+  __proto__: null,
+  Front: Front$e,
+  Back: Back$e
+};
+
+// Chef toque: white puffs over a hatColor cylinder band — color choice floods
+// the band so it responds clearly; puffs stay chef-white.
+var Front$f = function Front(_ref) {
+  var color = _ref.color,
+    _ref$scale = _ref.scale,
+    scale = _ref$scale === void 0 ? 1 : _ref$scale;
+  var _useTheme = useTheme(),
+    colors = _useTheme.colors;
+  var _colors$clothing$colo = colors.clothing[color],
+    base = _colors$clothing$colo.base,
+    shadow = _colors$clothing$colo.shadow;
+  var white = '#F7F7F7';
+  return React__default.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  }, React__default.createElement("circle", {
+    cx: "360",
+    cy: "235",
+    r: "78",
+    fill: white,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React__default.createElement("circle", {
+    cx: "620",
+    cy: "235",
+    r: "78",
+    fill: white,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React__default.createElement("circle", {
+    cx: "490",
+    cy: "195",
+    r: "85",
+    fill: white,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "10px"
+  }), React__default.createElement("path", {
+    d: "M290 262 Q282 258 300 254 L680 254 Q698 258 690 262 L688 400 Q490 442 292 400 Z",
+    fill: base,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "12px"
+  }), React__default.createElement("path", {
+    d: "M640 268 Q652 330 648 396 Q600 412 560 414 Q590 340 588 270 Z",
+    fill: shadow
+  }), React__default.createElement("path", {
+    d: "M292 400 Q490 442 688 400 L687 418 Q490 458 293 418 Z",
+    fill: white,
+    stroke: colors.outline,
+    strokeMiterlimit: 10,
+    strokeWidth: "8px"
+  }));
+};
+var Back$f = function Back(_ref2) {
+  var _ref2$scale = _ref2.scale,
+    scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
+  return React__default.createElement("g", {
+    style: {
+      transformOrigin: 'center'
+    },
+    transform: "scale(" + scale + ")"
+  });
+};
+
+var Chef = {
+  __proto__: null,
+  Front: Front$f,
+  Back: Back$f
+};
+
+var Front$g = Noop;
+var Back$g = function Back() {
   var _useTheme = useTheme(),
     skin = _useTheme.skin,
     colors = _useTheme.colors;
@@ -1420,11 +1973,11 @@ var Back$a = function Back() {
 
 var Chest = {
   __proto__: null,
-  Front: Front$a,
-  Back: Back$a
+  Front: Front$g,
+  Back: Back$g
 };
 
-var Front$b = function Front(_ref) {
+var Front$h = function Front(_ref) {
   var clothingColor = _ref.clothingColor;
   var _useTheme = useTheme(),
     colors = _useTheme.colors;
@@ -1449,7 +2002,7 @@ var Front$b = function Front(_ref) {
     fill: colors.outline
   }));
 };
-var Back$b = function Back(_ref2) {
+var Back$h = function Back(_ref2) {
   var clothingColor = _ref2.clothingColor,
     braStraps = _ref2.braStraps;
   var _useTheme2 = useTheme(),
@@ -1550,8 +2103,8 @@ var Back$b = function Back(_ref2) {
 
 var Breasts = {
   __proto__: null,
-  Front: Front$b,
-  Back: Back$b
+  Front: Front$h,
+  Back: Back$h
 };
 
 var MediumBeard = function MediumBeard(_ref) {
@@ -2053,7 +2606,7 @@ var GatsbyGraphic = function GatsbyGraphic() {
   }));
 };
 
-var Front$c = function Front(_ref) {
+var Front$i = function Front(_ref) {
   var color = _ref.color;
   var _useTheme = useTheme(),
     colors = _useTheme.colors,
@@ -2079,7 +2632,7 @@ var Front$c = function Front(_ref) {
     fill: colors.outline
   }));
 };
-var Back$c = function Back(_ref2) {
+var Back$i = function Back(_ref2) {
   var color = _ref2.color;
   var _useTheme2 = useTheme(),
     colors = _useTheme2.colors;
@@ -2116,8 +2669,8 @@ var braStraps = false;
 
 var Dress = {
   __proto__: null,
-  Front: Front$c,
-  Back: Back$c,
+  Front: Front$i,
+  Back: Back$i,
   braStraps: braStraps
 };
 
@@ -2830,7 +3383,14 @@ var hatMap = {
     Back: Noop
   },
   beanie: Beanie,
-  turban: Turban
+  turban: Turban,
+  // headgear wave (v0.8.0) — surfaced by the fullbody editor's Headgear tab
+  cap: Cap,
+  crown: Crown,
+  wizardHat: WizardHat,
+  pirate: Pirate,
+  headphones: Headphones,
+  chef: Chef
 };
 var bodyMap = {
   chest: Chest,
@@ -2921,19 +3481,2781 @@ var Avatar = /*#__PURE__*/React__default.forwardRef(function (_ref, ref) {
   }, rest)));
 });
 
+// Full-body canvas (400 x 690). The Avatar (head) is rendered small via `headSvg`
+// and clipped to head-only; our own body parts occupy the space below so head +
+// body read as one figure. STROKE matches the library's 12px outline at this scale.
+var HEAD_GEOMETRY = {
+  viewBox: {
+    w: 400,
+    h: 690
+  },
+  headSvg: {
+    x: -2,
+    y: -42,
+    w: 405,
+    h: 400
+  },
+  NECK_Y: 280,
+  HIP_Y: 432,
+  ANKLE_Y: 572,
+  CENTER_X: 200,
+  STROKE: 5
+};
+// Chest area a torso decal is scaled into (decals are authored in a 100x100
+// box). Centered on the figure, below the collar (y~308), above the hem curve,
+// inside the side seams; arms render on top, so slight edge overlap just tucks
+// the decal behind the arm naturally.
+var DECAL_BOX = {
+  x: 162,
+  y: 318,
+  w: 76,
+  h: 76
+};
+
+var _excluded$2 = ["showCircle"];
+// Unique clip-path id per instance, without useId (keeps React >=16 support).
+var clipCounter = 0;
+function useClipId() {
+  var _useState = React.useState(function () {
+      return "bh-fullclip-" + (clipCounter += 1);
+    }),
+    id = _useState[0];
+  return id;
+}
+// Renders the library's Avatar scaled + positioned, then CLIPS it to the head
+// region so the Avatar's own torso/arms never render (otherwise they peek out
+// behind our Body/Arms as a duplicate body). `showCircle` toggles the background
+// circle (mask) for debug.
+function AvatarHead(_ref) {
+  var _ref$showCircle = _ref.showCircle,
+    showCircle = _ref$showCircle === void 0 ? false : _ref$showCircle,
+    props = _objectWithoutPropertiesLoose(_ref, _excluded$2);
+  var headSvg = HEAD_GEOMETRY.headSvg;
+  var clipId = useClipId();
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement("clipPath", {
+    id: clipId
+  }, React__default.createElement("rect", {
+    x: -60,
+    y: -90,
+    width: 520,
+    height: 352
+  })), React__default.createElement("g", {
+    clipPath: "url(#" + clipId + ")"
+  }, React__default.createElement("svg", {
+    x: headSvg.x,
+    y: headSvg.y,
+    width: headSvg.w,
+    height: headSvg.h,
+    overflow: "visible"
+  }, React__default.createElement(Avatar, Object.assign({}, props, {
+    mask: showCircle
+  })))));
+}
+
+function GroundShadow() {
+  return React__default.createElement("ellipse", {
+    cx: 200,
+    cy: 638,
+    rx: 104,
+    ry: 14,
+    fill: "#000000",
+    opacity: 0.12
+  });
+}
+
+// Full-body parts reuse the library's own palette so the hand-authored body
+// shares the head's exact outline, skin and clothing colors (one merged figure).
+var OUTLINE = colors.outline;
+var toPair = function toPair(p) {
+  return {
+    base: p.base,
+    shade: p.shadow
+  };
+};
+function skinPair(tone) {
+  var _rec$tone;
+  var rec = colors.skin;
+  return toPair((_rec$tone = rec[tone]) !== null && _rec$tone !== void 0 ? _rec$tone : colors.skin.light);
+}
+function clothingPair(color) {
+  var _rec$color;
+  var rec = colors.clothing;
+  return toPair((_rec$color = rec[color]) !== null && _rec$color !== void 0 ? _rec$color : colors.clothing.white);
+}
+// Runtime registration — lets the consuming app load colors from its database at
+// boot and register them. Mutates the shared library palette, so the HEAD picks
+// up the same registered colors (one consistent palette).
+function registerSkinTone(key, pair) {
+  var rec = colors.skin;
+  rec[key] = {
+    base: pair.base,
+    shadow: pair.shade
+  };
+}
+function registerClothingColor(key, pair) {
+  var rec = colors.clothing;
+  rec[key] = {
+    base: pair.base,
+    shadow: pair.shade
+  };
+}
+
+var SW = HEAD_GEOMETRY.STROKE;
+// Short neck (skeleton default), drawn BEFORE the head so the jaw hides its top
+// edge and the shirt collar hides its bottom.
+function Neck(_ref) {
+  var skin = _ref.skin;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M181 250 L184 286 H216 L219 250 Z",
+    fill: skin.base
+  }), React__default.createElement("path", {
+    d: "M184 286 L181 250 H196 L194 286 Z",
+    fill: skin.shade,
+    stroke: "none"
+  }));
+}
+
+var SW$1 = HEAD_GEOMETRY.STROKE;
+// Bare skeleton limbs (the hardcoded default body). Authored for the LEFT side —
+// the skeleton mirrors the whole pivot group for the right. Garments from the
+// registries draw ON TOP of these inside the same pivot, so they inherit every
+// rotation automatically.
+function SkinArm(_ref) {
+  var skin = _ref.skin;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$1,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M131 332 Q123 340 124 364 L127 454 Q123 462 125 474 Q129 486 143 486 Q159 486 161 472 Q162 462 159 454 L161 364 Q160 340 152 334 Z",
+    fill: skin.base
+  }));
+}
+function SkinLeg(_ref2) {
+  var skin = _ref2.skin;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$1,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M144 432 H188 V572 Q188 584 174 584 L160 584 Q144 584 144 572 Z",
+    fill: skin.base
+  }));
+}
+
+// Shared torso silhouette: wide rounded shoulders, relaxed hem reaching y446 to
+// cover the hip/crotch. Individual tops draw their neckline / detailing over it.
+var TORSO_D = 'M152 298 Q176 284 200 292 Q224 284 248 298 Q264 302 266 322 L260 430 Q261 446 242 446 L158 446 Q139 446 140 430 L134 322 Q136 302 152 298 Z';
+
+var SW$2 = HEAD_GEOMETRY.STROKE;
+function Torso(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$2,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M178 290 Q200 301 222 290 Q220 306 200 308 Q180 306 178 290 Z",
+    fill: color.shade
+  }));
+}
+function Sleeve(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$2,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M151 297 Q128 301 126 324 Q127 338 143 339 L166 333 Q171 307 160 298 Z",
+    fill: color.shade
+  }));
+}
+var Crew = {
+  Torso: Torso,
+  Sleeve: Sleeve
+};
+
+var SW$3 = HEAD_GEOMETRY.STROKE;
+function Torso$1(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$3,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M183 289 L200 316 L217 289 L209 289 L200 305 L191 289 Z",
+    fill: color.shade
+  }));
+}
+function Sleeve$1(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$3,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M151 297 Q128 301 126 324 Q127 338 143 339 L166 333 Q171 307 160 298 Z",
+    fill: color.shade
+  }));
+}
+var VNeck$1 = {
+  Torso: Torso$1,
+  Sleeve: Sleeve$1
+};
+
+var SW$4 = HEAD_GEOMETRY.STROKE;
+function Torso$2(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$4,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M174 289 Q200 309 226 289 Q226 299 200 301 Q174 299 174 289 Z",
+    fill: color.shade
+  }));
+}
+// Thin strap instead of a sleeve — bare shoulders.
+function Sleeve$2(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$4,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M152 298 Q138 302 136 324 Q138 338 150 340 L164 334 Q169 308 160 300 Z",
+    fill: color.shade
+  }));
+}
+var TankTop$1 = {
+  Torso: Torso$2,
+  Sleeve: Sleeve$2
+};
+
+var SW$5 = HEAD_GEOMETRY.STROKE;
+// Demo of the registry model: a brand-new top variant is ONE file + ONE map line
+// (tops/index.ts). Long sleeves prove the skeleton point — they cover the arm and
+// still move with it, because they render inside the arm pivot.
+function Torso$3(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$5,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M200 300 V446",
+    fill: "none"
+  }), React__default.createElement("path", {
+    d: "M200 300 L186 296 L196 316 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M200 300 L214 296 L204 316 Z",
+    fill: color.shade
+  }));
+}
+function Sleeve$3(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$5,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 452 Q124 466 142 466 Q158 466 157 452 L155 364 Q154 338 146 332 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M126 452 Q126 448 131 448 H152 Q157 448 157 452 V462 Q157 468 151 468 H132 Q126 468 126 462 Z",
+    fill: color.shade
+  }));
+}
+var Jacket = {
+  Torso: Torso$3,
+  Sleeve: Sleeve$3
+};
+
+var SW$6 = HEAD_GEOMETRY.STROKE;
+// Polo: crew body + collar wings + two-button placket; short sleeve with trim.
+// Promoted from the avatar-lab review harness (screenshot-reviewed 2026-07-04).
+function Torso$4(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$6,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M178 290 L196 300 L188 312 Q178 304 178 290 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M222 290 L204 300 L212 312 Q222 304 222 290 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M200 300 V336",
+    fill: "none"
+  }), React__default.createElement("circle", {
+    cx: 200,
+    cy: 314,
+    r: 2.5,
+    fill: color.shade,
+    strokeWidth: 1.5
+  }), React__default.createElement("circle", {
+    cx: 200,
+    cy: 328,
+    r: 2.5,
+    fill: color.shade,
+    strokeWidth: 1.5
+  }));
+}
+function Sleeve$4(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$6,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M151 297 Q128 301 126 324 Q127 338 143 339 L166 333 Q171 307 160 298 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M128 330 L165 324 L166 333 L143 339 Q131 338 128 330 Z",
+    fill: color.shade
+  }));
+}
+var Polo = {
+  Torso: Torso$4,
+  Sleeve: Sleeve$4
+};
+
+var SW$7 = HEAD_GEOMETRY.STROKE;
+// Hoodie (hood down): drawstrings + kangaroo pocket + neckline bulge; long
+// sleeve with cuff. A hood-UP variant needs a behind-head skeleton slot —
+// see trap #5 in the avatar-parts skill; this one stays fully in front.
+// Promoted from the avatar-lab review harness (screenshot-reviewed 2026-07-04).
+function Torso$5(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$7,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M172 292 Q200 312 228 292 Q226 306 200 310 Q174 306 172 292 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M192 306 L189 334",
+    fill: "none",
+    strokeWidth: 3.5
+  }), React__default.createElement("path", {
+    d: "M208 306 L211 334",
+    fill: "none",
+    strokeWidth: 3.5
+  }), React__default.createElement("path", {
+    d: "M168 384 Q166 380 172 379 L228 379 Q234 380 232 384 L226 420 Q225 425 219 425 L181 425 Q175 425 174 420 Z",
+    fill: color.shade
+  }));
+}
+function Sleeve$5(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$7,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 452 Q124 466 142 466 Q158 466 157 452 L155 364 Q154 338 146 332 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M126 452 Q126 448 131 448 H152 Q157 448 157 452 V462 Q157 468 151 468 H132 Q126 468 126 462 Z",
+    fill: color.shade
+  }));
+}
+var Hoodie = {
+  Torso: Torso$5,
+  Sleeve: Sleeve$5
+};
+
+var SW$8 = HEAD_GEOMETRY.STROKE;
+// Sweater: ribbed crew collar + ribbed hem band; long sleeve with ribbed cuff.
+// Promoted from the avatar-lab review harness (screenshot-reviewed 2026-07-04).
+function Torso$6(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$8,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M176 288 Q200 302 224 288 Q223 308 200 312 Q177 308 176 288 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M158 430 H242 L242 446 L158 446 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M170 432 V444 M184 432 V444 M198 432 V444 M212 432 V444 M226 432 V444",
+    fill: "none",
+    strokeWidth: 2
+  }));
+}
+function Sleeve$6(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$8,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 450 Q124 464 142 464 Q158 464 157 450 L155 364 Q154 338 146 332 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M126 448 Q126 444 131 444 H152 Q157 444 157 448 V462 Q157 468 151 468 H132 Q126 468 126 462 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M133 448 V464 M140 448 V466 M147 448 V465",
+    fill: "none",
+    strokeWidth: 2
+  }));
+}
+var Sweater = {
+  Torso: Torso$6,
+  Sleeve: Sleeve$6
+};
+
+var SW$9 = HEAD_GEOMETRY.STROKE;
+// Button shirt: pointed collar + full placket with buttons; short sleeve.
+// Promoted from the avatar-lab review harness (screenshot-reviewed 2026-07-04).
+function Torso$7(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$9,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M200 298 L176 289 Q173 303 191 312 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M200 298 L224 289 Q227 303 209 312 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M200 302 V446",
+    fill: "none"
+  }), React__default.createElement("circle", {
+    cx: 200,
+    cy: 330,
+    r: 2.5,
+    fill: color.shade,
+    strokeWidth: 1.5
+  }), React__default.createElement("circle", {
+    cx: 200,
+    cy: 360,
+    r: 2.5,
+    fill: color.shade,
+    strokeWidth: 1.5
+  }), React__default.createElement("circle", {
+    cx: 200,
+    cy: 390,
+    r: 2.5,
+    fill: color.shade,
+    strokeWidth: 1.5
+  }), React__default.createElement("circle", {
+    cx: 200,
+    cy: 420,
+    r: 2.5,
+    fill: color.shade,
+    strokeWidth: 1.5
+  }));
+}
+function Sleeve$7(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$9,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M151 297 Q128 301 126 324 Q127 338 143 339 L166 333 Q171 307 160 298 Z",
+    fill: color.base
+  }));
+}
+var ButtonShirt = {
+  Torso: Torso$7,
+  Sleeve: Sleeve$7
+};
+
+var SW$a = HEAD_GEOMETRY.STROKE;
+// Camp-collar vacation shirt: open V collar + chunky white 5-petal flowers.
+function Flower(_ref) {
+  var cx = _ref.cx,
+    cy = _ref.cy;
+  var petals = [[0, -5.2], [4.9, -1.6], [3.1, 4.2], [-3.1, 4.2], [-4.9, -1.6]];
+  return React__default.createElement("g", {
+    stroke: "none"
+  }, petals.map(function (_ref2, i) {
+    var dx = _ref2[0],
+      dy = _ref2[1];
+    return React__default.createElement("circle", {
+      key: i,
+      cx: cx + dx,
+      cy: cy + dy,
+      r: 3.4,
+      fill: "#FFFFFF"
+    });
+  }), React__default.createElement("circle", {
+    cx: cx,
+    cy: cy,
+    r: 2.4,
+    fill: "#FFD24A"
+  }));
+}
+function Torso$8(_ref3) {
+  var color = _ref3.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$a,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M188 294 L200 320 L212 294 L206 291 L200 306 L194 291 Z",
+    fill: color.shade
+  }), React__default.createElement(Flower, {
+    cx: 168,
+    cy: 342
+  }), React__default.createElement(Flower, {
+    cx: 233,
+    cy: 354
+  }), React__default.createElement(Flower, {
+    cx: 179,
+    cy: 398
+  }), React__default.createElement(Flower, {
+    cx: 223,
+    cy: 418
+  }), React__default.createElement(Flower, {
+    cx: 205,
+    cy: 372
+  }));
+}
+function Sleeve$8(_ref4) {
+  var color = _ref4.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$a,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M129 330 Q121 338 122 360 L124 392 Q124 402 141 402 Q158 402 157 392 L156 360 Q154 338 146 332 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M124 388 L156 388 L157 392 Q158 402 141 402 Q124 402 124 392 Z",
+    fill: color.shade
+  }), React__default.createElement(Flower, {
+    cx: 139,
+    cy: 362
+  }));
+}
+var Hawaiian = {
+  Torso: Torso$8,
+  Sleeve: Sleeve$8
+};
+
+var SW$b = HEAD_GEOMETRY.STROKE;
+// Sports jersey: contrast raglan yokes, lace-up collar, side + hem stripes.
+// Chest stays CLEAN on purpose — team logos/numbers come from the topGraphic
+// decal layer, never baked into the garment.
+function Torso$9(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$b,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M152 298 Q176 284 200 292 L200 312 Q174 302 156 314 Q152 306 152 298 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M248 298 Q224 284 200 292 L200 312 Q226 302 244 314 Q248 306 248 298 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M192 296 L200 312 L208 296",
+    fill: "none",
+    stroke: color.shade,
+    strokeWidth: 3.4
+  }), React__default.createElement("path", {
+    d: "M194 302 L206 302 M195 307 L205 307",
+    fill: "none",
+    stroke: "#FFFFFF",
+    strokeWidth: 2
+  }), React__default.createElement("path", {
+    d: "M137 330 L140 424 L147 424 L144 330 Z",
+    fill: color.shade,
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M263 330 L260 424 L253 424 L256 330 Z",
+    fill: color.shade,
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M139 424 L261 424 L260 436 L140 436 Z",
+    fill: color.shade,
+    stroke: "none"
+  }));
+}
+function Sleeve$9(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$b,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M129 330 Q121 338 122 360 L124 392 Q124 402 141 402 Q158 402 157 392 L156 360 Q154 338 146 332 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M123 354 L156 354 L156 366 L123 366 Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  }));
+}
+var Jersey = {
+  Torso: Torso$9,
+  Sleeve: Sleeve$9
+};
+
+var SW$c = HEAD_GEOMETRY.STROKE;
+// Formal tuxedo jacket with white shirt front and bowtie
+function Torso$a(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$c,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: TORSO_D,
+    fill: "#1F2229"
+  }), React__default.createElement("path", {
+    d: "M200 298 L188 350 L212 350 Z",
+    fill: "#FFFFFF"
+  }), React__default.createElement("path", {
+    d: "M188 292 L192 298 L200 295 L208 298 L212 292 L210 298 L200 301 L190 298 Z",
+    fill: color.shade
+  }), React__default.createElement("circle", {
+    cx: "200",
+    cy: "335",
+    r: "3",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M225 385 L230 385 L230 390 L225 390 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M198 310 L186 340 L196 320 Z",
+    fill: "none",
+    strokeWidth: 2
+  }), React__default.createElement("path", {
+    d: "M202 310 L214 340 L204 320 Z",
+    fill: "none",
+    strokeWidth: 2
+  }));
+}
+function Sleeve$a(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$c,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 452 Q124 466 142 466 Q158 466 157 452 L155 364 Q154 338 146 332 Z",
+    fill: "#1F2229"
+  }), React__default.createElement("path", {
+    d: "M126 452 Q126 448 131 448 H152 Q157 448 157 452 V462 Q157 468 151 468 H132 Q126 468 126 462 Z",
+    fill: "#FFFFFF"
+  }), React__default.createElement("circle", {
+    cx: 141,
+    cy: 458,
+    r: 2.2,
+    fill: color.base,
+    stroke: "none"
+  }));
+}
+var Tuxedo = {
+  Torso: Torso$a,
+  Sleeve: Sleeve$a
+};
+
+var SW$d = HEAD_GEOMETRY.STROKE;
+var SUIT = '#F4F6F8';
+var PANEL = '#B9C2CC';
+// Astronaut suit: white suit, chest control panel, accent shoulder bands + belt.
+function Torso$b(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$d,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: TORSO_D,
+    fill: SUIT
+  }), React__default.createElement("path", {
+    d: "M150 300 Q166 290 182 292 L180 308 Q164 302 154 312 Z",
+    fill: color.base,
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M250 300 Q234 290 218 292 L220 308 Q236 302 246 312 Z",
+    fill: color.base,
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M200 306 V422",
+    fill: "none",
+    stroke: PANEL,
+    strokeWidth: 4
+  }), React__default.createElement("rect", {
+    x: 182,
+    y: 330,
+    width: 36,
+    height: 44,
+    rx: 5,
+    fill: PANEL
+  }), React__default.createElement("circle", {
+    cx: 191,
+    cy: 341,
+    r: 4,
+    fill: "#E24A4A",
+    stroke: "none"
+  }), React__default.createElement("circle", {
+    cx: 200,
+    cy: 341,
+    r: 4,
+    fill: "#F5A623",
+    stroke: "none"
+  }), React__default.createElement("circle", {
+    cx: 209,
+    cy: 341,
+    r: 4,
+    fill: "#4AA34A",
+    stroke: "none"
+  }), React__default.createElement("rect", {
+    x: 188,
+    y: 352,
+    width: 24,
+    height: 5,
+    rx: 2,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("rect", {
+    x: 188,
+    y: 361,
+    width: 16,
+    height: 5,
+    rx: 2,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M138 420 L262 420 L261 436 L139 436 Z",
+    fill: color.base
+  }), React__default.createElement("rect", {
+    x: 193,
+    y: 422,
+    width: 14,
+    height: 12,
+    rx: 2,
+    fill: "#FFD24A"
+  }));
+}
+function Sleeve$b(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$d,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 452 Q124 466 142 466 Q158 466 157 452 L155 364 Q154 338 146 332 Z",
+    fill: SUIT
+  }), React__default.createElement("path", {
+    d: "M122 344 L155 344 L155 356 L122 356 Z",
+    fill: color.base,
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M125 446 L157 446 L157 460 Q157 466 142 466 Q125 466 125 458 Z",
+    fill: color.base
+  }));
+}
+var Astronaut = {
+  Torso: Torso$b,
+  Sleeve: Sleeve$b
+};
+
+var SW$e = HEAD_GEOMETRY.STROKE;
+// Dino costume: belly oval + big triangle spikes on the torso sides and sleeves.
+function Torso$c(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$e,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M140 332 L116 322 L141 312 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M138 372 L113 362 L139 352 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M140 412 L116 402 L141 392 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M260 332 L284 322 L259 312 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M262 372 L287 362 L261 352 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M260 412 L284 402 L259 392 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React__default.createElement("ellipse", {
+    cx: 200,
+    cy: 382,
+    rx: 34,
+    ry: 48,
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M178 356 Q200 348 222 356",
+    fill: "none",
+    stroke: OUTLINE,
+    strokeWidth: 2
+  }));
+}
+function Sleeve$c(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$e,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M123 368 L104 361 L124 353 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M125 410 L106 403 L126 395 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 452 Q124 466 142 466 Q158 466 157 452 L155 364 Q154 338 146 332 Z",
+    fill: color.base
+  }));
+}
+var Dino = {
+  Torso: Torso$c,
+  Sleeve: Sleeve$c
+};
+
+var SW$f = HEAD_GEOMETRY.STROKE;
+// Wizard robe: starry robe with crescent moon, trim hem, wide bell sleeves.
+function Star(_ref) {
+  var cx = _ref.cx,
+    cy = _ref.cy,
+    r = _ref.r;
+  return React__default.createElement("path", {
+    d: "M" + cx + " " + (cy - r) + " L" + (cx + r * 0.55) + " " + cy + " L" + cx + " " + (cy + r) + " L" + (cx - r * 0.55) + " " + cy + " Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  });
+}
+function Torso$d(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$f,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React__default.createElement(Star, {
+    cx: 170,
+    cy: 332,
+    r: 11
+  }), React__default.createElement(Star, {
+    cx: 232,
+    cy: 372,
+    r: 12
+  }), React__default.createElement(Star, {
+    cx: 182,
+    cy: 392,
+    r: 9
+  }), React__default.createElement(Star, {
+    cx: 214,
+    cy: 412,
+    r: 8
+  }), React__default.createElement("path", {
+    d: "M222 316 A15 15 0 1 0 238 340 A11.5 11.5 0 1 1 222 316 Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M138 416 L262 416 L260 430 Q261 446 242 446 L158 446 Q139 446 140 430 Z",
+    fill: color.shade
+  }), React__default.createElement(Star, {
+    cx: 200,
+    cy: 431,
+    r: 7
+  }));
+}
+function Sleeve$d(_ref3) {
+  var color = _ref3.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$f,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M129 330 Q119 340 117 372 L112 450 Q110 468 138 468 Q161 468 158 448 L153 372 Q152 340 146 332 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M113 444 L157 444 L158 452 Q160 468 138 468 Q111 468 112 452 Z",
+    fill: color.shade
+  }), React__default.createElement(Star, {
+    cx: 136,
+    cy: 396,
+    r: 8
+  }));
+}
+var Wizard = {
+  Torso: Torso$d,
+  Sleeve: Sleeve$d
+};
+
+var SW$g = HEAD_GEOMETRY.STROKE;
+// Superhero suit: contrast side panels + belt with buckle + glove cuffs.
+// Chest stays CLEAN on purpose — emblems come from the topGraphic decal
+// layer, never baked into the garment.
+function Torso$e(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$g,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: TORSO_D,
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M136 328 Q142 326 148 328 L151 424 L139 424 Z",
+    fill: color.shade,
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M264 328 Q258 326 252 328 L249 424 L261 424 Z",
+    fill: color.shade,
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M138 424 L262 424 L261 440 L139 440 Z",
+    fill: color.shade
+  }), React__default.createElement("rect", {
+    x: 193,
+    y: 425,
+    width: 14,
+    height: 14,
+    rx: 2,
+    fill: "#FFD24A"
+  }), React__default.createElement("path", {
+    d: "M186 296 L200 310 L214 296",
+    fill: "none",
+    stroke: color.shade,
+    strokeWidth: 4
+  }));
+}
+function Sleeve$e(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$g,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 452 Q124 466 142 466 Q158 466 157 452 L155 364 Q154 338 146 332 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M124 438 L156 438 L157 452 Q157 466 142 466 Q124 466 125 452 Z",
+    fill: color.shade
+  }));
+}
+var Hero = {
+  Torso: Torso$e,
+  Sleeve: Sleeve$e
+};
+
+var SW$h = HEAD_GEOMETRY.STROKE;
+var METAL = '#AEB6C2';
+var DARK = '#6E7684';
+// Robot suit: metal torso with shoulder bolts poking OUT of the silhouette,
+// chest core light in the accent color, segmented belly.
+function Torso$f(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$h,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("rect", {
+    x: 116,
+    y: 304,
+    width: 24,
+    height: 18,
+    rx: 3,
+    fill: DARK
+  }), React__default.createElement("circle", {
+    cx: 122,
+    cy: 313,
+    r: 5,
+    fill: METAL
+  }), React__default.createElement("rect", {
+    x: 260,
+    y: 304,
+    width: 24,
+    height: 18,
+    rx: 3,
+    fill: DARK
+  }), React__default.createElement("circle", {
+    cx: 278,
+    cy: 313,
+    r: 5,
+    fill: METAL
+  }), React__default.createElement("path", {
+    d: TORSO_D,
+    fill: METAL
+  }), React__default.createElement("rect", {
+    x: 168,
+    y: 318,
+    width: 64,
+    height: 58,
+    rx: 8,
+    fill: DARK
+  }), React__default.createElement("circle", {
+    cx: 200,
+    cy: 347,
+    r: 16,
+    fill: color.base
+  }), React__default.createElement("circle", {
+    cx: 200,
+    cy: 347,
+    r: 7,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M156 392 H244 M158 410 H242 M159 428 H241",
+    fill: "none",
+    strokeWidth: 3
+  }), React__default.createElement("circle", {
+    cx: 152,
+    cy: 324,
+    r: 2.6,
+    fill: DARK,
+    stroke: "none"
+  }), React__default.createElement("circle", {
+    cx: 248,
+    cy: 324,
+    r: 2.6,
+    fill: DARK,
+    stroke: "none"
+  }), React__default.createElement("circle", {
+    cx: 150,
+    cy: 430,
+    r: 2.6,
+    fill: DARK,
+    stroke: "none"
+  }), React__default.createElement("circle", {
+    cx: 250,
+    cy: 430,
+    r: 2.6,
+    fill: DARK,
+    stroke: "none"
+  }));
+}
+function Sleeve$f(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$h,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M129 330 Q121 338 122 364 L125 452 Q124 466 142 466 Q158 466 157 452 L155 364 Q154 338 146 332 Z",
+    fill: METAL
+  }), React__default.createElement("circle", {
+    cx: 139,
+    cy: 396,
+    r: 9,
+    fill: DARK
+  }), React__default.createElement("path", {
+    d: "M125 446 L157 446 L157 460 Q157 466 142 466 Q125 466 125 458 Z",
+    fill: color.base
+  }));
+}
+var Robot = {
+  Torso: Torso$f,
+  Sleeve: Sleeve$f
+};
+
+var SW$i = HEAD_GEOMETRY.STROKE;
+var PUMPKIN = '#F5A623';
+var PUMPKIN_DEEP = '#D9821B';
+var LEAF = '#4AA34A';
+// Pumpkin costume: bulged ribbed orange body (silhouette widens past the torso)
+// with a jagged leaf collar; accent color on the cuffs.
+function Torso$g(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$i,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M138 336 Q118 372 139 408 L146 400 Q132 372 145 344 Z",
+    fill: PUMPKIN
+  }), React__default.createElement("path", {
+    d: "M262 336 Q282 372 261 408 L254 400 Q268 372 255 344 Z",
+    fill: PUMPKIN
+  }), React__default.createElement("path", {
+    d: TORSO_D,
+    fill: PUMPKIN
+  }), React__default.createElement("path", {
+    d: "M172 306 Q160 372 172 440 M200 302 Q196 372 200 444 M228 306 Q240 372 228 440",
+    fill: "none",
+    stroke: PUMPKIN_DEEP,
+    strokeWidth: 4
+  }), React__default.createElement("path", {
+    d: "M162 300 L176 316 L188 298 L200 318 L212 298 L224 316 L238 300 L226 292 L200 288 L174 292 Z",
+    fill: LEAF
+  }), React__default.createElement("path", {
+    d: "M142 434 L258 434 L258 446 L158 446 Q146 446 142 440 Z",
+    fill: color.base,
+    stroke: "none"
+  }));
+}
+function Sleeve$g(_ref2) {
+  var color = _ref2.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$i,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M129 330 Q121 338 122 360 L124 392 Q124 402 141 402 Q158 402 157 392 L156 360 Q154 338 146 332 Z",
+    fill: PUMPKIN
+  }), React__default.createElement("path", {
+    d: "M126 356 Q124 375 127 394 M139 352 Q138 376 139 400",
+    fill: "none",
+    stroke: PUMPKIN_DEEP,
+    strokeWidth: 3.4
+  }), React__default.createElement("path", {
+    d: "M124 388 L156 388 L157 392 Q158 402 141 402 Q124 402 124 392 Z",
+    fill: color.base
+  }));
+}
+var Pumpkin = {
+  Torso: Torso$g,
+  Sleeve: Sleeve$g
+};
+
+// Registry of top variants — the same model as the library's face maps
+// (eyesMap, hairMap, …): each variant is a drop-in component set keyed by
+// string. The record is intentionally mutable: apps can register more variants
+// at boot (including ones built from database rows) via registerTop.
+var topMap = {
+  shirt: Crew,
+  vneck: VNeck$1,
+  tankTop: TankTop$1,
+  jacket: Jacket,
+  polo: Polo,
+  hoodie: Hoodie,
+  sweater: Sweater,
+  buttonShirt: ButtonShirt,
+  // premium wave (v0.8.0): sold as catalog rows, components ship here
+  hawaiian: Hawaiian,
+  jersey: Jersey,
+  tuxedo: Tuxedo,
+  astronaut: Astronaut,
+  dino: Dino,
+  wizard: Wizard,
+  hero: Hero,
+  // silhouette wave (v0.9.0)
+  robot: Robot,
+  pumpkin: Pumpkin
+};
+function registerTop(key, set) {
+  topMap[key] = set;
+}
+
+var SW$j = HEAD_GEOMETRY.STROKE;
+var STITCH = '#8A8F96';
+// Relaxed jeans leg (left-authored): tapered leg + side seam + front-pocket
+// stitch + rolled cuff in the lighter shade.
+function Leg(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$j,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M144 444 L149 550",
+    fill: "none",
+    stroke: STITCH,
+    strokeWidth: 1.8
+  }), React__default.createElement("path", {
+    d: "M150 450 Q156 466 172 470",
+    fill: "none",
+    stroke: STITCH,
+    strokeWidth: 2
+  }), React__default.createElement("path", {
+    d: "M142 552 Q142 548 147 548 H189 Q194 548 194 552 V576 Q194 584 186 584 H150 Q142 584 142 576 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M146 555 H190",
+    fill: "none",
+    stroke: STITCH,
+    strokeWidth: 2
+  }));
+}
+var Jeans = {
+  Leg: Leg
+};
+
+var SW$k = HEAD_GEOMETRY.STROKE;
+var STITCH$1 = '#8A8F96';
+// Relaxed shorts to mid-thigh (left-authored).
+function Leg$1(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$k,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M140 430 L144 505 Q145 515 159 516 L177 516 Q191 515 192 505 L194 430 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M145 511 H191",
+    fill: "none",
+    stroke: STITCH$1,
+    strokeWidth: 2
+  }));
+}
+var Shorts = {
+  Leg: Leg$1
+};
+
+var SW$l = HEAD_GEOMETRY.STROKE;
+// Cargo pants: big flap pocket on the thigh + rolled cuff.
+function Leg$2(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$l,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: color.base
+  }), React__default.createElement("rect", {
+    x: 146,
+    y: 474,
+    width: 26,
+    height: 34,
+    rx: 3,
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M145 474 L173 474 L172 486 L146 486 Z",
+    fill: color.shade
+  }), React__default.createElement("circle", {
+    cx: 159,
+    cy: 492,
+    r: 2.4,
+    fill: color.shade,
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M142 552 Q142 548 147 548 H189 Q194 548 194 552 V576 Q194 584 186 584 H150 Q142 584 142 576 Z",
+    fill: color.shade
+  }));
+}
+var Cargo = {
+  Leg: Leg$2
+};
+
+var SW$m = HEAD_GEOMETRY.STROKE;
+// Track pants: fat double white side stripe + elastic cuff.
+function Leg$3(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$m,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M146 432 L151 554 L158 554 L153 432 Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M158 432 L163 554 L169 554 L164 432 Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M144 550 Q144 546 149 546 H188 Q193 546 193 550 V572 Q193 580 185 580 H152 Q144 580 144 572 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M150 554 V574 M160 555 V576 M170 555 V576 M180 554 V574",
+    fill: "none",
+    strokeWidth: 2
+  }));
+}
+var Track = {
+  Leg: Leg$3
+};
+
+var SW$n = HEAD_GEOMETRY.STROKE;
+// Camouflage pants: khaki base with irregular green blob pattern.
+function Leg$4(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$n,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: "#6B7A4F"
+  }), React__default.createElement("path", {
+    d: "M148 450 Q152 448 156 452 Q154 458 150 456 Z",
+    fill: "#4A5638"
+  }), React__default.createElement("path", {
+    d: "M170 475 Q175 472 179 478 Q176 485 171 482 Z",
+    fill: "#8A9A6A"
+  }), React__default.createElement("path", {
+    d: "M145 510 Q150 507 154 513 Q150 520 145 517 Z",
+    fill: "#4A5638"
+  }), React__default.createElement("path", {
+    d: "M178 530 Q183 528 187 534 Q184 541 179 538 Z",
+    fill: "#8A9A6A"
+  }), React__default.createElement("path", {
+    d: "M158 555 Q162 552 166 558 Q163 564 159 561 Z",
+    fill: "#4A5638"
+  }), React__default.createElement("path", {
+    d: "M142 552 Q142 548 147 548 H189 Q194 548 194 552 V576 Q194 584 186 584 H150 Q142 584 142 576 Z",
+    fill: color.shade
+  }));
+}
+var Camo = {
+  Leg: Leg$4
+};
+
+var SW$o = HEAD_GEOMETRY.STROKE;
+// Ripped jeans: wide white knee gashes with thread ticks + rolled cuff.
+function Leg$5(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$o,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M148 476 L189 473 L187 484 L150 487 Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M150 506 L187 503 L185 514 L152 517 Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M153 536 L185 533 L184 542 L155 545 Z",
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M156 476 V487 M168 475 V486 M180 474 V485 M160 506 V516 M174 505 V515",
+    fill: "none",
+    stroke: "#FFFFFF",
+    strokeWidth: 1.6
+  }), React__default.createElement("path", {
+    d: "M142 552 Q142 548 147 548 H189 Q194 548 194 552 V574 Q194 582 186 582 H150 Q142 582 142 574 Z",
+    fill: color.shade
+  }));
+}
+var Ripped = {
+  Leg: Leg$5
+};
+
+var SW$p = HEAD_GEOMETRY.STROKE;
+// Joggers: baggy balloon leg gathered into a tall cuff + white drawstrings.
+function Leg$6(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$p,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M138 430 L139 500 Q139 540 152 547 L184 547 Q196 540 196 500 L197 430 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M150 452 Q158 468 172 472",
+    fill: "none",
+    strokeWidth: 2.4
+  }), React__default.createElement("path", {
+    d: "M162 434 L159 452 M172 434 L175 452",
+    fill: "none",
+    stroke: "#FFFFFF",
+    strokeWidth: 2.6
+  }), React__default.createElement("path", {
+    d: "M150 547 H185 Q193 548 193 558 V574 Q193 582 185 582 H152 Q144 582 144 574 V558 Q144 548 150 547 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M152 552 V578 M168 552 V580 M184 552 V578",
+    fill: "none",
+    strokeWidth: 2
+  }));
+}
+var Joggers = {
+  Leg: Leg$6
+};
+
+var SW$q = HEAD_GEOMETRY.STROKE;
+// Knight leg armor: metal leg with knee plate and rivets.
+function Leg$7(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$q,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: "#AEB6C2"
+  }), React__default.createElement("circle", {
+    cx: "168",
+    cy: "500",
+    r: "11",
+    fill: "#8F98A6"
+  }), React__default.createElement("circle", {
+    cx: "162",
+    cy: "497",
+    r: "2",
+    fill: "#6E7684"
+  }), React__default.createElement("circle", {
+    cx: "174",
+    cy: "497",
+    r: "2",
+    fill: "#6E7684"
+  }), React__default.createElement("circle", {
+    cx: "168",
+    cy: "506",
+    r: "2",
+    fill: "#6E7684"
+  }), React__default.createElement("path", {
+    d: "M142 552 Q142 548 147 548 H189 Q194 548 194 552 V576 Q194 584 186 584 H150 Q142 584 142 576 Z",
+    fill: color.shade
+  }));
+}
+var Armor = {
+  Leg: Leg$7
+};
+
+var SW$r = HEAD_GEOMETRY.STROKE;
+// Rainbow leggings: slim leg with five stacked color bands.
+function Leg$8(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$r,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: "#FFFFFF"
+  }), React__default.createElement("path", {
+    d: "M140 430 L145 457 L194 457 L194 430 Z",
+    fill: "#E24A4A"
+  }), React__default.createElement("path", {
+    d: "M140 457 L145 484 L194 484 L194 457 Z",
+    fill: "#F5A623"
+  }), React__default.createElement("path", {
+    d: "M140 484 L145 511 L194 511 L194 484 Z",
+    fill: "#F8E71C"
+  }), React__default.createElement("path", {
+    d: "M140 511 L145 538 L194 538 L194 511 Z",
+    fill: "#4AA34A"
+  }), React__default.createElement("path", {
+    d: "M140 538 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 538 Z",
+    fill: "#4A6FE2"
+  }), React__default.createElement("path", {
+    d: "M142 552 Q142 548 147 548 H189 Q194 548 194 552 V576 Q194 584 186 584 H150 Q142 584 142 576 Z",
+    fill: color.shade
+  }));
+}
+var Rainbow = {
+  Leg: Leg$8
+};
+
+var SW$s = HEAD_GEOMETRY.STROKE;
+// Mermaid-scale leggings: overlapping scale arcs down the leg + fin flares
+// breaking the ankle silhouette.
+function Leg$9(_ref) {
+  var color = _ref.color;
+  var scaleRows = [446, 470, 494, 518, 542];
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$s,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M148 556 L128 584 L154 572 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M186 556 L206 584 L180 572 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M140 430 L145 556 Q146 570 160 571 L176 571 Q190 570 191 556 L194 430 Z",
+    fill: color.base
+  }), scaleRows.map(function (y, row) {
+    return React__default.createElement("g", {
+      key: y,
+      stroke: color.shade,
+      strokeWidth: 2.6,
+      fill: "none"
+    }, (row % 2 === 0 ? [152, 168, 184] : [160, 176]).map(function (x) {
+      return React__default.createElement("path", {
+        key: x,
+        d: "M" + (x - 8) + " " + y + " A8 8 0 0 0 " + (x + 8) + " " + y
+      });
+    }));
+  }), React__default.createElement("path", {
+    d: "M141 430 L194 430 L193 442 L141 442 Z",
+    fill: color.shade,
+    stroke: "none"
+  }));
+}
+var Mermaid = {
+  Leg: Leg$9
+};
+
+// Registry of bottoms variants — same drop-in model as topMap / the face maps.
+var bottomsMap = {
+  jeans: Jeans,
+  shorts: Shorts,
+  // premium wave (v0.8.0)
+  cargo: Cargo,
+  track: Track,
+  camo: Camo,
+  ripped: Ripped,
+  joggers: Joggers,
+  armor: Armor,
+  rainbow: Rainbow,
+  // silhouette wave (v0.9.0)
+  mermaid: Mermaid
+};
+function registerBottoms(key, set) {
+  bottomsMap[key] = set;
+}
+
+var SW$t = HEAD_GEOMETRY.STROKE;
+// Converse-style low-top (left-authored): white sole + toe cap, canvas upper,
+// foxing stripe, criss-cross laces + eyelets.
+function Shoe(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$t,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M110 610 Q106 624 122 626 L186 626 Q194 626 194 616 V610 Q150 620 118 606 Q110 606 110 610 Z",
+    fill: "#FFFFFF"
+  }), React__default.createElement("path", {
+    d: "M120 606 Q120 584 144 581 L180 581 Q190 582 190 596 L190 608 Q150 618 120 606 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M110 608 Q107 591 124 586 Q139 582 146 596 Q150 608 138 612 Q122 615 113 612 Q110 610 110 608 Z",
+    fill: "#FFFFFF"
+  }), React__default.createElement("path", {
+    d: "M122 604 Q150 613 188 603",
+    fill: "none",
+    stroke: color.shade,
+    strokeWidth: 2.5
+  }), React__default.createElement("path", {
+    d: "M151 587 L168 592 M151 593 L168 588 M152 598 L167 601 M152 601 L167 598",
+    fill: "none",
+    stroke: "#FFFFFF",
+    strokeWidth: 2.4,
+    strokeLinecap: "round"
+  }), React__default.createElement("circle", {
+    cx: 150,
+    cy: 589,
+    r: 1.6,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("circle", {
+    cx: 150,
+    cy: 596,
+    r: 1.6,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("circle", {
+    cx: 169,
+    cy: 589,
+    r: 1.6,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("circle", {
+    cx: 169,
+    cy: 596,
+    r: 1.6,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }));
+}
+var Sneakers = {
+  Shoe: Shoe
+};
+
+var SW$u = HEAD_GEOMETRY.STROKE;
+// Mid-calf boot (left-authored): tall shaft, folded top cuff, heel block +
+// white-free sole (unlike sneakers). Jeans cuffs paint over the shaft top.
+function Shoe$1(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$u,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M142 546 H192 L190 596 Q190 604 182 604 L150 604 Q142 604 142 596 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M140 546 Q140 540 146 540 H188 Q194 540 194 546 V556 Q194 562 188 562 H146 Q140 562 140 556 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M142 596 Q142 614 126 618 Q114 621 116 630 Q118 638 132 638 L186 638 Q194 638 194 628 V596 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M114 632 Q112 644 128 645 L188 645 Q194 645 194 637 V630 Q150 640 118 626 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M170 638 H194 V645 H172 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M186 540 Q191 532 194 540 L193 548 L187 548 Z",
+    fill: color.shade
+  }));
+}
+var Boots = {
+  Shoe: Shoe$1
+};
+
+var SW$v = HEAD_GEOMETRY.STROKE;
+// High-top sneakers: ankle collar above the shoe line, big laces, white sole + toe cap.
+function Shoe$2(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$v,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M110 610 Q106 624 122 626 L186 626 Q194 626 194 616 V610 Q150 620 118 606 Q110 606 110 610 Z",
+    fill: "#FFFFFF"
+  }), React__default.createElement("path", {
+    d: "M150 546 Q150 540 160 540 L184 540 Q191 541 191 550 L190 596 Q150 610 120 600 Q112 596 116 586 Q126 564 144 553 Q147 548 150 546 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M150 546 Q150 540 160 540 L184 540 Q191 541 191 550 L191 558 Q170 552 151 556 Z",
+    fill: color.shade
+  }), React__default.createElement("path", {
+    d: "M110 608 Q107 591 124 586 Q139 582 146 596 Q150 608 138 612 Q122 615 113 612 Q110 610 110 608 Z",
+    fill: "#FFFFFF"
+  }), React__default.createElement("path", {
+    d: "M122 604 Q150 613 188 603",
+    fill: "none",
+    stroke: color.shade,
+    strokeWidth: 2.5
+  }), React__default.createElement("path", {
+    d: "M154 562 L182 570 M154 570 L182 562 M155 578 L181 586 M155 586 L181 578",
+    fill: "none",
+    stroke: "#FFFFFF",
+    strokeWidth: 2.6
+  }), React__default.createElement("circle", {
+    cx: 153,
+    cy: 565,
+    r: 1.7,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("circle", {
+    cx: 153,
+    cy: 581,
+    r: 1.7,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("circle", {
+    cx: 183,
+    cy: 565,
+    r: 1.7,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }), React__default.createElement("circle", {
+    cx: 183,
+    cy: 581,
+    r: 1.7,
+    fill: "#FFFFFF",
+    stroke: "none"
+  }));
+}
+var HighTops = {
+  Shoe: Shoe$2
+};
+
+var SW$w = HEAD_GEOMETRY.STROKE;
+var CORK = '#B9855C';
+// Sandals: cork sole + two fat colored straps over the open foot.
+function Shoe$3(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$w,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M110 608 Q104 622 120 626 L188 626 Q196 625 195 614 Q150 622 116 606 Q110 605 110 608 Z",
+    fill: CORK
+  }), React__default.createElement("path", {
+    d: "M128 588 Q150 600 182 596 L184 612 Q148 616 122 602 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M170 582 L188 582 L189 612 L172 612 Z",
+    fill: color.base
+  }), React__default.createElement("circle", {
+    cx: 180,
+    cy: 590,
+    r: 2.2,
+    fill: color.shade,
+    stroke: "none"
+  }));
+}
+var Sandals = {
+  Shoe: Shoe$3
+};
+
+var SW$x = HEAD_GEOMETRY.STROKE;
+var BLACK = '#26282E';
+// Soccer cleats: colored upper + white swoosh + black sole with studs poking below.
+function Shoe$4(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$x,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M126 622 L136 622 L134 632 L128 632 Z",
+    fill: BLACK
+  }), React__default.createElement("path", {
+    d: "M149 622 L159 622 L157 632 L151 632 Z",
+    fill: BLACK
+  }), React__default.createElement("path", {
+    d: "M172 622 L182 622 L180 632 L174 632 Z",
+    fill: BLACK
+  }), React__default.createElement("path", {
+    d: "M110 608 Q106 620 122 623 L186 623 Q194 623 194 613 V607 Q150 617 118 604 Q110 604 110 608 Z",
+    fill: BLACK
+  }), React__default.createElement("path", {
+    d: "M120 604 Q120 582 144 579 L180 579 Q190 580 190 594 L190 606 Q150 616 120 604 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M126 598 Q148 606 176 594 Q152 610 130 604 Z",
+    fill: "#FFFFFF",
+    strokeWidth: 1.5
+  }), React__default.createElement("path", {
+    d: "M148 584 L172 584 M147 590 L171 590",
+    fill: "none",
+    stroke: color.shade,
+    strokeWidth: 2.4
+  }));
+}
+var Cleats = {
+  Shoe: Shoe$4
+};
+
+var SW$y = HEAD_GEOMETRY.STROKE;
+// Roller skates: color boot y ~575, white toe cap, platform sole, two yellow wheels with hub.
+function Shoe$5(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$y,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M122 575 Q120 585 120 600 L190 600 Q192 585 192 575 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M125 595 Q125 588 135 586 L175 586 Q185 588 185 595 Z",
+    fill: "#FFFFFF"
+  }), React__default.createElement("path", {
+    d: "M114 608 Q106 622 122 626 L186 626 Q194 626 194 612 V608 Z",
+    fill: color.base
+  }), React__default.createElement("circle", {
+    cx: "135",
+    cy: "618",
+    r: "7",
+    fill: "#FFD24A"
+  }), React__default.createElement("circle", {
+    cx: "135",
+    cy: "618",
+    r: "3",
+    fill: "#9C7A24"
+  }), React__default.createElement("circle", {
+    cx: "170",
+    cy: "618",
+    r: "7",
+    fill: "#FFD24A"
+  }), React__default.createElement("circle", {
+    cx: "170",
+    cy: "618",
+    r: "3",
+    fill: "#9C7A24"
+  }), React__default.createElement("path", {
+    d: "M115 595 L118 600",
+    fill: "none",
+    stroke: color.shade,
+    strokeWidth: 2,
+    strokeLinecap: "round"
+  }));
+}
+var Skates = {
+  Shoe: Shoe$5
+};
+
+var SW$z = HEAD_GEOMETRY.STROKE;
+var METAL$1 = '#AEB6C2';
+var DARK$1 = '#6E7684';
+// Rocket boots: metal boot + heel fin + flame burst below the sole.
+function Shoe$6(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$z,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M128 620 L136 648 L144 620 Z",
+    fill: "#F5A623",
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M146 620 L156 656 L166 620 Z",
+    fill: "#F5A623",
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M168 620 L175 644 L182 620 Z",
+    fill: "#F5A623",
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M150 620 L156 642 L162 620 Z",
+    fill: "#E24A4A",
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M188 582 L203 574 L199 600 L189 598 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M120 604 Q120 578 146 576 L182 576 Q192 578 192 594 L192 608 Q150 618 120 604 Z",
+    fill: METAL$1
+  }), React__default.createElement("path", {
+    d: "M112 608 Q108 618 122 621 L186 621 Q193 621 193 611 Q150 619 118 604 Q113 604 112 608 Z",
+    fill: DARK$1
+  }), React__default.createElement("path", {
+    d: "M124 592 L188 588",
+    fill: "none",
+    stroke: color.base,
+    strokeWidth: 3
+  }), React__default.createElement("circle", {
+    cx: 132,
+    cy: 584,
+    r: 2,
+    fill: DARK$1,
+    stroke: "none"
+  }), React__default.createElement("circle", {
+    cx: 172,
+    cy: 581,
+    r: 2,
+    fill: DARK$1,
+    stroke: "none"
+  }));
+}
+var RocketBoots = {
+  Shoe: Shoe$6
+};
+
+var SW$A = HEAD_GEOMETRY.STROKE;
+// Moon boots: puffy white chunky boot with segment lines, thick gray sole, color strap band.
+function Shoe$7(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$A,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M118 585 Q115 580 135 579 L175 579 Q190 580 192 595 L192 608 Q150 616 118 585 Z",
+    fill: "#F4F6F8"
+  }), React__default.createElement("path", {
+    d: "M125 595 L180 595 M128 603 L178 603",
+    fill: "none",
+    stroke: "#D0D0D0",
+    strokeWidth: 2
+  }), React__default.createElement("path", {
+    d: "M114 610 Q106 624 122 626 L186 626 Q194 626 194 614 V610 Z",
+    fill: "#B9C2CC"
+  }), React__default.createElement("path", {
+    d: "M120 608 Q160 614 188 608",
+    fill: "none",
+    stroke: color.base,
+    strokeWidth: 4,
+    strokeLinecap: "round"
+  }));
+}
+var MoonBoots = {
+  Shoe: Shoe$7
+};
+
+var SW$B = HEAD_GEOMETRY.STROKE;
+// Bunny slippers: white fluffy slipper, two upright ears y ~550-580, pink inner ear, face details.
+function Shoe$8(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$B,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("ellipse", {
+    cx: "138",
+    cy: "562",
+    rx: "9",
+    ry: "26",
+    fill: "#FFFFFF"
+  }), React__default.createElement("ellipse", {
+    cx: "138",
+    cy: "564",
+    rx: "4.5",
+    ry: "18",
+    fill: "#F2A7C3",
+    stroke: "none"
+  }), React__default.createElement("ellipse", {
+    cx: "164",
+    cy: "562",
+    rx: "9",
+    ry: "26",
+    fill: "#FFFFFF"
+  }), React__default.createElement("ellipse", {
+    cx: "164",
+    cy: "564",
+    rx: "4.5",
+    ry: "18",
+    fill: "#F2A7C3",
+    stroke: "none"
+  }), React__default.createElement("path", {
+    d: "M116 596 Q112 606 118 614 L186 614 Q192 606 189 596 Q150 586 116 596 Z",
+    fill: "#FFFFFF"
+  }), React__default.createElement("path", {
+    d: "M112 610 Q105 624 122 626 L186 626 Q195 626 194 614 Q150 622 116 608 Q112 607 112 610 Z",
+    fill: "#FFFFFF"
+  }), React__default.createElement("path", {
+    d: "M180 598 Q188 602 190 612 L195 612 Q194 599 187 594 Z",
+    fill: color.base
+  }), React__default.createElement("circle", {
+    cx: "132",
+    cy: "604",
+    r: "2.6",
+    fill: "#000000",
+    stroke: "none"
+  }), React__default.createElement("circle", {
+    cx: "146",
+    cy: "604",
+    r: "2.6",
+    fill: "#000000",
+    stroke: "none"
+  }), React__default.createElement("ellipse", {
+    cx: "139",
+    cy: "611",
+    rx: "3.4",
+    ry: "2.6",
+    fill: "#F2A7C3",
+    stroke: "none"
+  }));
+}
+var BunnySlippers = {
+  Shoe: Shoe$8
+};
+
+var SW$C = HEAD_GEOMETRY.STROKE;
+// Monster claw slippers: furry colored boot with white claws bursting out of
+// the toe — the claws break the silhouette on purpose.
+function Shoe$9(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$C,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M116 590 L94 592 L114 602 Z",
+    fill: "#FFFFFF"
+  }), React__default.createElement("path", {
+    d: "M112 604 L92 610 L112 616 Z",
+    fill: "#FFFFFF"
+  }), React__default.createElement("path", {
+    d: "M114 618 L96 626 L118 628 Z",
+    fill: "#FFFFFF"
+  }), React__default.createElement("path", {
+    d: "M146 580 L152 570 L158 580 L164 570 L170 580 L176 570 L182 580 Q192 582 192 596 L192 612 Q192 624 180 626 L124 626 Q108 624 108 608 Q108 592 124 586 Q136 580 146 580 Z",
+    fill: color.base
+  }), React__default.createElement("path", {
+    d: "M126 600 Q134 596 140 602 M148 606 Q156 602 162 608 M168 598 Q176 594 182 600",
+    fill: "none",
+    stroke: color.shade,
+    strokeWidth: 2.6
+  }), React__default.createElement("ellipse", {
+    cx: 128,
+    cy: 616,
+    rx: 10,
+    ry: 6,
+    fill: color.shade,
+    stroke: "none"
+  }));
+}
+var MonsterClaws = {
+  Shoe: Shoe$9
+};
+
+var SW$D = HEAD_GEOMETRY.STROKE;
+var DUCK = '#F5A623';
+var DUCK_DEEP = '#D9821B';
+// Duck feet: big flat webbed foot sticking way out front + accent ankle strap.
+function Shoe$a(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("g", {
+    stroke: OUTLINE,
+    strokeWidth: SW$D,
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }, React__default.createElement("path", {
+    d: "M100 612 Q96 626 112 626 L186 626 Q194 624 194 612 L192 600 Q170 596 150 598 Q120 598 106 604 Q100 606 100 612 Z",
+    fill: DUCK
+  }), React__default.createElement("path", {
+    d: "M100 614 Q92 616 98 622 M106 620 Q100 624 108 626",
+    fill: "none",
+    stroke: DUCK_DEEP,
+    strokeWidth: 2.6
+  }), React__default.createElement("path", {
+    d: "M126 624 L132 606 M152 625 L156 604 M174 625 L176 602",
+    fill: "none",
+    stroke: DUCK_DEEP,
+    strokeWidth: 3
+  }), React__default.createElement("path", {
+    d: "M152 584 L188 584 L188 602 L154 602 Z",
+    fill: color.base
+  }), React__default.createElement("circle", {
+    cx: 170,
+    cy: 593,
+    r: 2.6,
+    fill: color.shade,
+    stroke: "none"
+  }));
+}
+var DuckFeet = {
+  Shoe: Shoe$a
+};
+
+// Registry of shoe variants — same drop-in model as topMap / the face maps.
+var shoeMap = {
+  sneakers: Sneakers,
+  boots: Boots,
+  // premium wave (v0.8.0)
+  highTops: HighTops,
+  sandals: Sandals,
+  cleats: Cleats,
+  skates: Skates,
+  rocketBoots: RocketBoots,
+  moonBoots: MoonBoots,
+  bunnySlippers: BunnySlippers,
+  // silhouette wave (v0.9.0)
+  monsterClaws: MonsterClaws,
+  duckFeet: DuckFeet
+};
+function registerShoe(key, set) {
+  shoeMap[key] = set;
+}
+
+// Registry of torso decals (prints / logos / patterns) — same mutable-record
+// model as topMap/bottomsMap/shoeMap. A decal is a plain component authored in
+// a 100x100 box; the skeleton scales it into the chest (DECAL_BOX) and clips it
+// to the torso silhouette, so any registered decal fits any registered top.
+// Apps register database-driven decals at boot: inline SVG via registerGraphic,
+// hosted images (PNG/SVG url) via registerGraphic(key, imageGraphic(url)).
+// Built-in sample decal — proves the slot end-to-end and gives the sandbox a swatch.
+function Star$1(_ref) {
+  var color = _ref.color;
+  return React__default.createElement("path", {
+    d: "M50 6 L61 38 L95 38 L67 58 L78 92 L50 71 L22 92 L33 58 L5 38 L39 38 Z",
+    fill: color.base,
+    "data-decal": "star"
+  });
+}
+var graphicMap = {
+  star: Star$1
+};
+function registerGraphic(key, graphic) {
+  graphicMap[key] = graphic;
+}
+// Factory for asset-backed decals (the bulk/event pipeline): any hosted PNG/SVG
+// becomes a registrable decal. Fitted with "meet" so non-square art letterboxes
+// inside the 100x100 contract instead of stretching.
+function imageGraphic(href) {
+  return function ImageGraphic(_props) {
+    return React__default.createElement("image", {
+      href: href,
+      x: 0,
+      y: 0,
+      width: 100,
+      height: 100,
+      preserveAspectRatio: "xMidYMid meet"
+    });
+  };
+}
+
+// Built-in sample pattern — proves the slot end-to-end and gives the sandbox a swatch.
+var patternMap = {
+  stripes: {
+    d: 'M0 0H20V8H0Z',
+    w: 20,
+    h: 20
+  }
+};
+function registerPattern(key, def) {
+  patternMap[key] = def;
+}
+
+// Bottoms + shoe palettes (additions beyond the head's clothing palette).
+// `shade`: bottoms → lighter rolled-cuff/fold color; shoes → canvas shadow/lace
+// accent. Records are intentionally mutable: the consuming app registers
+// database-stored colors at boot via the register* helpers.
+var BOTTOMS_COLORS = {
+  denim: {
+    base: '#3E5063',
+    shade: '#9DB0BE'
+  },
+  black: {
+    base: '#2E3138',
+    shade: '#6E727A'
+  },
+  khaki: {
+    base: '#C2A878',
+    shade: '#E2D4B6'
+  },
+  red: {
+    base: '#C0473E',
+    shade: '#E08C84'
+  }
+};
+var SHOE_COLORS = {
+  purple: {
+    base: '#5E3A9E',
+    shade: '#47297A'
+  },
+  white: {
+    base: '#EFEFEF',
+    shade: '#CFCFCF'
+  },
+  black: {
+    base: '#34373E',
+    shade: '#22242A'
+  },
+  red: {
+    base: '#C0473E',
+    shade: '#9E392F'
+  }
+};
+function registerBottomsColor(key, pair) {
+  BOTTOMS_COLORS[key] = pair;
+}
+function registerShoeColor(key, pair) {
+  SHOE_COLORS[key] = pair;
+}
+function bottomsHex(key) {
+  var _BOTTOMS_COLORS$key;
+  return (_BOTTOMS_COLORS$key = BOTTOMS_COLORS[key]) !== null && _BOTTOMS_COLORS$key !== void 0 ? _BOTTOMS_COLORS$key : BOTTOMS_COLORS.denim;
+}
+function shoeHex(key) {
+  var _SHOE_COLORS$key;
+  return (_SHOE_COLORS$key = SHOE_COLORS[key]) !== null && _SHOE_COLORS$key !== void 0 ? _SHOE_COLORS$key : SHOE_COLORS.white;
+}
+
+var _excluded$3 = ["clothing", "topGraphic", "topGraphicColor", "topPattern", "bottomsPattern", "topPatternColor", "bottomsPatternColor", "bottoms", "bottomsColor", "shoes", "shoeColor", "showCircle", "pose"];
+var MIRROR = 'translate(400 0) scale(-1 1)';
+// Unique per-instance id suffix (same trick as AvatarHead's useClipId; React
+// >=16, no useId). Ids MUST differ between instances: url(#) resolves to the
+// document-first element with that id, and Chromium refuses to paint a
+// <pattern>/<clipPath> referenced from inside a display:none subtree — so a
+// hidden same-config twin (e.g. a responsive duplicate of an editor preview)
+// silently kills the fabric fill of every visible avatar sharing its ids.
+var instanceCounter = 0;
+function useInstanceId() {
+  var _useState = React.useState(function () {
+      return "i" + (instanceCounter += 1);
+    }),
+    id = _useState[0];
+  return id;
+}
+function patternFillId(key, ground, motif, uid) {
+  var hex = function hex(value) {
+    return value.replace(/[^0-9a-zA-Z]/g, '');
+  };
+  return "bh-pat-" + key + "-" + hex(ground) + hex(motif) + "-" + uid;
+}
+// One repeating fabric tile: motif drawn over a garment-colored ground. The
+// motif color defaults to the garment's shade but can be chosen independently
+// (topPatternColor / bottomsPatternColor) for contrast combos. userSpaceOnUse
+// keeps the tile continuous across torso and sleeves, and lets the fill rotate
+// with a posed limb like real fabric.
+function PatternTile(_ref) {
+  var id = _ref.id,
+    def = _ref.def,
+    ground = _ref.ground,
+    motif = _ref.motif;
+  return React__default.createElement("pattern", {
+    id: id,
+    patternUnits: "userSpaceOnUse",
+    width: def.w,
+    height: def.h
+  }, React__default.createElement("rect", {
+    width: def.w,
+    height: def.h,
+    fill: ground
+  }), React__default.createElement("path", {
+    d: def.d,
+    fill: motif
+  }));
+}
+// The full-body SKELETON. It owns every slot's pivot <g> — arm pivots at the
+// shoulders, leg pivots at the hips, an upper-body bob group — and mounts
+// registry-selected garment components INSIDE those pivots. Any registered part,
+// whatever its shape or color, inherits the motion automatically; parts never
+// carry their own rig.
+//
+// SIGN CONVENTION: a Pose degree is the VISUAL clockwise rotation of that limb.
+// Right-side limbs render inside a mirror transform, which flips rotation
+// direction, so the skeleton NEGATES the pose value for mirrored pivots.
+// (Never put a CSS transform-origin on the same <g> as the SVG mirror transform
+// attribute — the browser would apply the mirror around that origin.)
+function FullBeanHead(_ref2) {
+  var _head$skinTone, _head$clothingColor, _topMap$clothing, _bottomsMap$bottoms, _shoeMap$shoes, _pose$bob, _pose$leftLegDeg, _pose$rightLegDeg, _pose$headDeg, _pose$leftArmDeg, _pose$rightArmDeg;
+  var _ref2$clothing = _ref2.clothing,
+    clothing = _ref2$clothing === void 0 ? 'shirt' : _ref2$clothing,
+    topGraphic = _ref2.topGraphic,
+    topGraphicColor = _ref2.topGraphicColor,
+    topPattern = _ref2.topPattern,
+    bottomsPattern = _ref2.bottomsPattern,
+    topPatternColor = _ref2.topPatternColor,
+    bottomsPatternColor = _ref2.bottomsPatternColor,
+    _ref2$bottoms = _ref2.bottoms,
+    bottoms = _ref2$bottoms === void 0 ? 'jeans' : _ref2$bottoms,
+    _ref2$bottomsColor = _ref2.bottomsColor,
+    bottomsColor = _ref2$bottomsColor === void 0 ? 'denim' : _ref2$bottomsColor,
+    _ref2$shoes = _ref2.shoes,
+    shoes = _ref2$shoes === void 0 ? 'sneakers' : _ref2$shoes,
+    _ref2$shoeColor = _ref2.shoeColor,
+    shoeColor = _ref2$shoeColor === void 0 ? 'purple' : _ref2$shoeColor,
+    _ref2$showCircle = _ref2.showCircle,
+    showCircle = _ref2$showCircle === void 0 ? false : _ref2$showCircle,
+    pose = _ref2.pose,
+    head = _objectWithoutPropertiesLoose(_ref2, _excluded$3);
+  var viewBox = HEAD_GEOMETRY.viewBox;
+  var uid = useInstanceId();
+  var sk = skinPair((_head$skinTone = head.skinTone) !== null && _head$skinTone !== void 0 ? _head$skinTone : 'light');
+  var cl = clothingPair((_head$clothingColor = head.clothingColor) !== null && _head$clothingColor !== void 0 ? _head$clothingColor : 'white');
+  var bc = bottomsHex(bottomsColor);
+  var sc = shoeHex(shoeColor);
+  var Top = (_topMap$clothing = topMap[clothing]) !== null && _topMap$clothing !== void 0 ? _topMap$clothing : topMap.shirt;
+  var Bottom = (_bottomsMap$bottoms = bottomsMap[bottoms]) !== null && _bottomsMap$bottoms !== void 0 ? _bottomsMap$bottoms : bottomsMap.jeans;
+  var Shoe = (_shoeMap$shoes = shoeMap[shoes]) !== null && _shoeMap$shoes !== void 0 ? _shoeMap$shoes : shoeMap.sneakers;
+  // Unknown/unregistered decal keys safely render nothing (DB rows may outlive art)
+  var Graphic = topGraphic ? graphicMap[topGraphic] : undefined;
+  // Decal pair: an explicit choice paints with ITS base; default keeps the
+  // classic shade-on-garment contrast (base and shade collapse to cl.shade).
+  var gcPair = topGraphicColor ? clothingPair(topGraphicColor) : {
+    base: cl.shade,
+    shade: cl.shade
+  };
+  // Fabric patterns swap the pair's flat base for a url(#tile) paint. Only the
+  // base surface is patterned — shade stays flat so collars, cuffs and all-shade
+  // sleeves read as solid trim. Unknown keys fall back to flat color (DB rows
+  // may outlive art). The decal keeps the real hex pair: motif art tints from
+  // hexes, not paint-server references.
+  var topPat = topPattern ? patternMap[topPattern] : undefined;
+  var bottomsPat = bottomsPattern ? patternMap[bottomsPattern] : undefined;
+  var topMotif = topPatternColor ? clothingPair(topPatternColor).base : cl.shade;
+  var bottomsMotif = bottomsPatternColor ? clothingPair(bottomsPatternColor).base : bc.shade;
+  var topPatId = topPat ? patternFillId(topPattern, cl.base, topMotif, uid) : undefined;
+  var bottomsPatId = bottomsPat ? patternFillId(bottomsPattern, bc.base, bottomsMotif, uid) : undefined;
+  var decalClipId = "bh-torso-decal-clip-" + uid;
+  var clFill = topPatId ? {
+    base: "url(#" + topPatId + ")",
+    shade: cl.shade
+  } : cl;
+  var bcFill = bottomsPatId ? {
+    base: "url(#" + bottomsPatId + ")",
+    shade: bc.shade
+  } : bc;
+  var bob = (_pose$bob = pose === null || pose === void 0 ? void 0 : pose.bob) !== null && _pose$bob !== void 0 ? _pose$bob : 0;
+  // The head's own torso/clothing is clipped away by AvatarHead; force a known
+  // clothing key so the inner Avatar never looks up a registered-only key
+  // (clothingMap[unknown] would crash). Face-swap pose fields override the
+  // static face props for this frame (blink / talk / expressions).
+  var headProps = _extends({}, head, {
+    clothing: 'shirt'
+  }, pose !== null && pose !== void 0 && pose.eyes ? {
+    eyes: pose.eyes
+  } : null, pose !== null && pose !== void 0 && pose.eyebrows ? {
+    eyebrows: pose.eyebrows
+  } : null, pose !== null && pose !== void 0 && pose.mouth ? {
+    mouth: pose.mouth
+  } : null);
+  var legChildren = React__default.createElement(React__default.Fragment, null, React__default.createElement(SkinLeg, {
+    skin: sk
+  }), React__default.createElement(Shoe.Shoe, {
+    color: sc
+  }), React__default.createElement(Bottom.Leg, {
+    color: bcFill
+  }));
+  var armChildren = React__default.createElement(React__default.Fragment, null, React__default.createElement(SkinArm, {
+    skin: sk
+  }), React__default.createElement(Top.Sleeve, {
+    color: clFill
+  }));
+  return React__default.createElement("svg", {
+    viewBox: "0 0 " + viewBox.w + " " + viewBox.h,
+    width: "100%",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, (topPat || bottomsPat) && React__default.createElement("defs", null, topPat && topPatId && React__default.createElement(PatternTile, {
+    id: topPatId,
+    def: topPat,
+    ground: cl.base,
+    motif: topMotif
+  }), bottomsPat && bottomsPatId && React__default.createElement(PatternTile, {
+    id: bottomsPatId,
+    def: bottomsPat,
+    ground: bc.base,
+    motif: bottomsMotif
+  })), React__default.createElement(GroundShadow, null), React__default.createElement("g", null, React__default.createElement("g", {
+    className: "leg-pivot",
+    style: {
+      transformOrigin: '166px 432px',
+      transform: "rotate(" + ((_pose$leftLegDeg = pose === null || pose === void 0 ? void 0 : pose.leftLegDeg) !== null && _pose$leftLegDeg !== void 0 ? _pose$leftLegDeg : 0) + "deg)"
+    }
+  }, legChildren)), React__default.createElement("g", {
+    transform: MIRROR
+  }, React__default.createElement("g", {
+    className: "leg-pivot",
+    style: {
+      transformOrigin: '166px 432px',
+      transform: "rotate(" + -((_pose$rightLegDeg = pose === null || pose === void 0 ? void 0 : pose.rightLegDeg) !== null && _pose$rightLegDeg !== void 0 ? _pose$rightLegDeg : 0) + "deg)"
+    }
+  }, legChildren)), React__default.createElement("g", {
+    transform: "translate(0 " + bob + ")"
+  }, React__default.createElement(Neck, {
+    skin: sk
+  }), React__default.createElement("g", {
+    className: "head-pivot",
+    style: {
+      transformOrigin: '200px 268px',
+      transform: "rotate(" + ((_pose$headDeg = pose === null || pose === void 0 ? void 0 : pose.headDeg) !== null && _pose$headDeg !== void 0 ? _pose$headDeg : 0) + "deg)"
+    }
+  }, React__default.createElement(AvatarHead, Object.assign({}, headProps, {
+    showCircle: showCircle
+  }))), React__default.createElement(Top.Torso, {
+    color: clFill
+  }), Graphic && React__default.createElement(React__default.Fragment, null, React__default.createElement("clipPath", {
+    id: decalClipId
+  }, React__default.createElement("path", {
+    d: TORSO_D
+  })), React__default.createElement("g", {
+    clipPath: "url(#" + decalClipId + ")"
+  }, React__default.createElement("g", {
+    transform: "translate(" + DECAL_BOX.x + " " + DECAL_BOX.y + ") scale(" + DECAL_BOX.w / 100 + " " + DECAL_BOX.h / 100 + ")"
+  }, React__default.createElement(Graphic, {
+    color: gcPair
+  })))), React__default.createElement("g", {
+    className: "arm-pivot",
+    style: {
+      transformOrigin: '140px 305px',
+      transform: "rotate(" + ((_pose$leftArmDeg = pose === null || pose === void 0 ? void 0 : pose.leftArmDeg) !== null && _pose$leftArmDeg !== void 0 ? _pose$leftArmDeg : 0) + "deg)"
+    }
+  }, armChildren), React__default.createElement("g", {
+    transform: MIRROR
+  }, React__default.createElement("g", {
+    className: "arm-pivot",
+    style: {
+      transformOrigin: '140px 305px',
+      transform: "rotate(" + -((_pose$rightArmDeg = pose === null || pose === void 0 ? void 0 : pose.rightArmDeg) !== null && _pose$rightArmDeg !== void 0 ? _pose$rightArmDeg : 0) + "deg)"
+    }
+  }, armChildren))));
+}
+
+// Each animation is a list of frames; each frame is a Pose state (rendered as the
+// avatar SVG). Edit/extend these arrays to add or tweak frames, or add new named
+// animations — that is the whole authoring surface.
+var ANIMATIONS = {
+  idle: [{
+    bob: 0,
+    leftArmDeg: 0,
+    rightArmDeg: 0
+  }, {
+    bob: -2,
+    leftArmDeg: 2,
+    rightArmDeg: -2
+  }, {
+    bob: -3,
+    leftArmDeg: 3,
+    rightArmDeg: -3
+  }, {
+    bob: -2,
+    leftArmDeg: 2,
+    rightArmDeg: -2
+  }, {
+    bob: 0,
+    leftArmDeg: 0,
+    rightArmDeg: 0
+  }],
+  wave: [{
+    rightArmDeg: -132
+  }, {
+    rightArmDeg: -150
+  }, {
+    rightArmDeg: -136
+  }, {
+    rightArmDeg: -152
+  }, {
+    rightArmDeg: -140
+  }],
+  walk: [{
+    leftLegDeg: 18,
+    rightLegDeg: -18,
+    leftArmDeg: -16,
+    rightArmDeg: 16,
+    bob: -2
+  }, {
+    leftLegDeg: 9,
+    rightLegDeg: -9,
+    leftArmDeg: -8,
+    rightArmDeg: 8,
+    bob: 0
+  }, {
+    leftLegDeg: 0,
+    rightLegDeg: 0,
+    leftArmDeg: 0,
+    rightArmDeg: 0,
+    bob: -3
+  }, {
+    leftLegDeg: -9,
+    rightLegDeg: 9,
+    leftArmDeg: 8,
+    rightArmDeg: -8,
+    bob: 0
+  }, {
+    leftLegDeg: -18,
+    rightLegDeg: 18,
+    leftArmDeg: 16,
+    rightArmDeg: -16,
+    bob: -2
+  }],
+  // eyes close briefly (content = closed lids), then reopen
+  blink: [{}, {}, {
+    eyes: 'content'
+  }, {
+    eyes: 'content'
+  }, {}],
+  // mouth cycles open/closed shapes — pair with any outfit/pose
+  talk: [{
+    mouth: 'open'
+  }, {
+    mouth: 'grin'
+  }, {
+    mouth: 'open'
+  }, {
+    mouth: 'lips'
+  }, {
+    mouth: 'grin'
+  }],
+  // both arms up + bounce + happy face (arms: left positive / right negative = raised outward)
+  celebrate: [{
+    leftArmDeg: 130,
+    rightArmDeg: -130,
+    bob: -2,
+    eyes: 'happy',
+    mouth: 'open'
+  }, {
+    leftArmDeg: 145,
+    rightArmDeg: -145,
+    bob: -6,
+    eyes: 'happy',
+    mouth: 'open'
+  }, {
+    leftArmDeg: 138,
+    rightArmDeg: -138,
+    bob: 0,
+    eyes: 'happy',
+    mouth: 'openSmile'
+  }, {
+    leftArmDeg: 150,
+    rightArmDeg: -150,
+    bob: -6,
+    eyes: 'heart',
+    mouth: 'open'
+  }, {
+    leftArmDeg: 140,
+    rightArmDeg: -140,
+    bob: -3,
+    eyes: 'happy',
+    mouth: 'open'
+  }],
+  // head-tilt groove: lean + arm sway + small leg shift
+  dance: [{
+    headDeg: -8,
+    leftArmDeg: 40,
+    rightArmDeg: 40,
+    leftLegDeg: 6,
+    rightLegDeg: -2,
+    bob: -2,
+    mouth: 'openSmile'
+  }, {
+    headDeg: 0,
+    bob: 0,
+    mouth: 'openSmile'
+  }, {
+    headDeg: 8,
+    leftArmDeg: -40,
+    rightArmDeg: -40,
+    leftLegDeg: -2,
+    rightLegDeg: 6,
+    bob: -2,
+    mouth: 'openSmile'
+  }, {
+    headDeg: 0,
+    bob: 0,
+    mouth: 'openSmile'
+  }, {
+    headDeg: -8,
+    leftArmDeg: 40,
+    rightArmDeg: 40,
+    leftLegDeg: 6,
+    rightLegDeg: -2,
+    bob: -2,
+    mouth: 'openSmile'
+  }],
+  // small alternating tremor across head/arms/legs + a held concerned face
+  shiver: [{
+    bob: -1,
+    headDeg: -3,
+    leftArmDeg: -6,
+    rightArmDeg: 6,
+    leftLegDeg: -2,
+    rightLegDeg: 2,
+    eyebrows: 'concerned',
+    mouth: 'sad'
+  }, {
+    bob: 0,
+    headDeg: 3,
+    leftArmDeg: 6,
+    rightArmDeg: -6,
+    leftLegDeg: 2,
+    rightLegDeg: -2,
+    eyebrows: 'concerned',
+    mouth: 'sad'
+  }, {
+    bob: -1,
+    headDeg: -4,
+    leftArmDeg: -7,
+    rightArmDeg: 7,
+    leftLegDeg: -2,
+    rightLegDeg: 2,
+    eyebrows: 'concerned',
+    mouth: 'sad'
+  }, {
+    bob: 0,
+    headDeg: 4,
+    leftArmDeg: 7,
+    rightArmDeg: -7,
+    leftLegDeg: 2,
+    rightLegDeg: -2,
+    eyebrows: 'concerned',
+    mouth: 'sad'
+  }, {
+    bob: -1,
+    headDeg: -3,
+    leftArmDeg: -6,
+    rightArmDeg: 6,
+    leftLegDeg: -2,
+    rightLegDeg: 2,
+    eyebrows: 'concerned',
+    mouth: 'sad'
+  }]
+};
+var ANIMATION_NAMES = /*#__PURE__*/Object.keys(ANIMATIONS);
+// Runtime registration — animations are plain Pose[] data, so apps can load
+// them from a database at boot exactly like parts and colors. Mutates
+// ANIMATION_NAMES in place (same array reference) so pickers built over it see
+// new keys. Re-registering an existing key replaces its frames.
+function registerAnimation(key, frames) {
+  var isNew = !(key in ANIMATIONS);
+  ANIMATIONS[key] = frames;
+  if (isNew) ANIMATION_NAMES.push(key);
+}
+
+// Advances a frame index 0..frameCount-1 at `fps`, looping, while `playing`.
+// Frame-based (no tweening): each tick switches to the next stored frame.
+function useFrameAnimation(frameCount, fps, playing) {
+  var _useState = React.useState(0),
+    index = _useState[0],
+    setIndex = _useState[1];
+  var last = React.useRef(0);
+  React.useEffect(function () {
+    if (!playing || frameCount <= 0 || fps <= 0) return;
+    var interval = 1000 / fps;
+    var raf = 0;
+    var _tick = function tick(t) {
+      if (last.current === 0) last.current = t;
+      if (t - last.current >= interval) {
+        last.current = t;
+        setIndex(function (i) {
+          return (i + 1) % frameCount;
+        });
+      }
+      raf = requestAnimationFrame(_tick);
+    };
+    raf = requestAnimationFrame(_tick);
+    return function () {
+      cancelAnimationFrame(raf);
+      last.current = 0;
+    };
+  }, [frameCount, fps, playing]);
+  return playing ? index : 0;
+}
+
+var _excluded$4 = ["frames", "fps", "playing"];
+// Plays a frame animation: cycles the frame index and renders FullBeanHead in the
+// current frame's Pose. Each frame IS the avatar SVG in that state (no tweening).
+function FrameAnimator(_ref) {
+  var _frames$index;
+  var frames = _ref.frames,
+    _ref$fps = _ref.fps,
+    fps = _ref$fps === void 0 ? 6 : _ref$fps,
+    _ref$playing = _ref.playing,
+    playing = _ref$playing === void 0 ? true : _ref$playing,
+    props = _objectWithoutPropertiesLoose(_ref, _excluded$4);
+  var index = useFrameAnimation(frames.length, fps, playing);
+  return React__default.createElement(FullBeanHead, Object.assign({}, props, {
+    pose: (_frames$index = frames[index]) !== null && _frames$index !== void 0 ? _frames$index : {}
+  }));
+}
+
+exports.ANIMATIONS = ANIMATIONS;
+exports.ANIMATION_NAMES = ANIMATION_NAMES;
 exports.Avatar = Avatar;
+exports.BOTTOMS_COLORS = BOTTOMS_COLORS;
 exports.BeanHead = Avatar;
+exports.FrameAnimator = FrameAnimator;
+exports.FullBeanHead = FullBeanHead;
 exports.Noop = Noop;
+exports.SHOE_COLORS = SHOE_COLORS;
 exports.ThemeContext = ThemeContext;
 exports.accessoryMap = accessoryMap;
 exports.bodyMap = bodyMap;
+exports.bottomsHex = bottomsHex;
+exports.bottomsMap = bottomsMap;
 exports.clothingMap = clothingMap;
+exports.clothingPair = clothingPair;
 exports.eyebrowsMap = eyebrowsMap;
 exports.eyesMap = eyesMap;
 exports.facialHairMap = facialHairMap;
+exports.graphicMap = graphicMap;
 exports.graphicsMap = graphicsMap;
 exports.hairMap = hairMap;
 exports.hatMap = hatMap;
+exports.imageGraphic = imageGraphic;
 exports.mouthsMap = mouthsMap;
+exports.patternMap = patternMap;
+exports.registerAnimation = registerAnimation;
+exports.registerBottoms = registerBottoms;
+exports.registerBottomsColor = registerBottomsColor;
+exports.registerClothingColor = registerClothingColor;
+exports.registerGraphic = registerGraphic;
+exports.registerPattern = registerPattern;
+exports.registerShoe = registerShoe;
+exports.registerShoeColor = registerShoeColor;
+exports.registerSkinTone = registerSkinTone;
+exports.registerTop = registerTop;
+exports.shoeHex = shoeHex;
+exports.shoeMap = shoeMap;
+exports.skinPair = skinPair;
 exports.theme = theme;
+exports.topMap = topMap;
+exports.useFrameAnimation = useFrameAnimation;
 //# sourceMappingURL=beanheads.cjs.development.js.map

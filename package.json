@@ -1,6 +1,6 @@
 {
   "name": "beanheads",
-  "version": "0.3.3-bwrs.0",
+  "version": "0.9.3-bwrs.0",
   "license": "MIT",
   "author": "Robert Broersma",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "git+https://github.com/bwrspro/beanheads.git"
   },
   "main": "dist/index.js",
-  "module": "dist/core.esm.js",
+  "module": "dist/beanheads.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",
