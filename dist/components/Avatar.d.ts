@@ -12,7 +12,6 @@ import * as Beanie from '../components/hats/Beanie';
 import * as Turban from '../components/hats/Turban';
 import * as Cap from '../components/hats/Cap';
 import * as Crown from '../components/hats/Crown';
-import * as WizardHat from '../components/hats/WizardHat';
 import * as Pirate from '../components/hats/Pirate';
 import * as Headphones from '../components/hats/Headphones';
 import * as Chef from '../components/hats/Chef';
@@ -129,7 +128,6 @@ export declare const hatMap: {
     turban: typeof Turban;
     cap: typeof Cap;
     crown: typeof Crown;
-    wizardHat: typeof WizardHat;
     pirate: typeof Pirate;
     headphones: typeof Headphones;
     chef: typeof Chef;

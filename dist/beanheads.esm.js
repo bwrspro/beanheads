@@ -1577,103 +1577,9 @@ var Crown = {
   Back: Back$b
 };
 
-// Wizard hat, take 5: brim lifted onto the crown (cy 414) with hair showing
-// underneath; cone shortened so the tip stays inside the real ceiling — the
-// ROOT fullbody viewBox top maps to inner y≈104 (the AvatarHead clip rect is
-// looser, y≈-119, and is NOT the binding constraint).
-var Front$c = function Front(_ref) {
-  var color = _ref.color,
-    _ref$scale = _ref.scale,
-    scale = _ref$scale === void 0 ? 1 : _ref$scale;
-  var _useTheme = useTheme(),
-    colors = _useTheme.colors;
-  var _colors$clothing$colo = colors.clothing[color],
-    base = _colors$clothing$colo.base,
-    shadow = _colors$clothing$colo.shadow;
-  return React.createElement("g", {
-    style: {
-      transformOrigin: 'center'
-    },
-    transform: "scale(" + scale + ")"
-  }, React.createElement("path", {
-    d: "M340 402 Q420 290 462 175 Q472 132 448 118 Q430 106 404 112 Q440 118 446 148 Q448 172 506 170 Q548 290 660 402 Q490 360 340 402 Z",
-    fill: base,
-    stroke: colors.outline,
-    strokeMiterlimit: 10,
-    strokeWidth: "12px"
-  }), React.createElement("path", {
-    d: "M506 182 Q545 292 645 394 Q574 372 514 376 Q528 275 500 187 Z",
-    fill: shadow
-  }), React.createElement("circle", {
-    cx: 393,
-    cy: 120,
-    r: 15,
-    fill: base,
-    stroke: colors.outline,
-    strokeMiterlimit: 10,
-    strokeWidth: "10px"
-  }), React.createElement("ellipse", {
-    cx: "490",
-    cy: "414",
-    rx: "315",
-    ry: "48",
-    fill: base,
-    stroke: colors.outline,
-    strokeMiterlimit: 10,
-    strokeWidth: "12px"
-  }), React.createElement("path", {
-    d: "M180 420 Q490 484 800 420 Q490 456 180 420 Z",
-    fill: shadow
-  }), React.createElement("path", {
-    d: "M378 392 Q490 364 615 392 L610 364 Q490 338 384 364 Z",
-    fill: shadow,
-    stroke: colors.outline,
-    strokeMiterlimit: 10,
-    strokeWidth: "8px"
-  }), React.createElement("rect", {
-    x: 474,
-    y: 348,
-    width: 34,
-    height: 32,
-    rx: 5,
-    fill: "#FFD24A",
-    stroke: colors.outline,
-    strokeMiterlimit: 10,
-    strokeWidth: "8px"
-  }), React.createElement("path", {
-    d: "M428 250 L444 220 L460 250 L444 280 Z",
-    fill: "white",
-    stroke: colors.outline,
-    strokeMiterlimit: 10,
-    strokeWidth: "6px"
-  }), React.createElement("path", {
-    d: "M548 318 L562 292 L576 318 L562 344 Z",
-    fill: "white",
-    stroke: colors.outline,
-    strokeMiterlimit: 10,
-    strokeWidth: "6px"
-  }));
-};
-var Back$c = function Back(_ref2) {
-  var _ref2$scale = _ref2.scale,
-    scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
-  return React.createElement("g", {
-    style: {
-      transformOrigin: 'center'
-    },
-    transform: "scale(" + scale + ")"
-  });
-};
-
-var WizardHat = {
-  __proto__: null,
-  Front: Front$c,
-  Back: Back$c
-};
-
 // Pirate tricorn: black crown + swooping wide brim with raised wings, skull & crossbones,
 // hatColor = brim trim line.
-var Front$d = function Front(_ref) {
+var Front$c = function Front(_ref) {
   var color = _ref.color,
     _ref$scale = _ref.scale,
     scale = _ref$scale === void 0 ? 1 : _ref$scale;
@@ -1761,7 +1667,7 @@ var Front$d = function Front(_ref) {
     strokeLinecap: "round"
   }));
 };
-var Back$d = function Back(_ref2) {
+var Back$c = function Back(_ref2) {
   var _ref2$scale = _ref2.scale,
     scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
   var _useTheme2 = useTheme(),
@@ -1783,12 +1689,12 @@ var Back$d = function Back(_ref2) {
 
 var Pirate = {
   __proto__: null,
-  Front: Front$d,
-  Back: Back$d
+  Front: Front$c,
+  Back: Back$c
 };
 
 // Headphones: two-tone headband arcing over the dome into big ear cups at the head sides.
-var Front$e = function Front(_ref) {
+var Front$d = function Front(_ref) {
   var color = _ref.color,
     _ref$scale = _ref.scale,
     scale = _ref$scale === void 0 ? 1 : _ref$scale;
@@ -1846,7 +1752,7 @@ var Front$e = function Front(_ref) {
     fill: shadow
   }));
 };
-var Back$e = function Back(_ref2) {
+var Back$d = function Back(_ref2) {
   var _ref2$scale = _ref2.scale,
     scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
   return React.createElement("g", {
@@ -1859,13 +1765,13 @@ var Back$e = function Back(_ref2) {
 
 var Headphones = {
   __proto__: null,
-  Front: Front$e,
-  Back: Back$e
+  Front: Front$d,
+  Back: Back$d
 };
 
 // Chef toque: white puffs over a hatColor cylinder band — color choice floods
 // the band so it responds clearly; puffs stay chef-white.
-var Front$f = function Front(_ref) {
+var Front$e = function Front(_ref) {
   var color = _ref.color,
     _ref$scale = _ref.scale,
     scale = _ref$scale === void 0 ? 1 : _ref$scale;
@@ -1921,7 +1827,7 @@ var Front$f = function Front(_ref) {
     strokeWidth: "8px"
   }));
 };
-var Back$f = function Back(_ref2) {
+var Back$e = function Back(_ref2) {
   var _ref2$scale = _ref2.scale,
     scale = _ref2$scale === void 0 ? 1 : _ref2$scale;
   return React.createElement("g", {
@@ -1934,12 +1840,12 @@ var Back$f = function Back(_ref2) {
 
 var Chef = {
   __proto__: null,
-  Front: Front$f,
-  Back: Back$f
+  Front: Front$e,
+  Back: Back$e
 };
 
-var Front$g = Noop;
-var Back$g = function Back() {
+var Front$f = Noop;
+var Back$f = function Back() {
   var _useTheme = useTheme(),
     skin = _useTheme.skin,
     colors = _useTheme.colors;
@@ -1966,11 +1872,11 @@ var Back$g = function Back() {
 
 var Chest = {
   __proto__: null,
-  Front: Front$g,
-  Back: Back$g
+  Front: Front$f,
+  Back: Back$f
 };
 
-var Front$h = function Front(_ref) {
+var Front$g = function Front(_ref) {
   var clothingColor = _ref.clothingColor;
   var _useTheme = useTheme(),
     colors = _useTheme.colors;
@@ -1995,7 +1901,7 @@ var Front$h = function Front(_ref) {
     fill: colors.outline
   }));
 };
-var Back$h = function Back(_ref2) {
+var Back$g = function Back(_ref2) {
   var clothingColor = _ref2.clothingColor,
     braStraps = _ref2.braStraps;
   var _useTheme2 = useTheme(),
@@ -2096,8 +2002,8 @@ var Back$h = function Back(_ref2) {
 
 var Breasts = {
   __proto__: null,
-  Front: Front$h,
-  Back: Back$h
+  Front: Front$g,
+  Back: Back$g
 };
 
 var MediumBeard = function MediumBeard(_ref) {
@@ -2599,7 +2505,7 @@ var GatsbyGraphic = function GatsbyGraphic() {
   }));
 };
 
-var Front$i = function Front(_ref) {
+var Front$h = function Front(_ref) {
   var color = _ref.color;
   var _useTheme = useTheme(),
     colors = _useTheme.colors,
@@ -2625,7 +2531,7 @@ var Front$i = function Front(_ref) {
     fill: colors.outline
   }));
 };
-var Back$i = function Back(_ref2) {
+var Back$h = function Back(_ref2) {
   var color = _ref2.color;
   var _useTheme2 = useTheme(),
     colors = _useTheme2.colors;
@@ -2662,8 +2568,8 @@ var braStraps = false;
 
 var Dress = {
   __proto__: null,
-  Front: Front$i,
-  Back: Back$i,
+  Front: Front$h,
+  Back: Back$h,
   braStraps: braStraps
 };
 
@@ -3380,7 +3286,6 @@ var hatMap = {
   // headgear wave (v0.8.0) — surfaced by the fullbody editor's Headgear tab
   cap: Cap,
   crown: Crown,
-  wizardHat: WizardHat,
   pirate: Pirate,
   headphones: Headphones,
   chef: Chef

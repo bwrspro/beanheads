@@ -27,7 +27,6 @@ import * as Beanie from '../components/hats/Beanie'
 import * as Turban from '../components/hats/Turban'
 import * as Cap from '../components/hats/Cap'
 import * as Crown from '../components/hats/Crown'
-import * as WizardHat from '../components/hats/WizardHat'
 import * as Pirate from '../components/hats/Pirate'
 import * as Headphones from '../components/hats/Headphones'
 import * as Chef from '../components/hats/Chef'
@@ -155,7 +154,6 @@ export const hatMap = {
   // headgear wave (v0.8.0) — surfaced by the fullbody editor's Headgear tab
   cap: Cap,
   crown: Crown,
-  wizardHat: WizardHat,
   pirate: Pirate,
   headphones: Headphones,
   chef: Chef,

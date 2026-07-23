@@ -224,7 +224,7 @@ describe('FullBeanHead', () => {
   })
 
   it('renders every headgear variant through the hat prop (v0.8.0)', () => {
-    const hats = ['beanie', 'turban', 'cap', 'crown', 'wizardHat', 'pirate', 'headphones', 'chef']
+    const hats = ['beanie', 'turban', 'cap', 'crown', 'pirate', 'headphones', 'chef']
     for (const hat of hats) {
       const html = renderToStaticMarkup(
         <FullBeanHead skinTone="brown" hat={hat as never} hatColor="blue" />
