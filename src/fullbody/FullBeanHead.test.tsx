@@ -197,6 +197,18 @@ describe('FullBeanHead', () => {
     }
   })
 
+  it('supports an independent decal color (topGraphicColor)', () => {
+    const dflt = renderToStaticMarkup(
+      <FullBeanHead skinTone="light" clothingColor="red" topGraphic="star" />
+    )
+    const custom = renderToStaticMarkup(
+      <FullBeanHead skinTone="light" clothingColor="red" topGraphic="star" topGraphicColor="white" />
+    )
+    const starFill = (html: string) => html.match(/data-decal="star"[^>]*|fill="[^"]*"[^>]*data-decal="star"/) && html.match(/<path[^>]*data-decal="star"/)?.[0]
+    expect(starFill(custom)).toContain('fill="#FFFFFF"')
+    expect(starFill(dflt)).not.toContain('fill="#FFFFFF"')
+  })
+
   it('supports independent pattern motif colors (topPatternColor / bottomsPatternColor)', () => {
     const dflt = renderToStaticMarkup(
       <FullBeanHead skinTone="light" clothingColor="red" topPattern="stripes" />

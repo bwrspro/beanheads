@@ -5646,7 +5646,7 @@ function Star$1(_ref) {
   var color = _ref.color;
   return React.createElement("path", {
     d: "M50 6 L61 38 L95 38 L67 58 L78 92 L50 71 L22 92 L33 58 L5 38 L39 38 Z",
-    fill: color.shade,
+    fill: color.base,
     "data-decal": "star"
   });
 }
@@ -5739,7 +5739,7 @@ function shoeHex(key) {
   return (_SHOE_COLORS$key = SHOE_COLORS[key]) !== null && _SHOE_COLORS$key !== void 0 ? _SHOE_COLORS$key : SHOE_COLORS.white;
 }
 
-var _excluded$3 = ["clothing", "topGraphic", "topPattern", "bottomsPattern", "topPatternColor", "bottomsPatternColor", "bottoms", "bottomsColor", "shoes", "shoeColor", "showCircle", "pose"];
+var _excluded$3 = ["clothing", "topGraphic", "topGraphicColor", "topPattern", "bottomsPattern", "topPatternColor", "bottomsPatternColor", "bottoms", "bottomsColor", "shoes", "shoeColor", "showCircle", "pose"];
 var MIRROR = 'translate(400 0) scale(-1 1)';
 // Unique per-instance id suffix (same trick as AvatarHead's useClipId; React
 // >=16, no useId). Ids MUST differ between instances: url(#) resolves to the
@@ -5801,6 +5801,7 @@ function FullBeanHead(_ref2) {
   var _ref2$clothing = _ref2.clothing,
     clothing = _ref2$clothing === void 0 ? 'shirt' : _ref2$clothing,
     topGraphic = _ref2.topGraphic,
+    topGraphicColor = _ref2.topGraphicColor,
     topPattern = _ref2.topPattern,
     bottomsPattern = _ref2.bottomsPattern,
     topPatternColor = _ref2.topPatternColor,
@@ -5828,6 +5829,12 @@ function FullBeanHead(_ref2) {
   var Shoe = (_shoeMap$shoes = shoeMap[shoes]) !== null && _shoeMap$shoes !== void 0 ? _shoeMap$shoes : shoeMap.sneakers;
   // Unknown/unregistered decal keys safely render nothing (DB rows may outlive art)
   var Graphic = topGraphic ? graphicMap[topGraphic] : undefined;
+  // Decal pair: an explicit choice paints with ITS base; default keeps the
+  // classic shade-on-garment contrast (base and shade collapse to cl.shade).
+  var gcPair = topGraphicColor ? clothingPair(topGraphicColor) : {
+    base: cl.shade,
+    shade: cl.shade
+  };
   // Fabric patterns swap the pair's flat base for a url(#tile) paint. Only the
   // base surface is patterned — shade stays flat so collars, cuffs and all-shade
   // sleeves read as solid trim. Unknown keys fall back to flat color (DB rows
@@ -5925,7 +5932,7 @@ function FullBeanHead(_ref2) {
   }, React.createElement("g", {
     transform: "translate(" + DECAL_BOX.x + " " + DECAL_BOX.y + ") scale(" + DECAL_BOX.w / 100 + " " + DECAL_BOX.h / 100 + ")"
   }, React.createElement(Graphic, {
-    color: cl
+    color: gcPair
   })))), React.createElement("g", {
     className: "arm-pivot",
     style: {

@@ -54,6 +54,8 @@ export interface FullBeanHeadProps extends Omit<AvatarProps, 'clothing'> {
   clothing?: string
   /** torso decal — key into graphicMap ('star' | any registered key); unknown/absent = no decal */
   topGraphic?: string
+  /** decal color — clothing-color key; absent = the top's shade. Image decals keep their own art. */
+  topGraphicColor?: string
   /** fabric pattern for the top — key into patternMap ('stripes' | registered); unknown/absent = flat color */
   topPattern?: string
   /** fabric pattern for the bottoms — key into patternMap; unknown/absent = flat color */
@@ -90,6 +92,7 @@ export interface FullBeanHeadProps extends Omit<AvatarProps, 'clothing'> {
 export function FullBeanHead({
   clothing = 'shirt',
   topGraphic,
+  topGraphicColor,
   topPattern,
   bottomsPattern,
   topPatternColor,
@@ -113,6 +116,11 @@ export function FullBeanHead({
   const Shoe = shoeMap[shoes] ?? shoeMap.sneakers
   // Unknown/unregistered decal keys safely render nothing (DB rows may outlive art)
   const Graphic = topGraphic ? graphicMap[topGraphic] : undefined
+  // Decal pair: an explicit choice paints with ITS base; default keeps the
+  // classic shade-on-garment contrast (base and shade collapse to cl.shade).
+  const gcPair: ColorPair = topGraphicColor
+    ? clothingPair(topGraphicColor)
+    : { base: cl.shade, shade: cl.shade }
   // Fabric patterns swap the pair's flat base for a url(#tile) paint. Only the
   // base surface is patterned — shade stays flat so collars, cuffs and all-shade
   // sleeves read as solid trim. Unknown keys fall back to flat color (DB rows
@@ -194,7 +202,7 @@ export function FullBeanHead({
             </clipPath>
             <g clipPath={`url(#${decalClipId})`}>
               <g transform={`translate(${DECAL_BOX.x} ${DECAL_BOX.y}) scale(${DECAL_BOX.w / 100} ${DECAL_BOX.h / 100})`}>
-                <Graphic color={cl} />
+                <Graphic color={gcPair} />
               </g>
             </g>
           </>
