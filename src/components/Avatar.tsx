@@ -235,7 +235,8 @@ export const Avatar = React.forwardRef<SVGSVGElement, AvatarProps>(
     const Clothing = clothingMap[clothing]
     const Accessory = accessoryMap[accessory]
     const Graphic = graphicsMap[graphic]
-    const Hat = hatMap[hat]
+    // Unknown hat keys render nothing — catalog rows may outlive removed art
+    const Hat = hatMap[hat] ?? hatMap.none
     const Body = bodyMap[body]
 
     return (

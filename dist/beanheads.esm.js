@@ -3298,6 +3298,7 @@ function selectRandomKey(object) {
   return Object.keys(object)[Math.floor(Math.random() * Object.keys(object).length)];
 }
 var Avatar = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
+  var _hatMap$hat;
   var _ref$skinTone = _ref.skinTone,
     skinTone = _ref$skinTone === void 0 ? selectRandomKey(colors.skin) : _ref$skinTone,
     _ref$eyes = _ref.eyes,
@@ -3348,7 +3349,8 @@ var Avatar = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
   var Clothing = clothingMap[clothing];
   var Accessory = accessoryMap[accessory];
   var Graphic = graphicsMap[graphic];
-  var Hat = hatMap[hat];
+  // Unknown hat keys render nothing — catalog rows may outlive removed art
+  var Hat = (_hatMap$hat = hatMap[hat]) !== null && _hatMap$hat !== void 0 ? _hatMap$hat : hatMap.none;
   var Body = bodyMap[body];
   return React.createElement(ThemeContext.Provider, {
     value: {
