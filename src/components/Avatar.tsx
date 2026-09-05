@@ -232,7 +232,8 @@ export const Avatar = React.forwardRef<SVGSVGElement, AvatarProps>(
     const Mouth = mouthsMap[mouth]
     const Hair = hairMap[hair]
     const FacialHair = facialHairMap[facialHair]
-    const Clothing = clothingMap[clothing]
+    // Unknown clothing keys (full-body tops like 'tuxedo') wear a shirt, never a bare torso
+    const Clothing = clothingMap[clothing] ?? clothingMap.shirt
     const Accessory = accessoryMap[accessory]
     const Graphic = graphicsMap[graphic]
     // Unknown hat keys render nothing — catalog rows may outlive removed art

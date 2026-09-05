@@ -3305,7 +3305,7 @@ function selectRandomKey(object) {
   return Object.keys(object)[Math.floor(Math.random() * Object.keys(object).length)];
 }
 var Avatar = /*#__PURE__*/React__default.forwardRef(function (_ref, ref) {
-  var _hatMap$hat;
+  var _clothingMap$clothing, _hatMap$hat;
   var _ref$skinTone = _ref.skinTone,
     skinTone = _ref$skinTone === void 0 ? selectRandomKey(colors.skin) : _ref$skinTone,
     _ref$eyes = _ref.eyes,
@@ -3353,7 +3353,8 @@ var Avatar = /*#__PURE__*/React__default.forwardRef(function (_ref, ref) {
   var Mouth = mouthsMap[mouth];
   var Hair = hairMap[hair];
   var FacialHair = facialHairMap[facialHair];
-  var Clothing = clothingMap[clothing];
+  // Unknown clothing keys (full-body tops like 'tuxedo') wear a shirt, never a bare torso
+  var Clothing = (_clothingMap$clothing = clothingMap[clothing]) !== null && _clothingMap$clothing !== void 0 ? _clothingMap$clothing : clothingMap.shirt;
   var Accessory = accessoryMap[accessory];
   var Graphic = graphicsMap[graphic];
   // Unknown hat keys render nothing — catalog rows may outlive removed art
