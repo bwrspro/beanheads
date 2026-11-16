@@ -121,6 +121,28 @@ var theme = {
   colors: colors
 };
 
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+function _createForOfIteratorHelperLoose(r, e) {
+  var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (t) return (t = t.call(r)).next.bind(t);
+  if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) {
+    t && (r = t);
+    var o = 0;
+    return function () {
+      return o >= r.length ? {
+        done: !0
+      } : {
+        done: !1,
+        value: r[o++]
+      };
+    };
+  }
+  throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
 function _extends() {
   return _extends = Object.assign ? Object.assign.bind() : function (n) {
     for (var e = 1; e < arguments.length; e++) {
@@ -138,6 +160,13 @@ function _objectWithoutPropertiesLoose(r, e) {
     t[n] = r[n];
   }
   return t;
+}
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+  }
 }
 
 var ThemeContext = /*#__PURE__*/React__default.createContext({
@@ -3301,6 +3330,10 @@ var bodyMap = {
   chest: Chest,
   breasts: Breasts
 };
+// Own keys only: the palettes are mutated at runtime by register*() calls.
+function known(palette, key, fallback) {
+  return Object.prototype.hasOwnProperty.call(palette, key) ? key : fallback;
+}
 function selectRandomKey(object) {
   return Object.keys(object)[Math.floor(Math.random() * Object.keys(object).length)];
 }
@@ -3347,6 +3380,16 @@ var Avatar = /*#__PURE__*/React__default.forwardRef(function (_ref, ref) {
     _ref$lashes = _ref.lashes,
     lashes = _ref$lashes === void 0 ? Math.random() > 0.5 : _ref$lashes,
     rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+  // Unknown colour keys (a shop colour the page never registered, a row that
+  // outlived its art) draw a fixed colour instead of throwing on `.base` and
+  // taking the whole page down (classroom session page, 2026-11-14).
+  skinTone = known(colors.skin, skinTone, 'light');
+  hairColor = known(colors.hair, hairColor, 'brown');
+  clothingColor = known(colors.clothing, clothingColor, 'white');
+  hatColor = known(colors.clothing, hatColor, 'white');
+  faceMaskColor = known(colors.clothing, faceMaskColor, 'white');
+  lipColor = known(colors.lipColors, lipColor, 'red');
+  circleColor = known(colors.bgColors, circleColor, 'blue');
   var skin = colors.skin[skinTone];
   var Eyes = eyesMap[eyes];
   var Eyebrows = eyebrowsMap[eyebrows];
@@ -5658,6 +5701,16 @@ function shoeHex(key) {
 
 var _excluded$3 = ["clothing", "topGraphic", "topGraphicColor", "topPattern", "bottomsPattern", "topPatternColor", "bottomsPatternColor", "bottoms", "bottomsColor", "shoes", "shoeColor", "showCircle", "pose"];
 var MIRROR = 'translate(400 0) scale(-1 1)';
+// Every AvatarProps key except `clothing` (forced to 'shirt' below).
+var HEAD_KEYS = ['skinTone', 'eyes', 'eyebrows', 'mouth', 'hair', 'facialHair', 'accessory', 'graphic', 'hat', 'body', 'hairColor', 'clothingColor', 'circleColor', 'lipColor', 'hatColor', 'faceMaskColor', 'mask', 'faceMask', 'lashes'];
+function pickHeadProps(props) {
+  var out = {};
+  for (var _iterator = _createForOfIteratorHelperLoose(HEAD_KEYS), _step; !(_step = _iterator()).done;) {
+    var key = _step.value;
+    if (key in props) out[key] = props[key];
+  }
+  return out;
+}
 // Unique per-instance id suffix (same trick as AvatarHead's useClipId; React
 // >=16, no useId). Ids MUST differ between instances: url(#) resolves to the
 // document-first element with that id, and Chromium refuses to paint a
@@ -5775,9 +5828,11 @@ function FullBeanHead(_ref2) {
   var bob = (_pose$bob = pose === null || pose === void 0 ? void 0 : pose.bob) !== null && _pose$bob !== void 0 ? _pose$bob : 0;
   // The head's own torso/clothing is clipped away by AvatarHead; force a known
   // clothing key so the inner Avatar never looks up a registered-only key
-  // (clothingMap[unknown] would crash). Face-swap pose fields override the
+  // (clothingMap[unknown] would crash). Only real head props go through: saved
+  // app configs carry extra keys (equippedEffects…) that would otherwise land
+  // on the inner <svg> as junk attributes. Face-swap pose fields override the
   // static face props for this frame (blink / talk / expressions).
-  var headProps = _extends({}, head, {
+  var headProps = _extends({}, pickHeadProps(head), {
     clothing: 'shirt'
   }, pose !== null && pose !== void 0 && pose.eyes ? {
     eyes: pose.eyes

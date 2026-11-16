@@ -6,6 +6,8 @@ import { registerTop } from './tops'
 import { registerBottomsColor } from './palette'
 import { registerGraphic, imageGraphic } from './graphics'
 import { registerPattern } from './patterns'
+import { registerClothingColor } from './theme'
+import { Avatar as BeanHead } from '../components/Avatar'
 
 describe('FullBeanHead', () => {
   it('renders a self-contained full-body svg', () => {
@@ -231,5 +233,35 @@ describe('FullBeanHead', () => {
       )
       expect(html).toContain('<svg')
     }
+  })
+
+  // 2026-11-14: a shop-only shirt colour ('gold', registered from the DB at
+  // boot) reached a page that had not registered it; the head's Shirt threw
+  // "reading 'base'" and took the whole classroom session page down.
+  it('unknown colour keys fall back instead of crashing (head + full body)', () => {
+    const unknown = {
+      skinTone: 'nope', hairColor: 'nope', clothingColor: 'nope', hatColor: 'nope',
+      faceMaskColor: 'nope', lipColor: 'nope', circleColor: 'nope',
+    } as never
+    for (const hat of ['beanie', 'none']) {
+      const full = renderToStaticMarkup(<FullBeanHead {...(unknown as object)} hat={hat as never} faceMask mouth="lips" />)
+      expect(full).toContain('#FFFFFF') // shirt falls back to white
+      const head = renderToStaticMarkup(<BeanHead {...(unknown as object)} clothing="shirt" hat={hat as never} faceMask mouth="lips" />)
+      expect(head).toContain('#FFFFFF')
+    }
+  })
+
+  it('a registered shop colour draws its own hex on the head and the body', () => {
+    registerClothingColor('testGold', { base: '#E0B000', shade: '#B08800' })
+    const html = renderToStaticMarkup(<FullBeanHead clothingColor={'testGold' as never} hat="beanie" hatColor={'testGold' as never} />)
+    expect(html).toContain('#E0B000')
+  })
+
+  it('app-only config keys never leak onto the inner head svg', () => {
+    const html = renderToStaticMarkup(
+      <FullBeanHead {...({ skinTone: 'brown', equippedEffects: { onPointsGain: 'x' } } as object)} />
+    )
+    expect(html).not.toContain('equippedEffects')
+    expect(html).not.toContain('[object Object]')
   })
 })

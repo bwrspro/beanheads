@@ -164,6 +164,11 @@ export const bodyMap = {
   breasts: Breasts,
 }
 
+// Own keys only: the palettes are mutated at runtime by register*() calls.
+function known<T extends {}>(palette: T, key: keyof T, fallback: keyof T): keyof T {
+  return Object.prototype.hasOwnProperty.call(palette, key) ? key : fallback
+}
+
 function selectRandomKey<T extends {}>(object: T) {
   return (Object.keys(object) as Array<keyof typeof object>)[
     Math.floor(Math.random() * Object.keys(object).length)
@@ -225,6 +230,17 @@ export const Avatar = React.forwardRef<SVGSVGElement, AvatarProps>(
     },
     ref,
   ) => {
+    // Unknown colour keys (a shop colour the page never registered, a row that
+    // outlived its art) draw a fixed colour instead of throwing on `.base` and
+    // taking the whole page down (classroom session page, 2026-11-14).
+    skinTone = known(colors.skin, skinTone, 'light')
+    hairColor = known(colors.hair, hairColor, 'brown')
+    clothingColor = known(colors.clothing, clothingColor, 'white')
+    hatColor = known(colors.clothing, hatColor, 'white')
+    faceMaskColor = known(colors.clothing, faceMaskColor, 'white')
+    lipColor = known(colors.lipColors, lipColor, 'red')
+    circleColor = known(colors.bgColors, circleColor, 'blue')
+
     const skin = colors.skin[skinTone]
 
     const Eyes = eyesMap[eyes]

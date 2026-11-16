@@ -18,6 +18,19 @@ import { ColorPair } from './types'
 
 const MIRROR = 'translate(400 0) scale(-1 1)'
 
+// Every AvatarProps key except `clothing` (forced to 'shirt' below).
+const HEAD_KEYS: Array<keyof AvatarProps> = [
+  'skinTone', 'eyes', 'eyebrows', 'mouth', 'hair', 'facialHair', 'accessory', 'graphic', 'hat', 'body',
+  'hairColor', 'clothingColor', 'circleColor', 'lipColor', 'hatColor', 'faceMaskColor',
+  'mask', 'faceMask', 'lashes',
+]
+
+function pickHeadProps(props: object): Record<string, unknown> {
+  const out: Record<string, unknown> = {}
+  for (const key of HEAD_KEYS) if (key in props) out[key] = (props as Record<string, unknown>)[key]
+  return out
+}
+
 // Unique per-instance id suffix (same trick as AvatarHead's useClipId; React
 // >=16, no useId). Ids MUST differ between instances: url(#) resolves to the
 // document-first element with that id, and Chromium refuses to paint a
@@ -139,10 +152,12 @@ export function FullBeanHead({
 
   // The head's own torso/clothing is clipped away by AvatarHead; force a known
   // clothing key so the inner Avatar never looks up a registered-only key
-  // (clothingMap[unknown] would crash). Face-swap pose fields override the
+  // (clothingMap[unknown] would crash). Only real head props go through: saved
+  // app configs carry extra keys (equippedEffects…) that would otherwise land
+  // on the inner <svg> as junk attributes. Face-swap pose fields override the
   // static face props for this frame (blink / talk / expressions).
   const headProps = {
-    ...head,
+    ...pickHeadProps(head),
     clothing: 'shirt',
     ...(pose?.eyes ? { eyes: pose.eyes } : null),
     ...(pose?.eyebrows ? { eyebrows: pose.eyebrows } : null),
