@@ -25,6 +25,11 @@ import * as BobCut from '../components/hair/BobCut'
 
 import * as Beanie from '../components/hats/Beanie'
 import * as Turban from '../components/hats/Turban'
+import * as Cap from '../components/hats/Cap'
+import * as Crown from '../components/hats/Crown'
+import * as Pirate from '../components/hats/Pirate'
+import * as Headphones from '../components/hats/Headphones'
+import * as Chef from '../components/hats/Chef'
 
 import * as Chest from '../components/bodies/Chest'
 import * as Breasts from '../components/bodies/Breasts'
@@ -146,11 +151,22 @@ export const hatMap = {
   none5: { Front: Noop, Back: Noop },
   beanie: Beanie,
   turban: Turban,
+  // headgear wave (v0.8.0) — surfaced by the fullbody editor's Headgear tab
+  cap: Cap,
+  crown: Crown,
+  pirate: Pirate,
+  headphones: Headphones,
+  chef: Chef,
 }
 
 export const bodyMap = {
   chest: Chest,
   breasts: Breasts,
+}
+
+// Own keys only: the palettes are mutated at runtime by register*() calls.
+function known<T extends {}>(palette: T, key: keyof T, fallback: keyof T): keyof T {
+  return Object.prototype.hasOwnProperty.call(palette, key) ? key : fallback
 }
 
 function selectRandomKey<T extends {}>(object: T) {
@@ -214,6 +230,17 @@ export const Avatar = React.forwardRef<SVGSVGElement, AvatarProps>(
     },
     ref,
   ) => {
+    // Unknown colour keys (a shop colour the page never registered, a row that
+    // outlived its art) draw a fixed colour instead of throwing on `.base` and
+    // taking the whole page down (classroom session page, 2026-11-14).
+    skinTone = known(colors.skin, skinTone, 'light')
+    hairColor = known(colors.hair, hairColor, 'brown')
+    clothingColor = known(colors.clothing, clothingColor, 'white')
+    hatColor = known(colors.clothing, hatColor, 'white')
+    faceMaskColor = known(colors.clothing, faceMaskColor, 'white')
+    lipColor = known(colors.lipColors, lipColor, 'red')
+    circleColor = known(colors.bgColors, circleColor, 'blue')
+
     const skin = colors.skin[skinTone]
 
     const Eyes = eyesMap[eyes]
@@ -221,10 +248,12 @@ export const Avatar = React.forwardRef<SVGSVGElement, AvatarProps>(
     const Mouth = mouthsMap[mouth]
     const Hair = hairMap[hair]
     const FacialHair = facialHairMap[facialHair]
-    const Clothing = clothingMap[clothing]
+    // Unknown clothing keys (full-body tops like 'tuxedo') wear a shirt, never a bare torso
+    const Clothing = clothingMap[clothing] ?? clothingMap.shirt
     const Accessory = accessoryMap[accessory]
     const Graphic = graphicsMap[graphic]
-    const Hat = hatMap[hat]
+    // Unknown hat keys render nothing — catalog rows may outlive removed art
+    const Hat = hatMap[hat] ?? hatMap.none
     const Body = bodyMap[body]
 
     return (

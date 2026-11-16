@@ -1,0 +1,4 @@
+// Shared torso silhouette: wide rounded shoulders, relaxed hem reaching y446 to
+// cover the hip/crotch. Individual tops draw their neckline / detailing over it.
+export const TORSO_D =
+  'M152 298 Q176 284 200 292 Q224 284 248 298 Q264 302 266 322 L260 430 Q261 446 242 446 L158 446 Q139 446 140 430 L134 322 Q136 302 152 298 Z'
